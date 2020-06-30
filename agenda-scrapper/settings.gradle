@@ -1,0 +1,9 @@
+/*
+ * Copyright (c) 2020. This is only for education, do not use in production. GG
+ *
+ * Alvaro Lucas Castillo Calabacero
+ * alvarolucascc96@gmail.com
+ */
+
+rootProject.name = 'agenda-scrapper'
+
