@@ -5,6 +5,12 @@ Example webscrapper with jsoup for the signature Proyecto De Desarrollo e Integr
 Save data in csv file
 
 ## Method 2
-Save data in a Sqlite database
+Save data in a Sqlite database (by Patricio Araya)
 
-### Alvaro Lucas Castillo Calabacero
+##  
+Eduardo Alexis Alvarez Saldivia
+
+Alvaro Lucas Castillo Calabacero
+
+Ignacio Fuenzalida Veas
+
