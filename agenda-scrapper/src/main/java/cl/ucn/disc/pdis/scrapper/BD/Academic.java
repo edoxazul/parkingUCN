@@ -13,72 +13,83 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "Academicos")
 public class Academic {
 
-    /**
-     * Field of database
-     */
-    @DatabaseField(id = true)
-    private int id;
-    @DatabaseField
-    private String name;
-    @DatabaseField
-    private String position;
-    @DatabaseField
-    private String unit;
-    @DatabaseField
-    private String email;
-    @DatabaseField
-    private String phone;
-    @DatabaseField
-    private String office;
-    @DatabaseField
-    private String address;
+  //id of table academic
+  @DatabaseField(id = true)
+  private int id;
 
-    /**
-     * Ormlite constructor
-     */
-    public Academic() {
-        //void for ORMLITE
-    }
+  // name of academic
+  @DatabaseField
+  private String name;
 
-    /**
-     * Contructor for field
-     *
-     * @param id
-     * @param name
-     * @param position
-     * @param unit
-     * @param email
-     * @param phone
-     * @param office
-     * @param address
-     */
-    public Academic(int id, String name, String position, String unit, String email, String phone, String office, String address) {
-        this.id = id;
-        this.name = name;
-        this.position = position;
-        this.unit = unit;
-        this.email = email;
-        this.phone = phone;
-        this.office = office;
-        this.address = address;
-    }
+  //"cargo" of academic
+  @DatabaseField
+  private String position;
 
-    /**
-     * to String
-     *
-     * @return resumen of Academic
-     */
-    @Override
-    public String toString() {
-        return "Academic{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", position='" + position + '\'' +
-                ", unit='" + unit + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", office='" + office + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
+  //unit of academic
+  @DatabaseField
+  private String unit;
+
+  // email of academic
+  @DatabaseField
+  private String email;
+
+  //phone of academic
+  @DatabaseField
+  private String phone;
+
+  //office of academic
+  @DatabaseField
+  private String office;
+
+  //address of academic
+  @DatabaseField
+  private String address;
+
+  /*
+  * Constructor void for ormlite
+  */
+  public Academic() {
+    //void for ORMLITE
+  }
+
+  /**
+   * Constructor of Academic
+   * @param id of academic
+   * @param name of academic
+   * @param position of academic
+   * @param unit of academic
+   * @param email of academic
+   * @param phone of academic
+   * @param office of academic
+   * @param address of academic
+   */
+  public Academic(int id, String name, String position, String unit, String email, String phone,
+                  String office, String address) {
+    this.id = id;
+    this.name = name;
+    this.position = position;
+    this.unit = unit;
+    this.email = email;
+    this.phone = phone;
+    this.office = office;
+    this.address = address;
+  }
+
+  /**
+   * to String
+   * @return resumen of Academic
+   */
+  @Override
+  public String toString() {
+    return "Academic{"
+        + "id=" + id
+        + ", name='" + name + '\''
+        + ", position='" + position + '\''
+        + ", unit='" + unit + '\''
+        + ", email='" + email + '\''
+        + ", phone='" + phone + '\''
+        + ", office='" + office + '\''
+        + ", address='" + address + '\''
+        + '}';
+  }
 }
