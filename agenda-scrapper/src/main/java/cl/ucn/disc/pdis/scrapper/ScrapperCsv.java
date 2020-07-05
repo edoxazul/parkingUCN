@@ -14,12 +14,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-
-
-
 public class ScrapperCsv {
   /**
-   * Main of ScrapperCSV
+   * Main of ScrapperCSV.
    * @param args args
    * @throws IOException e
    */
@@ -27,53 +24,37 @@ public class ScrapperCsv {
 
 
     //Url for principal scrapping
-    String Url = "http://online.ucn.cl/directoriotelefonicoemail/fichaGenerica/?cod=";
-
+    String theUrl = "http://online.ucn.cl/directoriotelefonicoemail/fichaGenerica/?cod=";
 
     //id's from academics
     int ini = 21;
     int end = 29730; //this is the last
     Random random = new Random(); //for delay
 
-    //Scrapping variables
-    Document doc;
-    Element lblNombre;
-    Element lblCargo;
-    Element lblUnidad;
-    Element lblEmail;
-    Element lblTelefono;
-    Element lblOficina;
-    Element lblDireccion;
-
-
-    //csv file variable
+    // csv file variable
     FileWriter fileWriter = new FileWriter("./src/main/resources/academics.csv");
 
     // for fixed phone number
     String phoneNumber;
 
     for (int i = ini; i <= end; i++) {
-      doc = Jsoup.connect(Url + i).get();
+      Document doc = Jsoup.connect(theUrl + i).get();
       //get data
-      lblNombre = doc.getElementById("lblNombre");
-      lblCargo = doc.getElementById("lblCargo");
-      lblUnidad = doc.getElementById("lblUnidad");
-      lblEmail = doc.getElementById("lblEmail");
-      lblTelefono = doc.getElementById("lblTelefono");
-      lblOficina = doc.getElementById("lblOficina");
-      lblDireccion = doc.getElementById("lblDireccion");
-
-
+      Element lblNombre = doc.getElementById("lblNombre");
+      Element lblCargo = doc.getElementById("lblCargo");
+      Element lblUnidad = doc.getElementById("lblUnidad");
+      Element lblEmail = doc.getElementById("lblEmail");
+      Element lblTelefono = doc.getElementById("lblTelefono");
+      Element lblOficina = doc.getElementById("lblOficina");
+      Element lblDireccion = doc.getElementById("lblDireccion");
 
       //ignore this element if the name is void
       if (lblNombre.text().isEmpty()) {
         continue;
       }
 
-
       //Format the phone number of academic
       phoneNumber = lblTelefono.text().replace("Fono ", "");
-
 
       //Save Data and use a delay
       try {
