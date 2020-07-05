@@ -24,8 +24,6 @@
 
 package cl.ucn.disc.pdis.scrapper;
 
-
-
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import java.io.FileReader;
@@ -40,15 +38,10 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class ScrapperRut {
 
-
-  /*
-  The logger
-   */
+  //The logger
   public static Logger logger = LoggerFactory.getLogger(ScrapperRut.class);
-
 
   /**
    * Main of ScrapperRut.
@@ -115,7 +108,6 @@ public class ScrapperRut {
 
         // Write the line with the run
         writer.writeNext(entries);
-
 
       } catch (Exception e) {
         e.printStackTrace();
