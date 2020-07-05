@@ -24,98 +24,111 @@
 
 package cl.ucn.disc.pdis.scrapper;
 
+
+
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Random;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.jsoup.nodes.Document;
-
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.net.ConnectException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ScrapperRut {
 
 
-    /*
-    The logger
-     */
-    public static Logger logger = LoggerFactory.getLogger(ScrapperRut.class);
-
-    public static void main(String[] args) throws IOException {
-
-        // The URL
-        String URL = "https://www.nombrerutyfirma.com/buscar";
-
-        try{
-            Connection.Response response =
-                    Jsoup.connect(URL)
-                            .method(Connection.Method.POST)
-                            .data("term", "Ignacio Fuenzalida Veas")
-                            .execute();
-
-            Document doc = response.parse();
-
-            Elements tables = doc.select("tr");
+  /*
+  The logger
+   */
+  public static Logger logger = LoggerFactory.getLogger(ScrapperRut.class);
 
 
-            if(tables.size() == 1){
-                logger.error("No match found.");
-                return;
-            }
+  /**
+   * Main of ScrapperRut.
+   *
+   * @param args args
+   * @throws IOException          IOException
+   * @throws InterruptedException InterruptedException
+   * @author Ignacio Fuenzalida
+   */
+  public static void main(String[] args) throws IOException, InterruptedException {
 
-            // Extract the run from the table
-            String run = tables.get(1).getAllElements().get(2).text();
+    // The URL
+    String url = "https://www.nombrerutyfirma.com/buscar";
 
+    // Open the csv without the run
+    CSVReader reader = new CSVReader(new FileReader("./src/main/resources/academics.csv"));
 
-        } catch (ConnectException e){
-            e.printStackTrace();
-            return;
+    // New csv to append the run
+    CSVWriter writer = new CSVWriter(new FileWriter("./src/main/resources/academics2.csv"), ',');
+
+    // For delay
+    Random random = new Random();
+
+    String[] entries;
+    while ((entries = reader.readNext()) != null) {
+
+      try {
+        // Make the connection
+        Connection.Response response =
+            Jsoup.connect(url)
+                .method(Connection.Method.POST)
+                // Send the name
+                .data("term", entries[1])
+                .execute();
+
+        // Return the html document
+        Document doc = response.parse();
+
+        // Select all tables on the html document
+        Elements tables = doc.select("tr");
+
+        String run;
+
+        // If there is only 1 table, that mean that there is no result for that name
+        if (tables.size() == 1) {
+
+          logger.error("No match found for: {}", entries[1]);
+          run = "null";
+
+        } else {
+
+          // Extract the run from the table
+          run = tables.get(1).getAllElements().get(2).text();
+
+          // Take out the simbols
+          run = run
+              .replace(".", "")
+              .replace("-", "");
         }
 
-        CSVReader reader = new CSVReader(new FileReader("./src/main/resources/academics.csv"));
-        CSVWriter writer = new CSVWriter(new FileWriter("./src/main/resources/academics2.csv"), ',');
+        // Append the run to the list
+        entries = Arrays.copyOf(entries, entries.length + 1);
+        entries[entries.length - 1] = run;
 
-        /*
-        String[] entries = null;
-        while ((entries = reader.readNext()) != null) {
-            ArrayList list = new ArrayList(Arrays.asList(entries));
-            list.add(xxx)); // Add the new element here
-            writer.writeNext(list);
-        }
-        */
+        // Write the line with the run
+        writer.writeNext(entries);
 
 
-        String [] entries;
-        while ((entries = reader.readNext()) != null) {
+      } catch (Exception e) {
+        e.printStackTrace();
+        return;
+      }
 
-            for(i = 0 ;)
-
-            ArrayList list = new ArrayList(entries);
-
-            String[] arr = Arrays.copyOf(list, list.length + 1);
-            list.add("test");
-            writer.writeNext(list);
-
-
-            System.out.println(entries[0] + entries[1] + "etc...");
-        }
-
-        writer.close();
-
-
-
-
-
+      // The delay
+      Thread.sleep(100 + random.nextInt(50));
 
     }
 
+    writer.close();
+
+  }
 
 }

@@ -36,4 +36,8 @@ dependencies {
     //JSOUP https://mvnrepository.com/artifact/org.jsoup/jsoup
     implementation 'org.jsoup:jsoup:1.13.1'
 
+    // openCSV mvnrepository.com/artifact/com.opencsv/opencsv
+    implementation 'com.opencsv:opencsv:3.7'
+
+
 }
