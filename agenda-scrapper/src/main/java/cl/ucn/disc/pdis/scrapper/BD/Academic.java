@@ -5,7 +5,7 @@
  * alvarolucascc96@gmail.com
  */
 
-package cl.ucn.disc.pdis.scrapper.BD;
+package cl.ucn.disc.pdis.scrapper.bd;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -53,7 +53,7 @@ public class Academic {
   }
 
   /**
-   * Constructor of Academic
+   * Constructor of Academic.
    * @param id of academic
    * @param name of academic
    * @param position of academic
@@ -76,7 +76,7 @@ public class Academic {
   }
 
   /**
-   * to String
+   * to String.
    * @return resumen of Academic
    */
   @Override
