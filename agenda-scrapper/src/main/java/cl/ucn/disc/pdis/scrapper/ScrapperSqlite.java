@@ -7,7 +7,7 @@
 
 package cl.ucn.disc.pdis.scrapper;
 
-import cl.ucn.disc.pdis.scrapper.BD.Academic;
+import cl.ucn.disc.pdis.scrapper.bd.Academic;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
@@ -29,7 +29,7 @@ public class ScrapperSqlite {
 
 
   /**
-   * Main
+   * Main.
    * @param args arguments
    */
   public static void main(String[] args) throws InterruptedException, IOException {
@@ -84,7 +84,7 @@ public class ScrapperSqlite {
   }
 
   /**
-   * get academic with scrapping
+   * Get academic with scrapping.
    *
    * @param id for scrapping
    * @return Academic a new academic
