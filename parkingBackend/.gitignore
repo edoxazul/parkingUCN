@@ -46,3 +46,6 @@ Ankh.NoLoad
 #Other
 .svn
 .cxx
+
+#generated
+generated/
