@@ -1,4 +1,4 @@
-# ParakingUCN WEB
+# ParkingUCN WEB
 Webpage with laravel for the signature Proyecto De Desarrollo e Integración de Soluciones, UCN.
 
 ##  
