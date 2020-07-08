@@ -4,10 +4,10 @@
 module model {
 
     /**
-     * Clase Persona
+     * Class Person
      */
      ["cs:property"]
-     class Persona{
+     class Person{
 
         /**
          * Primary Key
@@ -54,7 +54,49 @@ module model {
          */
          string address;
         
+     }
 
+     /**
+     * Class Vehicle
+     */
+     ["cs:property"]
+     class Vehicle{
+
+        /**
+         * Primary Key
+         */
+        int uid;
+
+        /**
+         * patent
+         */
+         string patent;
+
+        /**
+         * car brand
+         */
+         string brand;  
+
+         /**
+         * model of car
+         */
+         string model;
+
+         /**
+         * year of car
+         */
+         string year;
+
+         /**
+         * observation
+         */
+         string observation;
+
+         /**
+         * rut car owner
+         */
+         string rutOwner;
+        
      }
 
 }
