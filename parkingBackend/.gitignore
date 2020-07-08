@@ -50,5 +50,8 @@ Ankh.NoLoad
 #generated
 generated/
 
+#vscode
+.vscode
+
 #idea
 .idea
