@@ -38,6 +38,13 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+/**
+ * Implementation of Scrapper for Rut.
+ * @author Ignacio Fuenzalida
+ * @author Alvaro Castillo
+ * @author Eduardo Alvarez
+ */
 public class ScrapperRut {
 
   //The logger
@@ -49,7 +56,6 @@ public class ScrapperRut {
    * @param args args
    * @throws IOException          IOException
    * @throws InterruptedException InterruptedException
-   * @author Ignacio Fuenzalida
    */
   public static void main(String[] args) throws IOException, InterruptedException {
 
