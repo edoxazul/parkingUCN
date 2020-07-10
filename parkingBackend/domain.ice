@@ -6,8 +6,8 @@ module model {
     /**
      * Class Person
      */
-     ["cs:property"]
-     class Person{
+    ["cs:property"]
+    class Person{
 
         /**
          * Primary Key
@@ -34,33 +34,33 @@ module model {
          */
         string unit;
 
-         /**
+        /**
          * email
          */
-         string email;
+        string email;
 
-         /**
+        /**
          * phone number
          */
-         string phone;
+        string phone;
 
-         /**
+        /**
          * office
          */
-         string office;
+        string office;
 
-         /**
+        /**
          * address
          */
-         string address;
+        string address;
         
-     }
+    }
 
-     /**
+    /**
      * Class Vehicle
      */
-     ["cs:property"]
-     class Vehicle{
+    ["cs:property"]
+    class Vehicle{
 
         /**
          * Primary Key
@@ -70,33 +70,33 @@ module model {
         /**
          * patent
          */
-         string patent;
+        string patent;
 
         /**
          * car brand
          */
-         string brand;  
+        string brand;  
 
-         /**
+        /**
          * model of car
          */
-         string model;
+        string model;
 
-         /**
+        /**
          * year of car
          */
-         string year;
+        string year;
 
-         /**
+        /**
          * observation
          */
-         string observation;
+        string observation;
 
-         /**
+        /**
          * rut car owner
          */
-         string rutOwner;
+        string rutOwner;
         
-     }
+    }
 
 }
