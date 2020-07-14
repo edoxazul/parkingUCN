@@ -27,10 +27,12 @@ package cl.ucn.disc.pdis.scrapper;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Implementation of ScrapperCSV.
@@ -40,24 +42,48 @@ import org.jsoup.nodes.Element;
  * @author Eduardo Alvarez
  */
 public class ScrapperCsv {
+
+  //The Logger
+  public static Logger logger = LoggerFactory.getLogger(ScrapperCsv.class);
+
+  //Url for principal scrapping
+  String theUrl = "http://online.ucn.cl/directoriotelefonicoemail/fichaGenerica/?cod=";
+
+  //id's from academics
+  int ini = 21;
+  int end = 29730; //this is the last
+  Random random = new Random(); //for delay
+
+  // csv file variable
+  FileWriter fileWriter = new FileWriter("./src/main/resources/academics.csv");
+
+  //For Singleton
+  private static ScrapperCsv scrapperCsv;
+
   /**
-   * Main of ScrapperCSV.
-   * @param args args
+   * Void Constructor for Singleton Pattern.
    * @throws IOException e
    */
-  public static void main(String[] args) throws IOException {
+  private ScrapperCsv() throws IOException {
+    //nothing to do
+  }
 
+  /**
+   * Return the instance.
+   * @return scrapperCSV
+   */
+  public static ScrapperCsv getInstance() throws IOException {
+    if (scrapperCsv == null) {
+      scrapperCsv = new ScrapperCsv();
+    }
+    return scrapperCsv;
+  }
 
-    //Url for principal scrapping
-    String theUrl = "http://online.ucn.cl/directoriotelefonicoemail/fichaGenerica/?cod=";
-
-    //id's from academics
-    int ini = 21;
-    int end = 29730; //this is the last
-    Random random = new Random(); //for delay
-
-    // csv file variable
-    FileWriter fileWriter = new FileWriter("./src/main/resources/academics.csv");
+  /**
+   * Scrapping and get csv.
+   * @throws IOException e
+   */
+  public void scrapperToCsv() throws IOException {
 
     // for fixed phone number
     String phoneNumber;
@@ -72,6 +98,8 @@ public class ScrapperCsv {
       Element lblTelefono = doc.getElementById("lblTelefono");
       Element lblOficina = doc.getElementById("lblOficina");
       Element lblDireccion = doc.getElementById("lblDireccion");
+
+      logger.debug("Code: "+i+" - Name: "+lblNombre.text());
 
       //ignore this element if the name is void
       if (lblNombre.text().isEmpty()) {

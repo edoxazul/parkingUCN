@@ -38,7 +38,6 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * Implementation of Scrapper for Rut.
  * @author Ignacio Fuenzalida
@@ -50,34 +49,55 @@ public class ScrapperRut {
   //The logger
   public static Logger logger = LoggerFactory.getLogger(ScrapperRut.class);
 
+  // The URL
+  String url = "https://www.nombrerutyfirma.com/buscar";
+
+  // Open the csv without the run
+  CSVReader reader = new CSVReader(new FileReader("./src/main/resources/academics.csv"));
+
+  // New csv to append the run
+  CSVWriter writer = new CSVWriter(new FileWriter("./src/main/resources/academics2.csv"), ',');
+
+  // For delay
+  Random random = new Random();
+
+  // For Singleton Pattern
+  private static ScrapperRut scrapperRut;
+
+  /**
+   * Void constructor for Singleton.
+   * @throws IOException e
+   */
+  private ScrapperRut() throws IOException {
+    //Nothing to do
+  }
+
+  /**
+   * Get Instance for Singleton.
+   * @return Instance for ScrapperRut
+   * @throws IOException e
+   */
+  public static ScrapperRut getInstance() throws IOException {
+    if (scrapperRut == null) {
+      scrapperRut = new ScrapperRut();
+    }
+    return scrapperRut;
+  }
+
   /**
    * Main of ScrapperRut.
-   *
-   * @param args args
    * @throws IOException          IOException
    * @throws InterruptedException InterruptedException
    */
-  public static void main(String[] args) throws IOException, InterruptedException {
-
-    // The URL
-    String url = "https://www.nombrerutyfirma.com/buscar";
-
-    // Open the csv without the run
-    CSVReader reader = new CSVReader(new FileReader("./src/main/resources/academics.csv"));
-
-    // New csv to append the run
-    CSVWriter writer = new CSVWriter(new FileWriter("./src/main/resources/academics2.csv"), ',');
-
-    // For delay
-    Random random = new Random();
+  public void scrapperToRut() throws IOException, InterruptedException {
 
     String[] entries;
-    while ((entries = reader.readNext()) != null) {
+    while ((entries = this.reader.readNext()) != null) {
 
       try {
         // Make the connection
         Connection.Response response =
-            Jsoup.connect(url)
+            Jsoup.connect(this.url)
                 .method(Connection.Method.POST)
                 // Send the name
                 .data("term", entries[1])
@@ -94,7 +114,7 @@ public class ScrapperRut {
         // If there is only 1 table, that mean that there is no result for that name
         if (tables.size() == 1) {
 
-          logger.error("No match found for: {}", entries[1]);
+          this.logger.error("No match found for: {}", entries[1]);
           run = "null";
 
         } else {
@@ -121,11 +141,11 @@ public class ScrapperRut {
       }
 
       // The delay
-      Thread.sleep(100 + random.nextInt(50));
+      Thread.sleep(100 + this.random.nextInt(50));
 
     }
 
-    writer.close();
+    this.writer.close();
 
   }
 

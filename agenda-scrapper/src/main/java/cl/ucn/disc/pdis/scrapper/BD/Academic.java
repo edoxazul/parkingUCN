@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package cl.ucn.disc.pdis.scrapper.bd;
+package cl.ucn.disc.pdis.scrapper.BD;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;

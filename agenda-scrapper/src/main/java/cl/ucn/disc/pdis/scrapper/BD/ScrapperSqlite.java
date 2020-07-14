@@ -22,9 +22,8 @@
  * SOFTWARE.
  */
 
-package cl.ucn.disc.pdis.scrapper;
+package cl.ucn.disc.pdis.scrapper.BD;
 
-import cl.ucn.disc.pdis.scrapper.bd.Academic;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
@@ -74,7 +73,6 @@ public class ScrapperSqlite {
 
     }
 
-
     int ini = 0;
     int end = 29730;
 
@@ -108,7 +106,6 @@ public class ScrapperSqlite {
 
   /**
    * Get academic with scrapping.
-   *
    * @param id for scrapping
    * @return Academic a new academic
    */
