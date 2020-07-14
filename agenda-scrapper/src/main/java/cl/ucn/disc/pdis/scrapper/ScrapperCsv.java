@@ -47,15 +47,15 @@ public class ScrapperCsv {
   public static Logger logger = LoggerFactory.getLogger(ScrapperCsv.class);
 
   //Url for principal scrapping
-  String theUrl = "http://online.ucn.cl/directoriotelefonicoemail/fichaGenerica/?cod=";
+  private String theUrl = "http://online.ucn.cl/directoriotelefonicoemail/fichaGenerica/?cod=";
 
   //id's from academics
-  int ini = 21;
-  int end = 29730; //this is the last
-  Random random = new Random(); //for delay
+  private int ini = 21;
+  private int end = 29730; //this is the last
+  private Random random = new Random(); //for delay
 
   // csv file variable
-  FileWriter fileWriter = new FileWriter("./src/main/resources/academics.csv");
+  private FileWriter fileWriter = new FileWriter("./src/main/resources/academics.csv");
 
   //For Singleton
   private static ScrapperCsv scrapperCsv;

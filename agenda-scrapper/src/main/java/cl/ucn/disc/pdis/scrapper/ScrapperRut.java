@@ -50,16 +50,16 @@ public class ScrapperRut {
   public static Logger logger = LoggerFactory.getLogger(ScrapperRut.class);
 
   // The URL
-  String url = "https://www.nombrerutyfirma.com/buscar";
+  private String url = "https://www.nombrerutyfirma.com/buscar";
 
   // Open the csv without the run
-  CSVReader reader = new CSVReader(new FileReader("./src/main/resources/academics.csv"));
+  private CSVReader reader = new CSVReader(new FileReader("./src/main/resources/academics.csv"));
 
   // New csv to append the run
-  CSVWriter writer = new CSVWriter(new FileWriter("./src/main/resources/academics2.csv"), ',');
+  private CSVWriter writer = new CSVWriter(new FileWriter("./src/main/resources/academics2.csv"), ',');
 
   // For delay
-  Random random = new Random();
+  private Random random = new Random();
 
   // For Singleton Pattern
   private static ScrapperRut scrapperRut;
