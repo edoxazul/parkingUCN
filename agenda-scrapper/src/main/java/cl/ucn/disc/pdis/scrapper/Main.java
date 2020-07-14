@@ -9,13 +9,13 @@ public class Main {
    * @param args arguments
    * @throws IOException e
    */
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws IOException, InterruptedException {
     //Get data from "ucn directory"
     ScrapperCsv scrapperCsv = ScrapperCsv.getInstance();
     scrapperCsv.scrapperToCsv();
 
     //Update data from "ucn directory" and add RUT
     ScrapperRut scrapperRut = ScrapperRut.getInstance();
-    
+    scrapperRut.scrapperToRut();
   }
 }
