@@ -28,10 +28,10 @@
 module model {
 
     /**
-     * Class Person
+     * Class Persona
      */
     ["cs:property"]
-    class Person{
+    class Persona{
 
         /**
          * Primary Key
@@ -39,24 +39,14 @@ module model {
         int uid;
 
         /**
-         * Rut: 189725965
+         * Run: 189725965
          */
-        string rut;
+        string run;
 
         /**
-         * name
+         * Nombre
          */
-        string name;
-
-        /**
-        * The position
-        */
-        string position;
-
-        /**
-         * unit
-         */
-        string unit;
+        string nombre;
 
         /**
          * email
@@ -64,27 +54,30 @@ module model {
         string email;
 
         /**
-         * phone number
+         * Telefono movil
          */
-        string phone;
+        string telefonoMovil;
 
         /**
-         * office
-         */
-        string office;
+        * Categoria de la persona
+        */
+        CategoriaPersona categoria;
 
-        /**
-         * address
-         */
-        string address;
         
     }
 
     /**
-     * Class Vehicle
+       * Categoria de la persona
+       */
+     enum CategoriaPersona {
+        FUNCIONARIO, ACADEMICO, ESTUDIANTE
+     };
+
+    /**
+     * Class vehiculo
      */
     ["cs:property"]
-    class Vehicle{
+    class Vehiculo{
 
         /**
          * Primary Key
@@ -92,47 +85,87 @@ module model {
         int uid;
 
         /**
-         * patent
+         * Patente
          */
-        string patent;
+        string patente;
 
         /**
-         * car brand
+         * Marca coche
          */
-        string brand;  
+        string marca;  
 
         /**
-         * model of car
+         * Modelo del coche
          */
-        string model;
+        string modelo;
 
         /**
-         * year of car
+         * Año del coche
          */
-        string year;
+        string anio;
 
         /**
-         * observation
+         * Obervaciones
          */
-        string observation;
+        string observaciones;
 
         /**
-         * rut car owner
+         * Duenio del coche
          */
-        string rutOwner;
+        string runDuenio;
         
     }
 
     /**
-     * The base system.
-     */
-     interface TheSystem {
+    * Interfaz de Contratos
+    */
+    interface Contratos {
 
         /**
-         * @return the diference in time between client and server.
+         * Verificacion de la identidad de una persona.
+         * @param run identificador unico de la persona.
+         * @return Persona confirmada la autenticidad, se retorna los datos de la persona.
          */
-        long getDelay(long clientTime);
+        Persona verificarPersona(string run)
 
-     }
+        /**
+         * Autoriza la entrada o salida del vehiculo.
+         * @param patente identificador unico del vehiculo.
+         * @param tipo el vehiculo puede entrar(true) o salir(false).
+         * @return Vehiculo confirmada la entrada/salida en el sistema, se retornan los datos del vehiculo.
+         */
+        Vehiculo autorizarVehiculo(string patente, bool tipo)
+
+        /**
+         * Registrar una nueva persona en el sistema.
+         * @param Persona datos de la persona.
+         * @return Persona se retornan los datos ingresados en el sistema como confirmacion.
+         */
+        Persona registrarPersona(Persona persona)
+
+        /**
+         * Eliminar una persona del sistema.
+         * @param run identificador unico de la persona.
+         * @return Persona se retornan los datos eliminados en el sistema como confirmacion.
+         */
+        Persona eliminarPersona(string run)
+
+        /**
+         * Editar una persona del sistema.
+         * @param Persona datos actualiados de la persona.
+         * @return Persona se retornan los datos cambiados en el sistema como confirmacion.
+         */
+        Persona editarPersona(Persona persona)
+
+        /**
+         * Registrar un nuevo vehiculo en el sistema
+         * @param Vehiculo datps del vehiculo
+         * @return Vehiculo se retornan los datos ingresados en el sistema como confirmacion.
+         */
+        Vehiculo registrarVehiculo(Vehiculo vehiculo)
+
+
+
+    }
 
 }
