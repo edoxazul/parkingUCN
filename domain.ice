@@ -154,8 +154,10 @@ module model {
          * Registrar una nueva persona en el sistema.
          * @param Persona datos de la persona.
          * @return Persona se retornan los datos ingresados en el sistema como confirmacion.
+         * @throws DuplicateDataException la informacion ingresada ya existe en el sistema.
          */
-        Persona registrarPersona(Persona persona)
+        idempotent Persona registrarPersona(Persona persona)
+            throws DuplicateDataException;
 
         /**
          * Eliminar una persona del sistema.
@@ -177,8 +179,10 @@ module model {
          * Registrar un nuevo vehiculo en el sistema
          * @param Vehiculo datos del vehiculo
          * @return Vehiculo se retornan los datos ingresados en el sistema como confirmacion.
+         * @throws DuplicateDataException la informacion ingresada ya existe en el sistema.
          */
-        Vehiculo registrarVehiculo(Vehiculo vehiculo)
+        idempotent Vehiculo registrarVehiculo(Vehiculo vehiculo)
+            throws DuplicateDataException;
 
         /**
          * Eliminar un vehiculo del sistema.
@@ -198,10 +202,14 @@ module model {
 
 
     }
-    
+
     exception NotFoundException
     {
         string reason = "information not found on the system's database";
+    }
+    exception DuplicateDataException
+    {
+        string reason = "information alredy exist on the system's database";
     }
 
 }
