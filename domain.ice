@@ -49,6 +49,11 @@ module model {
         string nombre;
 
         /**
+         * Unidad perteneciente.
+         */
+        string unidad;
+
+        /**
          * email
          */
         string email;
@@ -59,6 +64,11 @@ module model {
         string telefonoMovil;
 
         /**
+         * Telefono fijo
+         */
+        string telefonoFijo;
+
+        /**
         * Categoria de la persona
         */
         CategoriaPersona categoria;
@@ -67,8 +77,8 @@ module model {
     }
 
     /**
-       * Categoria de la persona
-       */
+    * Categoria de la persona
+    */
      enum CategoriaPersona {
         FUNCIONARIO, ACADEMICO, ESTUDIANTE
      };
@@ -85,22 +95,22 @@ module model {
         int uid;
 
         /**
-         * Patente
+         * Patente del vehiculo
          */
         string patente;
 
         /**
-         * Marca coche
+         * Marca vehiculo
          */
         string marca;  
 
         /**
-         * Modelo del coche
+         * Modelo del vehiculo
          */
         string modelo;
 
         /**
-         * Año del coche
+         * Año del vehiculo
          */
         string anio;
 
@@ -110,7 +120,7 @@ module model {
         string observaciones;
 
         /**
-         * Duenio del coche
+         * Duenio del vehiculo.
          */
         string runDuenio;
         
@@ -125,16 +135,20 @@ module model {
          * Verificacion de la identidad de una persona.
          * @param run identificador unico de la persona.
          * @return Persona confirmada la autenticidad, se retorna los datos de la persona.
+         * @throws NotFoundException si la informacion ingresada no existe.
          */
-        Persona verificarPersona(string run)
+        idempotent Persona verificarPersona(string run)
+            throws NotFoundException;
 
         /**
          * Autoriza la entrada o salida del vehiculo.
          * @param patente identificador unico del vehiculo.
          * @param tipo el vehiculo puede entrar(true) o salir(false).
          * @return Vehiculo confirmada la entrada/salida en el sistema, se retornan los datos del vehiculo.
+         * @throws NotFoundException si la informacion ingresada no existe.
          */
-        Vehiculo autorizarVehiculo(string patente, bool tipo)
+        idempotent Vehiculo autorizarVehiculo(string patente, bool tipo)
+            throws NotFoundException;
 
         /**
          * Registrar una nueva persona en el sistema.
@@ -147,8 +161,10 @@ module model {
          * Eliminar una persona del sistema.
          * @param run identificador unico de la persona.
          * @return Persona se retornan los datos eliminados en el sistema como confirmacion.
+         * @throws NotFoundException si la informacion ingresada no existe.
          */
-        Persona eliminarPersona(string run)
+        idempotent Persona eliminarPersona(string run)
+            throws NotFoundException;
 
         /**
          * Editar una persona del sistema.
@@ -159,13 +175,33 @@ module model {
 
         /**
          * Registrar un nuevo vehiculo en el sistema
-         * @param Vehiculo datps del vehiculo
+         * @param Vehiculo datos del vehiculo
          * @return Vehiculo se retornan los datos ingresados en el sistema como confirmacion.
          */
         Vehiculo registrarVehiculo(Vehiculo vehiculo)
 
+        /**
+         * Eliminar un vehiculo del sistema.
+         * @param patente identificador unico del vehiculo.
+         * @return Vehiculo se retornan los datos eliminados en el sistema como confirmacion.
+         * @throws NotFoundException si la informacion ingresada no existe.
+         */
+        idempotent Vehiculo eliminarVehiculo(string patente)
+            throws NotFoundException;
+
+        /**
+         * Editar un vehiculo del sistema.
+         * @param Vehiculo datos actualiados del vehiculo.
+         * @return Vehiculo se retornan los datos cambiados en el sistema como confirmacion.
+         */
+        Vehiculo editarVehiculo(Vehiculo vehiculo)
 
 
+    }
+    
+    exception NotFoundException
+    {
+        string reason = "information not found on the system's database";
     }
 
 }
