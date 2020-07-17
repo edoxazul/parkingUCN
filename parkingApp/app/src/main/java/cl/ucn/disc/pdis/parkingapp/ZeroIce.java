@@ -26,6 +26,8 @@
 
 package cl.ucn.disc.pdis.parkingapp;
 
+import cl.ucn.disc.pdis.parkingucn.zeroice.model.Contratos;
+import cl.ucn.disc.pdis.parkingucn.zeroice.model.ContratosPrx;
 import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.InitializationData;
 import com.zeroc.Ice.ObjectPrx;

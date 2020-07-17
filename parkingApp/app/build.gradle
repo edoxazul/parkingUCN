@@ -9,7 +9,7 @@ slice {
     iceHome = 'C:\\DevTools\\Ice-3.7.3\\'
 
     java {
-        // Files = [file("../slice/domain.ice")]
+        //files = [file("../ParkingUCN/domain.ice")]
         // args = "--debug --impl"
         logger.lifecycle("Slicing file: ${$files}")
     }
@@ -45,12 +45,12 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
-    testImplementation 'junit:junit:4.+'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     // Zero ICE
-    implementation 'com.zeroc:ice:3.7.3'
+    implementation 'com.zeroc:ice:3.7.4'
 
     // Compression for ZeroIce
     // https://github.com/zeroc-ice/ice/tree/3.7/java#bzip2-compression
