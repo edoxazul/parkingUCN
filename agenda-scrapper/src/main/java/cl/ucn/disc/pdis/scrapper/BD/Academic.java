@@ -40,6 +40,10 @@ public class Academic {
   @DatabaseField(id = true)
   private int id;
 
+  // rut of academic
+  @DatabaseField
+  private String rut;
+
   // name of academic
   @DatabaseField
   private String name;
@@ -86,9 +90,10 @@ public class Academic {
    * @param office of academic
    * @param address of academic
    */
-  public Academic(int id, String name, String position, String unit, String email, String phone,
+  public Academic(int id,String rut, String name, String position, String unit, String email, String phone,
                   String office, String address) {
     this.id = id;
+    this.rut =rut;
     this.name = name;
     this.position = position;
     this.unit = unit;
@@ -106,6 +111,7 @@ public class Academic {
   public String toString() {
     return "Academic{"
         + "id=" + id
+        + ", rut='" + rut + '\''
         + ", name='" + name + '\''
         + ", position='" + position + '\''
         + ", unit='" + unit + '\''

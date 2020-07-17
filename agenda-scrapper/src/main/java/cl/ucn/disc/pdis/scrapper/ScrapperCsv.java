@@ -91,34 +91,43 @@ public class ScrapperCsv {
     for (int i = ini; i <= end; i++) {
       Document doc = Jsoup.connect(theUrl + i).get();
       //get data
-      Element lblNombre = doc.getElementById("lblNombre");
-      Element lblCargo = doc.getElementById("lblCargo");
-      Element lblUnidad = doc.getElementById("lblUnidad");
-      Element lblEmail = doc.getElementById("lblEmail");
-      Element lblTelefono = doc.getElementById("lblTelefono");
-      Element lblOficina = doc.getElementById("lblOficina");
-      Element lblDireccion = doc.getElementById("lblDireccion");
+      String lblNombre = doc.getElementById("lblNombre").text();
+      String lblCargo = doc.getElementById("lblCargo").text();
+      String lblUnidad = doc.getElementById("lblUnidad").text();
+      String lblEmail = doc.getElementById("lblEmail").text();
+      String lblTelefono = doc.getElementById("lblTelefono").text();
+      String lblOficina = doc.getElementById("lblOficina").text();
+      String lblDireccion = doc.getElementById("lblDireccion").text();
 
-      logger.debug("Code: "+i+" - Name: "+lblNombre.text());
+      logger.debug("Code: "+i+" - Name: "+lblNombre);
 
       //ignore this element if the name is void
-      if (lblNombre.text().isEmpty()) {
+      if (lblNombre.isEmpty()) {
         continue;
       }
 
       //Format the phone number of academic
-      phoneNumber = lblTelefono.text().replace("Fono ", "");
+      phoneNumber = lblTelefono.replace("Fono ", "");
+
+      //format to avoid mistakes
+      if (lblOficina.contains(",")) {
+        lblOficina.replace(","," ");
+      }
+
+      if (lblDireccion.contains(",")) {
+        lblDireccion.replace(","," ");
+      }
 
       //Save Data and use a delay
       try {
         fileWriter.append(String.valueOf(i) + ","); //the index in URL
-        fileWriter.append(lblNombre.text() + ",");
-        fileWriter.append(lblCargo.text() + ",");
-        fileWriter.append(lblUnidad.text() + ",");
-        fileWriter.append(lblEmail.text() + ",");
+        fileWriter.append(lblNombre + ",");
+        fileWriter.append(lblCargo + ",");
+        fileWriter.append(lblUnidad+ ",");
+        fileWriter.append(lblEmail+ ",");
         fileWriter.append(phoneNumber + ","); //fixed number
-        fileWriter.append(lblOficina.text() + ",");
-        fileWriter.append(lblDireccion.text());
+        fileWriter.append(lblOficina+ ",");
+        fileWriter.append(lblDireccion);
         fileWriter.append("\n");
 
         //Delay for security

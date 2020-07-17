@@ -96,14 +96,12 @@ public class Adapter {
       logger.error("Error with CSV: "+ e.getMessage());
     }
 
-    int i = 1000;
     //read csv and get records
     String[] entries;
     while ((entries = this.reader.readNext()) != null) {
-      if (entries.length<i) {
-        i=entries.length;
-        logger.debug(String.valueOf(i));
-      }
+
+      //TODO: Migrate from CSV to BD
+
     }
     connectionSource.close();
   }
