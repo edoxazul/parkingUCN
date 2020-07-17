@@ -1,18 +1,13 @@
-# ParkingUCN 
-Project ParkingUCN for the signature Proyecto De Desarrollo e Integración de Soluciones, UCN.
+# Backend ParkingUCN
 
-##  
+Backend del proyecto ParkingUCN para el curso de Desarrollo e Integración De Soluciones, UCN.
+
+## Authors  
 Eduardo Alexis Alvarez Saldivia
 
 Alvaro Lucas Castillo Calabacero
 
 Ignacio Fuenzalida Veas
-
-## Sections
-* [Agenda-Scrapper](./agenda-scrapper)
-* [Android APP](./parkingApp)
-* [Web](./parkingWeb)
-* [Back-end](./parkingBackend)
 
 ## UML
 ![Imagén No Disponible](img/diagrama.png)
