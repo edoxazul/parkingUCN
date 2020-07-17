@@ -9,9 +9,9 @@ slice {
     iceHome = 'C:\\DevTools\\Ice-3.7.3\\'
 
     java {
-        //files = [file("../ParkingUCN/domain.ice")]
-        // args = "--debug --impl"
-        logger.lifecycle("Slicing file: ${$files}")
+        files = [file("../../domain.ice")]
+        //args = "--debug --impl"
+        //logger.lifecycle("Slicing file: ${$files}")
     }
 }
 
