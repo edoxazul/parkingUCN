@@ -24,7 +24,7 @@
 
 package cl.ucn.disc.pdis.scrapper;
 
-import cl.ucn.disc.pdis.scrapper.BD.Academic;
+import cl.ucn.disc.pdis.scrapper.bd.Academic;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
