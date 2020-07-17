@@ -1,7 +1,5 @@
 package cl.ucn.disc.pdis.scrapper;
 
-import cl.ucn.disc.pdis.scrapper.BD.Adapter;
-
 import java.io.IOException;
 
 public class Main {
@@ -13,13 +11,7 @@ public class Main {
    */
   public static void main(String[] args) throws IOException, InterruptedException {
 
-    //Get data from "ucn directory"
-    ScrapperCsv scrapperCsv = ScrapperCsv.getInstance();
-    scrapperCsv.scrapperToCsv();
-
-    //Update data from "ucn directory" and add RUT
-    ScrapperRut scrapperRut = ScrapperRut.getInstance();
-    scrapperRut.scrapperToRut();
-
+   Scrapper scrapper = Scrapper.getInstance();
+   scrapper.ScrapperDirectorio();
   }
 }

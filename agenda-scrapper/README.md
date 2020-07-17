@@ -22,32 +22,38 @@ class Main{
     main(String[])
 }
 
-class ScrapperCsv{
-    - theUrl: String
-    - random: Random  
+class Scrapper {
+    - UrlDirectorio:String
+    - UrlRutificador:String
     - ini: int
     - end: int
-    - fileWriter: FileWriter
-    {static} - scrapperCsv: ScrapperCsv 
-    
-    ScrapperCsv()
-    {static} getInstance(): ScrapperRut
-    scrapperToCsv(): void
-}
-
-class ScrapperRut {
-    - url: String
-    - reader: CSVReader
-    - writer: CSVWriter
     - random: Random
-    {static} - scrapperRut: ScrapperRut
+    - scrapper: Scrapper
+    - academicDao: dao<Academic,Integer>
     
-    ScrapperRut()
-    {static} getInstance(): ScrapperRut
-    scrapperToRut(): void 
-    
+    - scrapper()
+    getInstance()
+    scrapperDirectorio()
+    ScrapperRutificador(String name): String
+    initializeDB()
 }
 
-Main --> ScrapperCsv : <<use>>
-Main --> ScrapperRut : <<use>>
+class Academic{
+    - id:int 
+    - rut :String 
+    - name: String 
+    - position: String 
+    - unit: String 
+    - email: String 
+    - phone: String 
+    - office: String 
+    - address: String 
+    Academic(int id,String rut, String name, String position, String unit, String email, String phone,
+                      String office, String address)
+    Academic()
+    toString(): String
+}
+
+Main --> Scrapper : <<use>>
+Scrapper --> Academic :<<use>>
 @enduml
