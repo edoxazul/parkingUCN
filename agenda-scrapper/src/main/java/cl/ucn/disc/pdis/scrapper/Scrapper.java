@@ -162,6 +162,8 @@ public class Scrapper {
     // Select all tables on the html document
     Elements tables = doc.select("tr");
 
+    // FIXME: Hay casos en donde se retornan mas de 2 ruts
+    // TODO: Obtener tambien el sexo VAR/MUJ
     // If there is only 1 table, that mean that there is no result for that name
     if (tables.size() == 1) {
 
