@@ -13,9 +13,7 @@ namespace ParkingBackend
         {
             CreateHostBuilder(args).Build().Run();
         }
-
-
-
+        
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host
@@ -38,12 +36,8 @@ namespace ParkingBackend
                 .UseConsoleLifetime()
                 // Service inside the DI
                 .ConfigureServices((hostContext, services) =>
-                {    
-                    
-                    // The Fivet Context
-                    //services.AddDbContext<ParkingContext>();
-                    // The FivetService
-                    //services.AddHostedService<ParkingService>();
+                {
+
                     // The logger
                     services.AddLogging();
     
@@ -55,6 +49,12 @@ namespace ParkingBackend
                     
                     // Contratos
                     services.AddSingleton<ContratosDisp_, ContratosImpl>();
+                    
+                    // ParkingService 
+                    services.AddHostedService<ParkingService>();
+                    
+                    // The Parkking Context
+                    //services.AddDbContext<ParkingContext>();
                 });
         }
     }
