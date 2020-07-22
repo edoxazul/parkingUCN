@@ -5,14 +5,13 @@ using Microsoft.Extensions.Hosting;
 using ParkingUcn.ZeroIce;
 using ParkingUcn.ZeroIce.model;
 
-namespace ParkingBackend.Server
+namespace ParkingBackend
 {
     class Program
     {
-        static int Main(string[] args)
+        static void Main(string[] args)
         {
-
-            return 0;
+            CreateHostBuilder(args).Build().Run();
         }
 
 
@@ -40,14 +39,11 @@ namespace ParkingBackend.Server
                 // Service inside the DI
                 .ConfigureServices((hostContext, services) =>
                 {    
-                    // TheSystem
-                    services.AddSingleton<TheSystemDisp_, TheSystemImpl>();
-                    // Contratos
-                    services.AddSingleton<ContratosDisp_, ContratosImpl>();
+                    
                     // The Fivet Context
-                    services.AddDbContext<ParkingContext>();
+                    //services.AddDbContext<ParkingContext>();
                     // The FivetService
-                    services.AddHostedService<ParkingService>();
+                    //services.AddHostedService<ParkingService>();
                     // The logger
                     services.AddLogging();
     
@@ -55,7 +51,10 @@ namespace ParkingBackend.Server
                     services.Configure<HostOptions>(option => 
                     {
                         option.ShutdownTimeout = System.TimeSpan.FromSeconds(15);
-                    });       
+                    });
+                    
+                    // Contratos
+                    services.AddSingleton<ContratosDisp_, ContratosImpl>();
                 });
         }
     }
