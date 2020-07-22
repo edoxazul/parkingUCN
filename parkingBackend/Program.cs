@@ -22,11 +22,9 @@
  * SOFTWARE.
  */
 
-using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
-using ParkingUcn.ZeroIce;
 using ParkingUcn.ZeroIce.model;
 
 namespace ParkingBackend
@@ -59,9 +57,8 @@ namespace ParkingBackend
                 // Enable Control+C listener
                 .UseConsoleLifetime()
                 // Service inside the DI
-                .ConfigureServices((hostContext, services) =>
+                .ConfigureServices((HostBuilderContext, services) =>
                 {
-
                     // The logger
                     services.AddLogging();
     
