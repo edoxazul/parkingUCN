@@ -36,6 +36,14 @@ module model {
     }
 
     /**
+    * Sexo de la persona
+    */
+    enum Sexo {
+        VAR,MUJ,OTHER
+    }
+
+
+    /**
      * Class Persona
      */
     ["cs:property"]
@@ -55,6 +63,11 @@ module model {
          * Nombre
          */
         string nombre;
+
+        /**
+         * Sexo de la persona
+         */
+        Sexo sexo;
 
         /**
          * Unidad perteneciente.
@@ -83,9 +96,6 @@ module model {
 
 
     }
-
-
-
 
     /**
      * Class vehiculo
@@ -141,7 +151,7 @@ module model {
          * @return Persona confirmada la autenticidad, se retorna los datos de la persona.
          * @throws NotFoundException si la informacion ingresada no existe.
          */
-        idempotent Persona verificarPersona(string run);
+        Persona verificarPersona(string run);
             // throws NotFoundException;
 
         /**
@@ -151,7 +161,7 @@ module model {
          * @return Vehiculo confirmada la entrada/salida en el sistema, se retornan los datos del vehiculo.
          * @throws NotFoundException si la informacion ingresada no existe.
          */
-        idempotent Vehiculo autorizarVehiculo(string patente, bool tipo);
+        Vehiculo autorizarVehiculo(string patente, bool tipo);
             // throws NotFoundException;
 
         /**
@@ -160,7 +170,7 @@ module model {
          * @return Persona se retornan los datos ingresados en el sistema como confirmacion.
          * @throws DuplicateDataException la informacion ingresada ya existe en el sistema.
          */
-        idempotent Persona registrarPersona(Persona persona);
+        Persona registrarPersona(Persona persona);
             // throws DuplicateDataException;
 
         /**
@@ -169,7 +179,7 @@ module model {
          * @return Persona se retornan los datos eliminados en el sistema como confirmacion.
          * @throws NotFoundException si la informacion ingresada no existe.
          */
-        idempotent Persona eliminarPersona(string run);
+        Persona eliminarPersona(string run);
             // throws NotFoundException;
 
         /**
@@ -185,7 +195,7 @@ module model {
          * @return Vehiculo se retornan los datos ingresados en el sistema como confirmacion.
          * @throws DuplicateDataException la informacion ingresada ya existe en el sistema.
          */
-        idempotent Vehiculo registrarVehiculo(Vehiculo vehiculo);
+        Vehiculo registrarVehiculo(Vehiculo vehiculo);
             // throws DuplicateDataException;
 
         /**
@@ -194,7 +204,7 @@ module model {
          * @return Vehiculo se retornan los datos eliminados en el sistema como confirmacion.
          * @throws NotFoundException si la informacion ingresada no existe.
          */
-        idempotent Vehiculo eliminarVehiculo(string patente);
+        Vehiculo eliminarVehiculo(string patente);
             // throws NotFoundException;
 
         /**
@@ -203,6 +213,8 @@ module model {
          * @return Vehiculo se retornan los datos cambiados en el sistema como confirmacion.
          */
         Vehiculo editarVehiculo(Vehiculo vehiculo);
+
+        void populateDatabase(Persona persona);
 
 
     }
