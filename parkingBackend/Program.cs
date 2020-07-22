@@ -78,7 +78,7 @@ namespace ParkingBackend
                     services.AddHostedService<ParkingService>();
                     
                     // The Parking Context
-                    //services.AddDbContext<ParkingContext>();
+                    services.AddDbContext<ParkingContext>();
                 });
         }
     }
