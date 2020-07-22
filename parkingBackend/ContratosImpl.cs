@@ -24,29 +24,47 @@
 
 using System;
 using Ice;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
 using ParkingUcn.ZeroIce.model;
 
 namespace ParkingBackend
 {
     public class ContratosImpl : ContratosDisp_
-    {    
+    {
         /// <summary>
         /// Logger
         /// </summary>
         private readonly ILogger<ContratosImpl> _logger;
 
-        /// <sumary>
+        /// <summary>
+        /// Scope Factory
+        /// </summary>
+        private readonly IServiceScopeFactory _serviceScopeFactory;
+
+        /// <summary>
         /// The Constructor
-        /// </sumary>
-        /// <param name="logger">Logger</param>
-        public ContratosImpl(ILogger<ContratosImpl> logger)
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="serviceScopeFactory"></param>
+        public ContratosImpl(ILogger<ContratosImpl> logger, IServiceScopeFactory serviceScopeFactory)
         {
             _logger = logger;
             _logger.LogDebug("Building ContratosImpl");
+            _serviceScopeFactory = serviceScopeFactory;
+
+            // Create the database
+            _logger.LogInformation("Creating the Database ..");
+            using (var scope = _serviceScopeFactory.CreateScope())
+            {
+                ParkingContext parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
+                parkingContext.Database.EnsureCreated();
+                parkingContext.SaveChanges();
+            }
+
+            _logger.LogDebug("Done.");
         }
-        
+
         /// <sumary>
         /// check if the person exists given a run
         /// </sumary>
@@ -56,7 +74,7 @@ namespace ParkingBackend
         {
             throw new NotImplementedException();
         }
-        
+
         /// <sumary>
         /// authorize a vehicle given a patent
         /// </sumary>
@@ -67,7 +85,7 @@ namespace ParkingBackend
         {
             throw new NotImplementedException();
         }
-        
+
         /// <sumary>
         /// register a person
         /// </sumary>
@@ -75,9 +93,15 @@ namespace ParkingBackend
         /// <param name="current">.</param>
         public override Persona registrarPersona(Persona persona, Current current = null)
         {
-            throw new NotImplementedException();
+            using var scope = _serviceScopeFactory.CreateScope();
+            ParkingContext parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
+            parkingContext.Personas.Add(persona);
+            parkingContext.SaveChanges();
+            return persona;
+
+            throw new System.NotImplementedException();
         }
-        
+
         /// <sumary>
         /// delete a person given the run
         /// </sumary>
@@ -87,7 +111,7 @@ namespace ParkingBackend
         {
             throw new NotImplementedException();
         }
-        
+
         /// <sumary>
         /// Edit a person
         /// </sumary>
@@ -97,7 +121,7 @@ namespace ParkingBackend
         {
             throw new NotImplementedException();
         }
-        
+
         /// <sumary>
         /// register a vehicle
         /// </sumary>
@@ -107,7 +131,7 @@ namespace ParkingBackend
         {
             throw new NotImplementedException();
         }
-        
+
         /// <sumary>
         /// delete a vehicle given the run
         /// </sumary>
@@ -117,13 +141,18 @@ namespace ParkingBackend
         {
             throw new NotImplementedException();
         }
-        
+
         /// <sumary>
         /// Edit a vehicle
         /// </sumary>
         /// <param name="vehiculo">Vehicle to be edited</param>
         /// <param name="current">.</param>
         public override Vehiculo editarVehiculo(Vehiculo vehiculo, Current current = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void populateDatabase(Persona persona, Current current = null)
         {
             throw new NotImplementedException();
         }

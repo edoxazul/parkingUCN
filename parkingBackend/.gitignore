@@ -49,6 +49,7 @@ Ankh.NoLoad
 
 #generated
 generated/
+.parking.db
 
 #vscode
 .vscode

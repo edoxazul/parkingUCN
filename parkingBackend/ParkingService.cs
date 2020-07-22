@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Ice;
@@ -31,7 +32,7 @@ using ParkingUcn.ZeroIce.model;
 
 namespace ParkingBackend
 {
-    public class ParkingService: IHostedService
+    public class ParkingService: IHostedService,IDisposable
     {    
         /// <summary>
         /// Port for ZeroICE
@@ -115,6 +116,14 @@ namespace ParkingBackend
             // Stop communicator
             _communicator.shutdown();
             return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// Clear the memory
+        /// </summary>
+        public void Dispose()
+        {
+            _communicator.destroy();
         }
     }
 }
