@@ -14,10 +14,31 @@ Project ParkingUCN for the signature Proyecto De Desarrollo e Integración de So
 * [Web](./parkingWeb)
 * [Back-end](./parkingBackend)
 
+## Technologies
+
+- [Java OpenJDK 11](https://openjdk.java.net/projects/jdk/11/).
+- [Jetbrains IntelliJ](https://www.jetbrains.com/idea/nextversion/).
+- [Gradle](https://gradle.org/).
+- [ZeroIce](https://zeroc.com/).
+- [PHP](https://www.php.net/).
+- [Laravel Framework](https://laravel.com/).
+- [.NET Core](https://dotnet.microsoft.com/).
+- [EntityFramework Core](https://docs.microsoft.com/en-us/ef/core/).
+- [Jetbrains Rider](https://www.jetbrains.com/rider/nextversion/).
+- [SQLite](https://www.sqlite.org/).
+- [Kotlin](https://developer.android.com/kotlin).
+- [Android Studio Preview](https://developer.android.com/studio/preview).
+
+
+
 ## UML
 ![Imagén No Disponible](img/diagrama.png)
 --- 
+
+<details><summary>PlantUML</summary>
+<p>
 @startuml
+
 class Persona{
     -uid: int
     -rut: string
@@ -68,3 +89,7 @@ ContratosImpl --> Vehiculo: use
 Persona --> CategoriaPersona : use
 ContratosImpl<|.. Contratos: implement
 @enduml
+
+
+</p>
+</details>
