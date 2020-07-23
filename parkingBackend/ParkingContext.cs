@@ -50,11 +50,11 @@ namespace ParkingBackend
                 
                 // Primary 
                 p.HasKey(p => p.uid);
-                p.Property(p => p.run).ValueGeneratedOnAdd();
+                p.Property(p => p.uid).ValueGeneratedOnAdd();
 
                 // Index in rut
                 p.Property(p => p.run).IsRequired();
-                p.HasIndex(p => p.run).IsUnique();
+
                 // Index in Email
                 p.Property(p => p.email).IsRequired();
                 p.HasIndex(p => p.email).IsUnique();
@@ -79,7 +79,7 @@ namespace ParkingBackend
                 
                 // Primary 
                 v.HasKey(v => v.uid);
-                v.Property(v => v.patente).ValueGeneratedOnAdd();
+                v.Property(v => v.uid).ValueGeneratedOnAdd();
 
                 // Index in patente
                 v.Property(v => v.patente).IsRequired();
@@ -98,9 +98,9 @@ namespace ParkingBackend
                 new  Vehiculo(){
                     uid = 1,
                     patente = "CHLJ90",
-                    anio = 2002,
                     marca = "kia",
                     modelo = "cerato",
+                    anio = 2002,
                     observaciones= "observaciones",
                     runDuenio = "193982336"
                 }

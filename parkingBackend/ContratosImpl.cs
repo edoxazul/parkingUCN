@@ -24,7 +24,9 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using Ice;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -97,24 +99,27 @@ namespace ParkingBackend
         /// <param name="current">.</param>
         public override Persona registrarPersona(Persona persona, Current current = null) 
         {
-            using var scope = _serviceScopeFactory.CreateScope();
-            ParkingContext parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
-
-            _logger.LogDebug("Data in: {} {} {}",persona.nombre,persona.run,persona.categoriaPersona);
-
             try
             {
-                parkingContext.Personas.Add(persona);
+                using var scope = _serviceScopeFactory.CreateScope();
+                {
+                    ParkingContext parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
+                    parkingContext.Personas.Add(persona);
+                    parkingContext.SaveChanges();
+                    // TODO: Buscar la misma persona ingresada en la base de datos y retornarla.
+                    return parkingContext.Personas.FirstOrDefault(per => per.run == persona.run);
+                }
             }
-            catch (DbUpdateException exception)
+            catch (SqliteException exception)
             {
-                _logger.LogDebug("Error: {}",exception.Message);
+                _logger.LogDebug("Error adding : {}",exception.InnerException);
                 throw new DuplicateDataException();
             }
-       
-            parkingContext.SaveChanges();
-            
-            return persona;
+            catch (Exception exception)
+            {
+                _logger.LogDebug("Server Error : {}",exception.InnerException);
+                throw new DuplicateDataException();
+            }
             
         }
 
@@ -145,24 +150,35 @@ namespace ParkingBackend
         /// <param name="current">.</param>
         public override Vehiculo registrarVehiculo(Vehiculo vehiculo, Current current = null)
         {
-            using var scope = _serviceScopeFactory.CreateScope();
-            ParkingContext parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
-
-            _logger.LogDebug("Data in: {} {} {}",vehiculo.patente,vehiculo.marca,vehiculo.modelo);
-
             try
             {
-                parkingContext.Vehiculos.Add(vehiculo);
+                using var scope = _serviceScopeFactory.CreateScope();
+                {
+                    var parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
+                    
+                    // Check if there is a person with the run on Personas Table
+                    var persona = parkingContext.Personas.FirstOrDefault(per => per.run == vehiculo.runDuenio);
+                    
+                    if (persona == null || persona.run != vehiculo.runDuenio)
+                    {
+                        throw new RunRelationNotFoundException();
+                    }
+
+                    parkingContext.Vehiculos.Add(vehiculo);
+                    parkingContext.SaveChanges();
+                    return parkingContext.Vehiculos.FirstOrDefault(veh => veh.patente == vehiculo.patente);
+                }
             }
-            catch (DbUpdateException exception)
+            catch (SqliteException exception)
             {
-                _logger.LogDebug("Error: {}",exception.Message);
+                _logger.LogDebug("Error adding : {}",exception.InnerException);
                 throw new DuplicateDataException();
             }
-       
-            parkingContext.SaveChanges();
-            
-            return vehiculo;
+            catch (Exception exception)
+            {
+                _logger.LogDebug("Server Error : {}",exception.InnerException);
+                throw new DuplicateDataException();
+            }
         }
 
         /// <sumary>
