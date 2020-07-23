@@ -106,7 +106,6 @@ namespace ParkingBackend
                     ParkingContext parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
                     parkingContext.Personas.Add(persona);
                     parkingContext.SaveChanges();
-                    // TODO: Buscar la misma persona ingresada en la base de datos y retornarla.
                     return parkingContext.Personas.FirstOrDefault(per => per.run == persona.run);
                 }
             }
@@ -155,10 +154,9 @@ namespace ParkingBackend
                 using var scope = _serviceScopeFactory.CreateScope();
                 {
                     var parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
-                    
+
                     // Check if there is a person with the run on Personas Table
                     var persona = parkingContext.Personas.FirstOrDefault(per => per.run == vehiculo.runDuenio);
-                    
                     if (persona == null || persona.run != vehiculo.runDuenio)
                     {
                         throw new RunRelationNotFoundException();
@@ -171,12 +169,17 @@ namespace ParkingBackend
             }
             catch (SqliteException exception)
             {
-                _logger.LogDebug("Error adding : {}",exception.InnerException);
+                _logger.LogDebug("Error adding : {}", exception.InnerException);
                 throw new DuplicateDataException();
+            }
+            catch (RunRelationNotFoundException exception)
+            {
+                _logger.LogDebug("Error adding : {}", exception.InnerException);
+                throw new RunRelationNotFoundException();
             }
             catch (Exception exception)
             {
-                _logger.LogDebug("Server Error : {}",exception.InnerException);
+                _logger.LogDebug("Server Error : {}", exception.InnerException);
                 throw new DuplicateDataException();
             }
         }
