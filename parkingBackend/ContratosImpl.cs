@@ -217,7 +217,33 @@ namespace ParkingBackend
         /// <param name="current">.</param>
         public override Vehiculo eliminarVehiculo(string patente, Current current = null)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using var scope = _serviceScopeFactory.CreateScope();
+                {
+                    ParkingContext parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
+                    Vehiculo vehiculo = parkingContext.Vehiculos
+                        .FirstOrDefault(v => v.patente == patente);
+
+                    if (vehiculo != null)
+                    {
+                        parkingContext.Vehiculos.Remove(vehiculo);
+                        parkingContext.SaveChanges();
+                        
+                    }
+                    return vehiculo;
+                }
+            }
+            catch (SqliteException exception)
+            {
+                _logger.LogDebug("Error deleting : {}",exception.InnerException);
+                throw new NullReferenceException();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         /// <sumary>
