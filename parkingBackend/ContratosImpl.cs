@@ -145,7 +145,24 @@ namespace ParkingBackend
         /// <param name="current">.</param>
         public override Vehiculo registrarVehiculo(Vehiculo vehiculo, Current current = null)
         {
-            throw new NotImplementedException();
+            using var scope = _serviceScopeFactory.CreateScope();
+            ParkingContext parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
+
+            _logger.LogDebug("Data in: {} {} {}",vehiculo.patente,vehiculo.marca,vehiculo.modelo);
+
+            try
+            {
+                parkingContext.Vehiculos.Add(vehiculo);
+            }
+            catch (DbUpdateException exception)
+            {
+                _logger.LogDebug("Error: {}",exception.Message);
+                throw new DuplicateDataException();
+            }
+       
+            parkingContext.SaveChanges();
+            
+            return vehiculo;
         }
 
         /// <sumary>
@@ -168,6 +185,12 @@ namespace ParkingBackend
             throw new NotImplementedException();
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="persona"></param>
+        /// <param name="current"></param>
+        /// <exception cref="NotImplementedException"></exception>
         public override void populateDatabase(Persona persona, Current current = null)
         {
             throw new NotImplementedException();

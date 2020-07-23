@@ -126,7 +126,7 @@ module model {
         /**
          * Año del vehiculo
          */
-        string anio;
+        int anio;
 
         /**
          * Obervaciones

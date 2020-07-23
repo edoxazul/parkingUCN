@@ -31,9 +31,11 @@ namespace ParkingBackend
     public class ParkingContext : DbContext
     {
         public DbSet<Persona> Personas {get; set;}
+        
+        public DbSet<Vehiculo> Vehiculos {get; set;}
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
             optionsBuilder.UseSqlite(@"Data Source=parking.db", options =>
             {
                 options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
@@ -72,6 +74,37 @@ namespace ParkingBackend
                 }
             );
             
+            modelBuilder.Entity<Vehiculo>( v => 
+            {
+                
+                // Primary 
+                v.HasKey(v => v.uid);
+                v.Property(v => v.patente).ValueGeneratedOnAdd();
+
+                // Index in patente
+                v.Property(v => v.patente).IsRequired();
+                v.HasIndex(v => v.patente).IsUnique();
+                
+                v.Property(v => v.anio).IsRequired();
+                v.Property(v => v.marca).IsRequired();
+                v.Property(v => v.modelo).IsRequired();
+                
+                
+                v.Property(v => v.runDuenio).IsRequired();
+            });
+            
+            // Insert the data
+            modelBuilder.Entity<Vehiculo>().HasData(
+                new  Vehiculo(){
+                    uid = 1,
+                    patente = "CHLJ90",
+                    anio = 2002,
+                    marca = "kia",
+                    modelo = "cerato",
+                    observaciones= "observaciones",
+                    runDuenio = "193982336"
+                }
+            );
         }
     }
 }
