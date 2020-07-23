@@ -36,7 +36,9 @@ import cl.ucn.disc.pdis.parkingucn.zeroice.model.ContratosPrx;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.DuplicateDataException;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.NotFoundException;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.Persona;
+import cl.ucn.disc.pdis.parkingucn.zeroice.model.RunRelationNotFoundException;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.Sexo;
+import cl.ucn.disc.pdis.parkingucn.zeroice.model.Vehiculo;
 
 import static org.junit.Assert.*;
 
@@ -60,14 +62,68 @@ public class ContratosTest {
         persona1.email = "alvaro.castillo@alumnos.ucn.cl";
         persona1.categoriaPersona = CategoriaPersona.ESTUDIANTE;
 
-        logger.debug("Data out: {} {} {}", persona1.nombre, persona1.run, persona1.sexo);
+        logger.debug("Persona to backend: {} {} {}", persona1.nombre, persona1.run, persona1.sexo);
         Persona persona2 = contratos.registrarPersona(persona1);
-        logger.debug("Data in: {} {} {}", persona2.nombre, persona2.run, persona2.sexo);
+        logger.debug("Persona from backend: {} {} {}", persona2.nombre, persona2.run, persona2.sexo);
 
         assertNotNull(persona2);
+        logger.debug("DONE: Persona added succefully on database!");
 
         // Send the same person, should return Duplicate
         assertThrows(DuplicateDataException.class, () -> contratos.registrarPersona(persona1));
+        logger.debug("DONE: Exception reach because duplicate data!");
 
     }
+
+    @Test
+    public void registrarVehiculo() throws DuplicateDataException, RunRelationNotFoundException {
+
+        ZeroIce ice = new ZeroIce();
+        ice.start();
+        ContratosPrx contratos = ice.getContratos();
+
+        Vehiculo vehiculo1 = new Vehiculo();
+
+        vehiculo1.patente = "XD-6996";
+        vehiculo1.marca = "Mazda";
+        vehiculo1.modelo = "NZT";
+        vehiculo1.anio = 3000;
+        vehiculo1.observaciones = "Sin capo";
+        vehiculo1.runDuenio = "193982336";
+
+        logger.debug("Vehiculo to backend: {} {} {}",
+                vehiculo1.patente,
+                vehiculo1.marca,
+                vehiculo1.runDuenio);
+
+        Vehiculo vehiculo2 = contratos.registrarVehiculo(vehiculo1);
+
+        logger.debug("Vehiculo from backend: {} {} {}",
+                vehiculo2.patente,
+                vehiculo2.marca,
+                vehiculo2.runDuenio);
+
+        assertNotNull(vehiculo1);
+        logger.debug("DONE: Vehicle added succefully on database!");
+
+        // Send the same vehicle, should return Duplicate
+        assertThrows(DuplicateDataException.class,
+                () -> contratos.registrarVehiculo(vehiculo1));
+        logger.debug("DONE: Exception reach because duplicate data!");
+
+        Vehiculo vehiculo3 = new Vehiculo();
+
+        vehiculo1.patente = "AA-6996";
+        vehiculo1.marca = "TOYOTA";
+        vehiculo1.modelo = "NZT";
+        vehiculo1.anio = 4000;
+        vehiculo1.observaciones = "Sin capo";
+        vehiculo1.runDuenio = "1234552";
+
+        assertThrows(RunRelationNotFoundException.class,
+                () -> contratos.registrarVehiculo(vehiculo3));
+        logger.debug("DONE: Exception reach because run not found on persona table!");
+
+    }
+
 }

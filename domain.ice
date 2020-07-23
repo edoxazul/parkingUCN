@@ -140,6 +140,10 @@ module model {
         
     }
     
+    exception RunRelationNotFoundException
+    {
+        string reason = "ForeyKey run not found on the persona table";
+    }    
     exception NotFoundException
     {
         string reason = "information not found on the system's database";
@@ -160,8 +164,8 @@ module model {
          * @return Persona confirmada la autenticidad, se retorna los datos de la persona.
          * @throws NotFoundException si la informacion ingresada no existe.
          */
-        Persona verificarPersona(string run);
-            // throws NotFoundException;
+        Persona verificarPersona(string run)
+            throws NotFoundException;
 
         /**
          * Autoriza la entrada o salida del vehiculo.
@@ -204,8 +208,8 @@ module model {
          * @return Vehiculo se retornan los datos ingresados en el sistema como confirmacion.
          * @throws DuplicateDataException la informacion ingresada ya existe en el sistema.
          */
-        Vehiculo registrarVehiculo(Vehiculo vehiculo);
-            // throws DuplicateDataException;
+        Vehiculo registrarVehiculo(Vehiculo vehiculo)
+             throws DuplicateDataException, RunRelationNotFoundException;
 
         /**
          * Eliminar un vehiculo del sistema.
