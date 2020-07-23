@@ -139,6 +139,15 @@ module model {
         string runDuenio;
         
     }
+    
+    exception NotFoundException
+    {
+        string reason = "information not found on the system's database";
+    }
+    exception DuplicateDataException
+    {
+        string reason = "information alredy exist on the system's database";
+    }
 
     /**
     * Interfaz de Contratos
@@ -170,8 +179,8 @@ module model {
          * @return Persona se retornan los datos ingresados en el sistema como confirmacion.
          * @throws DuplicateDataException la informacion ingresada ya existe en el sistema.
          */
-        Persona registrarPersona(Persona persona);
-            // throws DuplicateDataException;
+        Persona registrarPersona(Persona persona)
+            throws DuplicateDataException;
 
         /**
          * Eliminar una persona del sistema.
@@ -219,13 +228,6 @@ module model {
 
     }
 
-    exception NotFoundException
-    {
-        string reason = "information not found on the system's database";
-    }
-    exception DuplicateDataException
-    {
-        string reason = "information alredy exist on the system's database";
-    }
+
 
 }

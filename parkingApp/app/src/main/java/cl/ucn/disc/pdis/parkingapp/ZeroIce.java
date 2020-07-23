@@ -85,8 +85,8 @@ public final class ZeroIce {
       log.warn("The Communicator was already initialized?");
       return;
     }
-
-    this.theCommunicator = Util.initialize(getInitializationData(new String[1]));
+    String[] args = {"one","two"};
+    this.theCommunicator = Util.initialize(getInitializationData(args));
 
 
     // The name
@@ -94,7 +94,7 @@ public final class ZeroIce {
     log.debug("Proxying <{}> ..", name);
 
     // The proxy 4 TheSystem
-    ObjectPrx theProxy = this.theCommunicator.stringToProxy(name + ":tcp -z -t 15000 -p 8080");
+    ObjectPrx theProxy = this.theCommunicator.stringToProxy(name + ":tcp -z -t 15000 -p 4000");
 
     // Trying to cast the proxy
     this.theContratos = ContratosPrx.checkedCast(theProxy);
@@ -109,7 +109,7 @@ public final class ZeroIce {
 
     // Properties
     final Properties properties = Util.createProperties(args);
-    properties.setProperty("Ice.Package.model", "cl.ucn.disc.pdis.parkingapp.zeroice");
+    properties.setProperty("Ice.Package.model", "cl.ucn.disc.pdis.parkingucn.zeroice");
 
     // https://doc.zeroc.com/ice/latest/property-reference/ice-trace
     // properties.setProperty("Ice.Trace.Admin.Properties", "1");
