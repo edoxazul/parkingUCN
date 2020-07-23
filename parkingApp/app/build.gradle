@@ -6,7 +6,7 @@ plugins {
 
 slice {
     // The home of ice
-    iceHome = 'C:\\DevTools\\Ice-3.7.3\\'
+    iceHome = 'C:\\Program Files\\ZeroC\\Ice-3.7.3\\'
 
     java {
         files = [file("../../domain.ice")]

@@ -126,4 +126,23 @@ public class ContratosTest {
 
     }
 
+    @Test
+    public void eliminarPersona(){
+
+        ZeroIce ice = new ZeroIce();
+        ice.start();
+        ContratosPrx contratos = ice.getContratos();
+
+        Persona persona = contratos.eliminarPersona("11111111");
+        logger.debug("Persona from backend: {} {} {}", persona.nombre, persona.run, persona.sexo);
+
+        assertNotNull(persona);
+        logger.debug("DONE: Persona added succefully on database!");
+
+        // Send the same person, should return null
+        Persona persona2 = contratos.eliminarPersona("11111111");
+        assertNull(persona2);
+        logger.debug("DONE: Exception reach because null data!");
+
+    }
 }
