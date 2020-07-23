@@ -45,30 +45,33 @@ namespace ParkingBackend
 
             modelBuilder.Entity<Persona>( p => 
             {
-
+                
                 // Primary 
                 p.HasKey(p => p.uid);
+                p.Property(p => p.run).ValueGeneratedOnAdd();
 
                 // Index in rut
                 p.Property(p => p.run).IsRequired();
                 p.HasIndex(p => p.run).IsUnique();
                 // Index in Email
                 p.Property(p => p.email).IsRequired();
+                p.HasIndex(p => p.email).IsUnique();
             });
-
+            
             // Insert the data
             modelBuilder.Entity<Persona>().HasData(
                 new Persona(){
                     uid = 1,
                     run = "193982336",
                     nombre = "Ignacio Fuenzalida Veas",
-                    unidad = "null",
+                    unidad = null,
                     email = "fuenzalida.veas@gmail.com",
                     telefonoMovil = "+56 9 9978635",
-                    telefonoFijo = "(55) 23512572",
+                    telefonoFijo = null,
                     categoriaPersona = new CategoriaPersona()
                 }
             );
+            
         }
     }
 }

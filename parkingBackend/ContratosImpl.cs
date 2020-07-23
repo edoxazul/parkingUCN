@@ -23,10 +23,13 @@
  */
 
 using System;
+using System.IO;
 using Ice;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ParkingUcn.ZeroIce.model;
+using Exception = System.Exception;
 
 namespace ParkingBackend
 {
@@ -85,21 +88,34 @@ namespace ParkingBackend
         {
             throw new NotImplementedException();
         }
+        
 
         /// <sumary>
         /// register a person
         /// </sumary>
         /// <param name="persona">Person to be registered</param>
         /// <param name="current">.</param>
-        public override Persona registrarPersona(Persona persona, Current current = null)
+        public override Persona registrarPersona(Persona persona, Current current = null) 
         {
             using var scope = _serviceScopeFactory.CreateScope();
             ParkingContext parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
-            parkingContext.Personas.Add(persona);
-            parkingContext.SaveChanges();
-            return persona;
 
-            throw new System.NotImplementedException();
+            _logger.LogDebug("Data in: {} {} {}",persona.nombre,persona.run,persona.categoriaPersona);
+
+            try
+            {
+                parkingContext.Personas.Add(persona);
+            }
+            catch (DbUpdateException exception)
+            {
+                _logger.LogDebug("Error: {}",exception.Message);
+                throw new DuplicateDataException();
+            }
+       
+            parkingContext.SaveChanges();
+            
+            return persona;
+            
         }
 
         /// <sumary>
@@ -151,7 +167,7 @@ namespace ParkingBackend
         {
             throw new NotImplementedException();
         }
-
+        
         public override void populateDatabase(Persona persona, Current current = null)
         {
             throw new NotImplementedException();
