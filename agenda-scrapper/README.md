@@ -14,7 +14,7 @@ Save data in a Sqlite database (by Patricio Araya)
 
 [Ignacio Fuenzalida Veas](https://github.com/NaChOoV) -      <ignacio.fuenzalida@alumnos.ucn.cl>
 
-## UML
+## UML - Diagrama de CLases
 ![Imagén No Disponible](img/diagram.png)
 --- 
 
