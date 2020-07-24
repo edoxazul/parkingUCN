@@ -150,7 +150,11 @@ module model {
     }
     exception DuplicateDataException
     {
-        string reason = "information alredy exist on the system's database";
+        string reason = "information already exist on the system's database";
+    }
+    exception ServerException 
+    {
+        string reason = "internal error server doesn't connect to database ";
     }
 
     /**
@@ -184,7 +188,7 @@ module model {
          * @throws DuplicateDataException la informacion ingresada ya existe en el sistema.
          */
         Persona registrarPersona(Persona persona)
-            throws DuplicateDataException;
+            throws DuplicateDataException, ServerException;
 
         /**
          * Eliminar una persona del sistema.
@@ -192,15 +196,16 @@ module model {
          * @return Persona se retornan los datos eliminados en el sistema como confirmacion.
          * @throws NotFoundException si la informacion ingresada no existe.
          */
-        Persona eliminarPersona(string run);
-            // throws NotFoundException;
+        Persona eliminarPersona(string run)
+            throws ServerException;
 
         /**
          * Editar una persona del sistema.
          * @param Persona datos actualiados de la persona.
          * @return Persona se retornan los datos cambiados en el sistema como confirmacion.
          */
-        Persona editarPersona(Persona persona);
+        Persona editarPersona(Persona persona)
+            throws ServerException;
 
         /**
          * Registrar un nuevo vehiculo en el sistema
@@ -209,7 +214,7 @@ module model {
          * @throws DuplicateDataException la informacion ingresada ya existe en el sistema.
          */
         Vehiculo registrarVehiculo(Vehiculo vehiculo)
-             throws DuplicateDataException, RunRelationNotFoundException;
+             throws DuplicateDataException, RunRelationNotFoundException , ServerException;
 
         /**
          * Eliminar un vehiculo del sistema.
@@ -217,15 +222,16 @@ module model {
          * @return Vehiculo se retornan los datos eliminados en el sistema como confirmacion.
          * @throws NotFoundException si la informacion ingresada no existe.
          */
-        Vehiculo eliminarVehiculo(string patente);
-            // throws NotFoundException;
+        Vehiculo eliminarVehiculo(string patente)
+            throws ServerException;
 
         /**
          * Editar un vehiculo del sistema.
          * @param Vehiculo datos actualiados del vehiculo.
          * @return Vehiculo se retornan los datos cambiados en el sistema como confirmacion.
          */
-        Vehiculo editarVehiculo(Vehiculo vehiculo);
+        Vehiculo editarVehiculo(Vehiculo vehiculo)
+        throws ServerException;
 
         void populateDatabase(Persona persona);
 

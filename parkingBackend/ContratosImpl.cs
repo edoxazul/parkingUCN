@@ -117,9 +117,8 @@ namespace ParkingBackend
             catch (Exception exception)
             {
                 _logger.LogDebug("Server Error : {}",exception.InnerException);
-                throw new DuplicateDataException();
+                throw new ServerException();
             }
-            
         }
 
         /// <sumary>
@@ -150,10 +149,10 @@ namespace ParkingBackend
                 _logger.LogDebug("Error deleting : {}",exception.InnerException);
                 throw new NullReferenceException();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Console.WriteLine(e);
-                throw;
+                _logger.LogDebug("Server Error : {}", exception.InnerException);
+                throw new ServerException();
             }
         }
 
@@ -183,10 +182,10 @@ namespace ParkingBackend
                 _logger.LogDebug("Error deleting : {}",exception.InnerException);
                 throw new NullReferenceException();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Console.WriteLine(e);
-                throw;
+                _logger.LogDebug("Server Error : {}", exception.InnerException);
+                throw new ServerException();
             }
         }
 
@@ -228,7 +227,7 @@ namespace ParkingBackend
             catch (Exception exception)
             {
                 _logger.LogDebug("Server Error : {}", exception.InnerException);
-                throw new DuplicateDataException();
+                throw new ServerException();
             }
         }
 
@@ -260,10 +259,10 @@ namespace ParkingBackend
                 _logger.LogDebug("Error deleting : {}",exception.InnerException);
                 throw new NullReferenceException();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Console.WriteLine(e);
-                throw;
+                _logger.LogDebug("Server Error : {}", exception.InnerException);
+                throw new ServerException();
             }
         }
 
@@ -293,10 +292,10 @@ namespace ParkingBackend
                 _logger.LogDebug("Error deleting : {}",exception.InnerException);
                 throw new NullReferenceException();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Console.WriteLine(e);
-                throw;
+                _logger.LogDebug("Server Error : {}", exception.InnerException);
+                throw new ServerException();
             }
         }
         
