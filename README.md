@@ -1,7 +1,7 @@
 # ParkingUCN 
 Project ParkingUCN for the signature Proyecto De Desarrollo e Integración de Soluciones, UCN.
 
-##  
+## Authors
 [Eduardo Alexis Alvarez Saldivia](https://github.com/edoxazul/) -      <eas010@alumnos.ucn.cl>
 
 [Alvaro Lucas Castillo Calabacero](https://github.com/AlvaroCC96) -      <alvaro.castillo@alumnos.ucn.cl>
@@ -34,10 +34,13 @@ Project ParkingUCN for the signature Proyecto De Desarrollo e Integración de So
 ## UML
 ![Imagén No Disponible](img/diagrama.png)
 --- 
-
 <details><summary>PlantUML</summary>
 <p>
+
+```
+
 @startuml
+
 
 class Persona{
     -uid: int
@@ -88,8 +91,10 @@ ContratosImpl --> Persona: use
 ContratosImpl --> Vehiculo: use
 Persona --> CategoriaPersona : use
 ContratosImpl<|.. Contratos: implement
+
 @enduml
 
+```
 
 </p>
 </details>
