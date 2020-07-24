@@ -156,9 +156,9 @@ public class ContratosTest {
         logger.debug("Vehiculo from backend: {} {} {}", vehiculo.patente, vehiculo.modelo, vehiculo.marca);
 
         assertNotNull(vehiculo);
-        logger.debug("DONE: Persona added succefully on database!");
+        logger.debug("DONE: Vehiculo deleted succefully on database!");
 
-        // Send the same person, should return null
+        // Send the same vehiculo, should return null
         Vehiculo vehiculo1 = contratos.eliminarVehiculo("CHLJ90");
         assertNull(vehiculo1);
         logger.debug("DONE: Exception reach because null data!");
