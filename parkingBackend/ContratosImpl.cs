@@ -141,7 +141,6 @@ namespace ParkingBackend
                     {
                         parkingContext.Personas.Remove(persona);
                         parkingContext.SaveChanges();
-                        
                     }
                     return persona;
                 }
@@ -229,7 +228,6 @@ namespace ParkingBackend
                     {
                         parkingContext.Vehiculos.Remove(vehiculo);
                         parkingContext.SaveChanges();
-                        
                     }
                     return vehiculo;
                 }
@@ -253,7 +251,30 @@ namespace ParkingBackend
         /// <param name="current">.</param>
         public override Vehiculo editarVehiculo(Vehiculo vehiculo, Current current = null)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using var scope = _serviceScopeFactory.CreateScope();
+                {
+                    ParkingContext parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
+                    parkingContext.Vehiculos.Update(vehiculo);
+
+                    Vehiculo vehiculoBD = parkingContext.Vehiculos
+                        .FirstOrDefault(v => v.patente == vehiculo.patente);
+                    
+                    parkingContext.SaveChanges();
+                    return vehiculoBD;
+                }
+            }
+            catch (SqliteException exception)
+            {
+                _logger.LogDebug("Error deleting : {}",exception.InnerException);
+                throw new NullReferenceException();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
         
         /// <summary>

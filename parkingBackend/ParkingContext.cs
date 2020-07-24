@@ -88,8 +88,7 @@ namespace ParkingBackend
                 v.Property(v => v.anio).IsRequired();
                 v.Property(v => v.marca).IsRequired();
                 v.Property(v => v.modelo).IsRequired();
-                
-                
+
                 v.Property(v => v.runDuenio).IsRequired();
             });
             

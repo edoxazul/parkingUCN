@@ -113,12 +113,12 @@ public class ContratosTest {
 
         Vehiculo vehiculo3 = new Vehiculo();
 
-        vehiculo1.patente = "AA-6996";
-        vehiculo1.marca = "TOYOTA";
-        vehiculo1.modelo = "NZT";
-        vehiculo1.anio = 4000;
-        vehiculo1.observaciones = "Sin capo";
-        vehiculo1.runDuenio = "1234552";
+        vehiculo3.patente = "AA-6996";
+        vehiculo3.marca = "TOYOTA";
+        vehiculo3.modelo = "NZT";
+        vehiculo3.anio = 4000;
+        vehiculo3.observaciones = "Sin capo";
+        vehiculo3.runDuenio = "1234552";
 
         assertThrows(RunRelationNotFoundException.class,
                 () -> contratos.registrarVehiculo(vehiculo3));
@@ -162,6 +162,29 @@ public class ContratosTest {
         Vehiculo vehiculo1 = contratos.eliminarVehiculo("CHLJ90");
         assertNull(vehiculo1);
         logger.debug("DONE: Exception reach because null data!");
+    }
 
+    @Test
+    public void editarVehiculo(){
+
+        ZeroIce ice = new ZeroIce();
+        ice.start();
+        ContratosPrx contratos = ice.getContratos();
+
+        Vehiculo vehiculo1 = new Vehiculo();
+        vehiculo1.uid = 2;
+        vehiculo1.patente = "XD-6996";
+        vehiculo1.marca = "Mazda";
+        vehiculo1.modelo = "NZT";
+        vehiculo1.anio = 3000;
+        vehiculo1.observaciones = "Nueva observacion test";
+        vehiculo1.runDuenio = "193982336";
+
+
+        Vehiculo vehiculo2 = contratos.editarVehiculo(vehiculo1);
+
+        logger.debug("Vehiculo from backend: {} {}", vehiculo2.patente, vehiculo2.observaciones);
+
+        assertNotNull(vehiculo2);
     }
 }
