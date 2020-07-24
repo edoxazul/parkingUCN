@@ -164,7 +164,30 @@ namespace ParkingBackend
         /// <param name="current">.</param>
         public override Persona editarPersona(Persona persona, Current current = null)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using var scope = _serviceScopeFactory.CreateScope();
+                {
+                    ParkingContext parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
+                    parkingContext.Personas.Update(persona);
+
+                    Persona personaBD = parkingContext.Personas
+                        .FirstOrDefault(p => p.run == p.run);
+                    
+                    parkingContext.SaveChanges();
+                    return personaBD; 
+                }
+            }
+            catch (SqliteException exception)
+            {
+                _logger.LogDebug("Error deleting : {}",exception.InnerException);
+                throw new NullReferenceException();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         /// <sumary>

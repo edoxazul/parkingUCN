@@ -187,4 +187,27 @@ public class ContratosTest {
 
         assertNotNull(vehiculo2);
     }
+
+    @Test
+    public void editarPersona(){
+
+        ZeroIce ice = new ZeroIce();
+        ice.start();
+        ContratosPrx contratos = ice.getContratos();
+
+        Persona persona1 = new Persona();
+        persona1.uid =6;
+        persona1.run = "11111111";
+        persona1.nombre = "Alvaro Castillo";
+        persona1.sexo = Sexo.VAR;
+        persona1.email = "alvaro.castillo@alumnos.ucn.cl";
+        persona1.categoriaPersona = CategoriaPersona.ESTUDIANTE;
+
+
+        Persona persona2 = contratos.editarPersona(persona1);
+
+        logger.debug("Persona from backend: {} {}", persona2.run, persona2.sexo);
+
+        assertNotNull(persona2);
+    }
 }
