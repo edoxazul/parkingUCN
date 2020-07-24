@@ -31,7 +31,7 @@ Project ParkingUCN for the signature Proyecto De Desarrollo e Integración de So
 
 
 
-## UML
+## UML - Diagrama de Clases
 ![Imagén No Disponible](img/diagrama.png)
 --- 
 <details><summary>PlantUML</summary>

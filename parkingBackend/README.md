@@ -9,7 +9,7 @@ Backend del proyecto ParkingUCN para el curso de Desarrollo e Integración De So
 
 [Ignacio Fuenzalida Veas](https://github.com/NaChOoV) -      <ignacio.fuenzalida@alumnos.ucn.cl>
 
-## UML
+## UML - Diagrama de Clases
 ![Imagén No Disponible](img/diagrama.png)
 --- 
 <details><summary>PlantUML</summary>
