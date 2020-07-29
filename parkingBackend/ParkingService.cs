@@ -45,9 +45,14 @@ namespace ParkingBackend
         private readonly Communicator _communicator;
 
         /// <summary>
-        /// Sistema 
+        /// Contratos 
         /// </summary>
         private readonly ContratosDisp_ _contratos;
+        
+        /// <summary>
+        /// Sistema 
+        /// </summary>
+        private readonly TheSystemDisp_ _thesystem;
         
         /// <summary>
         /// Logger
@@ -59,10 +64,11 @@ namespace ParkingBackend
         /// </summary>
         /// <param name="logger">Logger</param>
         /// <param name="contratos">Contratos</param>
-        public ParkingService(ILogger<ParkingService> logger, ContratosDisp_ contratos)
+        public ParkingService(ILogger<ParkingService> logger, ContratosDisp_ contratos, TheSystemDisp_ thesystem)
         {
             _logger = logger;
             _contratos = contratos;
+            _thesystem = thesystem;
             _communicator = BuildCommunicator();
         }
         
@@ -92,14 +98,19 @@ namespace ParkingBackend
             _logger.LogInformation("ParkingService started.");
             
             // Ice adapter
-            var adapter = _communicator.createObjectAdapterWithEndpoints(
+            var contratosAdapter = _communicator.createObjectAdapterWithEndpoints(
                 "Contratos",
                 "tcp -z -t 15000 -p " + _port);
+            var theSystemAdapter = _communicator.createObjectAdapterWithEndpoints(
+                "TheSystem",
+                "tcp -z -t 15000 -p " + (_port + 20) );
             
             // Register in the adapter
-            adapter.add(_contratos, Util.stringToIdentity("Contratos"));
+            contratosAdapter.add(_contratos, Util.stringToIdentity("Contratos"));
+            theSystemAdapter.add(_thesystem, Util.stringToIdentity("TheSystem"));
             
-            adapter.activate();
+            contratosAdapter.activate();
+            theSystemAdapter.activate();
             
             return Task.CompletedTask;
         }

@@ -71,6 +71,9 @@ namespace ParkingBackend
                     // Contratos
                     services.AddSingleton<ContratosDisp_, ContratosImpl>();
                     
+                    // TheSystem
+                    services.AddSingleton<TheSystemDisp_, TheSystemImpl>();
+                    
                     // ParkingService 
                     services.AddHostedService<ParkingService>();
                     

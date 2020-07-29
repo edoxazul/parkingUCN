@@ -156,12 +156,12 @@ module model {
     {
         string reason = "internal error server doesn't connect to database ";
     }
-
+    
     /**
-    * Interfaz de Contratos
-    */
+     * Interfaz de los Contratos
+     */
     interface Contratos {
-
+    
         /**
          * Verificacion de la identidad de una persona.
          * @param run identificador unico de la persona.
@@ -170,7 +170,7 @@ module model {
          */
         Persona verificarPersona(string run)
             throws NotFoundException;
-
+            
         /**
          * Autoriza la entrada o salida del vehiculo.
          * @param patente identificador unico del vehiculo.
@@ -180,6 +180,16 @@ module model {
          */
         Vehiculo autorizarVehiculo(string patente, bool tipo);
             // throws NotFoundException;
+    
+    
+    }
+
+    
+    /**
+    * Interfaz del sistema
+    */
+    interface TheSystem {
+
 
         /**
          * Registrar una nueva persona en el sistema.
@@ -233,10 +243,10 @@ module model {
         Vehiculo editarVehiculo(Vehiculo vehiculo)
         throws ServerException;
 
-        void populateDatabase(Persona persona);
 
 
     }
+    
 
 
 
