@@ -26,10 +26,11 @@ using System;
 using System.Linq;
 using Ice;
 using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ParkingUcn.ZeroIce.model;
-using Exception = System.Exception;
+using Exception = Ice.Exception;
 
 namespace ParkingBackend
 {
@@ -87,7 +88,7 @@ namespace ParkingBackend
                     return parkingContext.Personas.FirstOrDefault(per => per.run == persona.run);
                 }
             }
-            catch (SqliteException exception)
+            catch (DbUpdateException exception)
             {
                 _logger.LogDebug("Error adding : {}",exception.InnerException);
                 throw new DuplicateDataException();
@@ -95,12 +96,12 @@ namespace ParkingBackend
             catch (Exception exception)
             {
                 _logger.LogDebug("Server Error : {}",exception.InnerException);
-                throw new ServerException();
+                throw new ServerException("Unknow internal server error.");
             }
         }
 
         /// <sumary>
-        /// delete a person given the run
+        /// Delete a person given the run
         /// </sumary>
         /// <param name="run">RUN of person</param>
         /// <param name="current">.</param>
@@ -192,7 +193,7 @@ namespace ParkingBackend
                     return parkingContext.Vehiculos.FirstOrDefault(veh => veh.patente == vehiculo.patente);
                 }
             }
-            catch (SqliteException exception)
+            catch (DbUpdateException exception)
             {
                 _logger.LogDebug("Error adding : {}", exception.InnerException);
                 throw new DuplicateDataException();
