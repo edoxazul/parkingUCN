@@ -139,6 +139,37 @@ module model {
         string runDuenio;
         
     }
+
+    /**
+     * Registro acceso de vehiculos.
+     */
+     ["cs:property"]
+     class Acceso {
+
+        /** 
+         * Id 
+         */
+        int uid;
+        
+        /** 
+         * Timestamp
+         */
+        string horaEntrada;
+        
+        /** 
+         * Patente del vehiculo 
+         */
+        string patente;
+
+     }
+    
+    
+    
+    /**
+     * Listas de vehiculos.
+     */
+    sequence<Vehiculo> Vehiculos;    
+    
     
     exception RunRelationNotFoundException
     {
@@ -174,12 +205,20 @@ module model {
         /**
          * Autoriza la entrada o salida del vehiculo.
          * @param patente identificador unico del vehiculo.
-         * @param tipo el vehiculo puede entrar(true) o salir(false).
          * @return Vehiculo confirmada la entrada/salida en el sistema, se retornan los datos del vehiculo.
          * @throws NotFoundException si la informacion ingresada no existe.
          */
-        Vehiculo autorizarVehiculo(string patente, bool tipo);
+        Vehiculo autorizarVehiculo(string patente);
             // throws NotFoundException;
+        
+        /**
+         * Obtener Los vehiculos asuciados al run de la persona
+         * @param run identificador unico del vehiculo y la persona.
+         * @return Vehiculos secuencia de objetos de tipo vehiculo.
+         * @throws NotFoundException si la informacion solicitada no existe.
+         */
+        Vehiculos obtenerVehiculos(string run)
+            throws NotFoundException;
     
     
     }
