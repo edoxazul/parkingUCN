@@ -68,27 +68,65 @@ namespace ParkingBackend
             _logger.LogDebug("Done.");
         }
 
-        /// <sumary>
-        /// check if the person exists given a run
-        /// </sumary>
-        /// <param name="run">RUN of person</param>
-        /// <param name="current">.</param>
+        /// <summary>
+        /// Check if the person exists given a run.
+        /// </summary>
+        /// <param name="run"></param>
+        /// <param name="current"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
+        /// <exception cref="ServerException"></exception>
         public override Persona verificarPersona(string run, Current current = null)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using var scope = _serviceScopeFactory.CreateScope();
+                {
+                    ParkingContext parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
+                    Persona persona = parkingContext.Personas
+                        .FirstOrDefault(p => p.run == run);
+
+                    if (persona == null)
+                    {
+                        throw new NotFoundException("Person not found.");
+                    }
+                    return persona;
+                }
+            }
+            catch (NotFoundException exception)
+            {
+                _logger.LogDebug("Error finding : {}",exception);
+                throw new NotFoundException();
+            }
+            catch (Exception exception)
+            {
+                _logger.LogDebug("Server Error : {}", exception);
+                throw new ServerException();
+            }
         }
 
-        /// <sumary>
-        /// authorize a vehicle given a patent
-        /// </sumary>
-        /// <param name="patente">patent of vehicle</param>
-        /// <param name="current">.</param>
-        /// <param name="tipo">type of person</param>
-        public override Vehiculo autorizarVehiculo(string patente, bool tipo, Current current = null)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="patente"></param>
+        /// <param name="current"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public override Vehiculo autorizarVehiculo(string patente, Current current = null)
         {
             throw new NotImplementedException();
         }
         
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="run"></param>
+        /// <param name="current"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public override Vehiculo[] obtenerVehiculos(string run, Current current = null)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

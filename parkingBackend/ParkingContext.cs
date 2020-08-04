@@ -30,9 +30,11 @@ namespace ParkingBackend
 
     public class ParkingContext : DbContext
     {
-        public DbSet<Persona> Personas {get; set;}
+        public DbSet<Persona> Personas {get; set; }
         
-        public DbSet<Vehiculo> Vehiculos {get; set;}
+        public DbSet<Vehiculo> Vehiculos {get; set; }
+        
+        public DbSet<Acceso> Accesos { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -70,7 +72,7 @@ namespace ParkingBackend
                     email = "fuenzalida.veas@gmail.com",
                     telefonoMovil = "+56 9 9978635",
                     telefonoFijo = null,
-                    categoriaPersona = new CategoriaPersona()
+                    categoriaPersona = CategoriaPersona.ESTUDIANTE
                 }
             );
             
@@ -104,6 +106,27 @@ namespace ParkingBackend
                     runDuenio = "193982336"
                 }
             );
+
+            modelBuilder.Entity<Acceso>(a =>
+            {
+                a.HasKey(a => a.uid);
+                a.Property(a => a.uid).ValueGeneratedOnAdd();
+                
+                a.Property(a => a.patente).IsRequired();
+
+                a.Property(a => a.horaEntrada).IsRequired();
+            });
+
+            modelBuilder.Entity<Acceso>().HasData(
+                new Acceso()
+                {
+                    uid = 1,
+                    patente = "CHLJ90",
+                    horaEntrada = "2020-01-01 13:30:30"
+                }
+            );
+
+
         }
     }
 }
