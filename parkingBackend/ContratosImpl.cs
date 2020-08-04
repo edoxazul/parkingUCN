@@ -88,7 +88,7 @@ namespace ParkingBackend
 
                     if (persona == null)
                     {
-                        throw new NotFoundException("Person not found.");
+                        throw new NotFoundException("Person not found for run: " + run);
                     }
                     return persona;
                 }
@@ -126,7 +126,36 @@ namespace ParkingBackend
         /// <exception cref="NotImplementedException"></exception>
         public override Vehiculo[] obtenerVehiculos(string run, Current current = null)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using var scope = _serviceScopeFactory.CreateScope();
+                {
+                    ParkingContext parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
+                    
+                    Vehiculo[] vehiculos = parkingContext
+                        .Vehiculos
+                        .Where(v => v.runDuenio == run)
+                        .ToArray();
+
+                    if (vehiculos.Length == 0)
+                    {
+                        throw new NotFoundException("No vehicles found for run: " + run);
+                    }
+
+                    return vehiculos;
+
+                }
+            }
+            catch (NotFoundException exception)
+            {
+                _logger.LogDebug("Error finding : {}",exception);
+                throw new NotFoundException();
+            }
+            catch (Exception exception)
+            {
+                _logger.LogDebug("Server Error : {}", exception);
+                throw new ServerException();
+            }
         }
     }
 }
