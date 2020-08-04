@@ -34,7 +34,10 @@ import cl.ucn.disc.pdis.parkingucn.zeroice.model.ContratosPrx;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.NotFoundException;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.Persona;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.ServerException;
+import cl.ucn.disc.pdis.parkingucn.zeroice.model.Vehiculo;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 
@@ -62,6 +65,32 @@ public class ContratosTest {
         assertThrows(NotFoundException.class,
                 () -> contratosPrx.verificarPersona("999999999"));
         logger.debug("DONE: Exception reach for no person found!");
+
+    }
+
+    @Test
+    public void obtenerVehiculo() throws NotFoundException {
+
+        ZeroIce ice = new ZeroIce();
+        ice.start();
+        ContratosPrx contratosPrx = ice.getContratos();
+
+        logger.info("Waiting for person: 193982336");
+        Vehiculo[] vehiculos = contratosPrx.obtenerVehiculos("193982336");
+
+
+        assertEquals(vehiculos.length,2);
+        logger.debug("DONE: Vehicles returned susccefully!");
+
+        for(Vehiculo veh : vehiculos){
+            logger.debug("{} {} {}",veh.patente,veh.marca,veh.modelo);
+
+        }
+
+        logger.info("Sending vehicle's run that don't exist on the database.");
+        assertThrows(NotFoundException.class,
+                () -> contratosPrx.obtenerVehiculos("999999999"));
+        logger.debug("DONE: Exception reach for no vehicles found for that run!");
 
 
     }
