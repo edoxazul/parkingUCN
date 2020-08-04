@@ -200,7 +200,7 @@ module model {
          * @throws NotFoundException si la informacion ingresada no existe.
          */
         Persona verificarPersona(string run)
-            throws NotFoundException;
+            throws NotFoundException, ServerException;
             
         /**
          * Autoriza la entrada o salida del vehiculo.
