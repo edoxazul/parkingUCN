@@ -28,6 +28,9 @@ package cl.ucn.disc.pdis.parkingapp;
 
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.Contratos;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.ContratosPrx;
+import cl.ucn.disc.pdis.parkingucn.zeroice.model.TheSystem;
+import cl.ucn.disc.pdis.parkingucn.zeroice.model.TheSystemPrx;
+
 import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.InitializationData;
 import com.zeroc.Ice.ObjectPrx;
@@ -55,6 +58,9 @@ public final class ZeroIce {
   //The Contratos implementation.
   private ContratosPrx theContratos;
 
+  //The System implementation.
+  private TheSystemPrx theSystem;
+
   /**
    * The Constructor.
    */
@@ -77,6 +83,8 @@ public final class ZeroIce {
     return this.theContratos;
   }
 
+  public TheSystemPrx getTheSystem() { return this.theSystem; }
+
   /**
    * Start the Communications.
    */
@@ -89,15 +97,24 @@ public final class ZeroIce {
     this.theCommunicator = Util.initialize(getInitializationData(args));
 
 
-    // The name
+    // The name of Contratos
     String name = Contratos.class.getSimpleName();
     log.debug("Proxying <{}> ..", name);
 
-    // The proxy 4 TheSystem
+    // The proxy 4 TheContratos
     ObjectPrx theProxy = this.theCommunicator.stringToProxy(name + ":tcp -z -t 15000 -p 4000");
 
     // Trying to cast the proxy
     this.theContratos = ContratosPrx.checkedCast(theProxy);
+
+    // The name
+    name = TheSystem.class.getSimpleName();
+    log.debug("Proxying <{}> ..", name);
+
+    // The proxy 4 TheContratos
+    theProxy = this.theCommunicator.stringToProxy(name + ":tcp -z -t 15000 -p 4020");
+
+    this.theSystem = TheSystemPrx.checkedCast(theProxy);
   }
 
   /**
@@ -138,6 +155,7 @@ public final class ZeroIce {
       return;
     }
     this.theContratos = null;
+    this.theSystem = null;
     this.theCommunicator.destroy();
 
   }

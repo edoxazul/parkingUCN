@@ -106,6 +106,18 @@ namespace ParkingBackend
                     runDuenio = "193982336"
                 }
             );
+            
+            modelBuilder.Entity<Vehiculo>().HasData(
+                new  Vehiculo(){
+                    uid = 2,
+                    patente = "CHLJ99",
+                    marca = "Tupolev",
+                    modelo = "ceratotin",
+                    anio = 2020,
+                    observaciones= "Sin obervaciones",
+                    runDuenio = "193982336"
+                }
+            );
 
             modelBuilder.Entity<Acceso>(a =>
             {
