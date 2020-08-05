@@ -263,7 +263,7 @@ module model {
          * @throws DuplicateDataException la informacion ingresada ya existe en el sistema.
          */
         Vehiculo registrarVehiculo(Vehiculo vehiculo)
-             throws DuplicateDataException, RunRelationNotFoundException , ServerException;
+            throws DuplicateDataException, RunRelationNotFoundException , ServerException;
 
         /**
          * Eliminar un vehiculo del sistema.
@@ -281,12 +281,6 @@ module model {
          */
         Vehiculo editarVehiculo(Vehiculo vehiculo)
         throws ServerException;
-
-
-
     }
     
-
-
-
 }
