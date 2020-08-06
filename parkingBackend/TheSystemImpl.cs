@@ -278,7 +278,7 @@ namespace ParkingBackend
             }
         }
 
-        public override int getDelay(int time, Current current = null)
+        public override long getDelay (long time, Current current = null)
         {
             return (int) DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - time;
         }

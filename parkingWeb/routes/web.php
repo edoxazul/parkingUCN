@@ -32,6 +32,17 @@ Route::get('/test',function (){
             throw new RuntimeException("Invalid proxy");
         }
         echo "Connection completed";
+        echo "<br>";
+
+        $client_time = (int) round(microtime(true)*1000);
+        echo("Client time: ".$client_time);
+
+        // Calls interface method
+        $delay = $connection->getDelay($client_time);
+        echo "<br>";
+        echo("Delay: ".$delay);
+        
+
 
     }
     catch(Exception $ex)

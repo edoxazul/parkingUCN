@@ -287,7 +287,7 @@ module model {
 	* @param Tiempo del cliente
 	* @return delay entre cliente/servidor
 	*/
-	int getDelay(int time)
+	long getDelay(long time)
 	throws ServerException;
     }	
     
