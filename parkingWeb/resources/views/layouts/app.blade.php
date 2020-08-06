@@ -49,6 +49,14 @@
                 <li class="nav-item active">
                     <a class="nav-link text-white font-weight-bold btn-lg" href="{{ url('/') }}">Inicio</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <div class="nav-link dropdown-toggle text-white btn-lg" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"> Persona
+                    </div>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url('/persona') }}">Ingresar Persona</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
