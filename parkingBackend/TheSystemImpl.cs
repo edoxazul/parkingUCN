@@ -277,8 +277,10 @@ namespace ParkingBackend
                 throw new ServerException();
             }
         }
-        
-        
-        
+
+        public override long getDelay (long time, Current current = null)
+        {
+            return (int) DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - time;
+        }
     }
 }

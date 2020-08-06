@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 require_once 'Ice.php';
-require '..\..\domain.php';
 
+//for fixed dir from domain.php
+require_once __DIR__."/../../domain.php";
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,28 +18,40 @@ require '..\..\domain.php';
 
 Route::get('/', function () {
 
-    
-    $ic = null;
-        try
-        {
-            $ic = Ice\initialize();
-            $proxy = $ic->stringToProxy("Test:default -p 4000");
-            $connection = model\TheSystemPrxHelper::checkedCast($proxy);
-            if(!$connection)
-            {
-                throw new RuntimeException("Invalid proxy");
-            }
-            
-        }
-        catch(Exception $ex)
-        {
-            echo $ex;
-        }
-
-        if($ic)
-        {
-            $ic->destroy(); // Clean up
-        }
-
     return view('welcome');
+});
+
+Route::get('/test',function (){
+    $ic = null;
+    try
+    {
+        $ic = Ice\initialize();
+        $proxy = $ic->stringToProxy("TheSystem:default -p 4020");
+        $connection = model\TheSystemPrxHelper::checkedCast($proxy);
+        if(!$connection)
+        {
+            echo "Error in connection";
+            throw new RuntimeException("Invalid proxy");
+        }
+        echo "Connection completed";
+        echo "<br>";
+
+        $client_time = (int) round(microtime(true)*1000);
+        echo("Client time: ".$client_time);
+
+        // Calls interface method
+        $delay = $connection->getDelay($client_time);
+        echo "<br>";
+        echo("Delay: ".$delay);
+
+    }
+    catch(Exception $ex)
+    {
+        echo $ex;
+    }
+
+    if($ic)
+    {
+        $ic->destroy(); // Clean up
+    }
 });
