@@ -57,6 +57,9 @@
                         <a class="dropdown-item" href="{{ url('/persona') }}">Ingresar Persona</a>
                     </div>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link text-white btn-lg" href="{{ url('/test') }}">Test Connection</a>
+                </li>
             </ul>
         </div>
     </nav>
