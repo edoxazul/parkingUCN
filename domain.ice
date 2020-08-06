@@ -41,6 +41,15 @@ module model {
     enum Sexo {
         VAR,MUJ,OTHER
     }
+    
+    /**
+    * Estado del vehiculo
+    * IN: Vehiculo dentro del campus
+    * OUT: Vehiculo fuera del campus
+    */
+    enum Location {
+        OUT,IN
+    }
 
 
     /**
@@ -138,6 +147,11 @@ module model {
          */
         string runDuenio;
         
+        /**
+         * Lugar, dentro/fuera del campus
+         */
+         Location location;
+        
     }
 
     /**
@@ -183,6 +197,11 @@ module model {
     {
         string reason = "information already exist on the system's database";
     }
+    exception NotAuthorizedException
+    {
+        string reason = "the operation can't be authorized";
+        Location location;
+    }
     exception ServerException 
     {
         string reason = "internal error server doesn't connect to database ";
@@ -205,11 +224,12 @@ module model {
         /**
          * Autoriza la entrada o salida del vehiculo.
          * @param patente identificador unico del vehiculo.
-         * @return Vehiculo confirmada la entrada/salida en el sistema, se retornan los datos del vehiculo.
+         * @param location indica si el vehiculo esta ingresando o saliendo.
+         * @return Acceso confirmada la entrada/salida en el sistema, se retornan los datos del vehiculo.
          * @throws NotFoundException si la informacion ingresada no existe.
          */
-        Vehiculo autorizarVehiculo(string patente);
-            // throws NotFoundException;
+        Acceso autorizarVehiculo(string patente, Location location)
+            throws NotAuthorizedException, ServerException;
         
         /**
          * Obtener Los vehiculos asuciados al run de la persona

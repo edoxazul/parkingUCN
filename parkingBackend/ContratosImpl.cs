@@ -109,12 +109,52 @@ namespace ParkingBackend
         /// 
         /// </summary>
         /// <param name="patente"></param>
+        /// <param name="location"></param>
         /// <param name="current"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public override Vehiculo autorizarVehiculo(string patente, Current current = null)
+        /// <exception cref="NotAuthorizedException"></exception>
+        /// <exception cref="ServerException"></exception>
+        public override Acceso autorizarVehiculo(string patente, Location location, Current current = null)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using var scope = _serviceScopeFactory.CreateScope();
+                {
+                    ParkingContext parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
+                    Vehiculo vehiculo = parkingContext.Vehiculos
+                        .FirstOrDefault(v => v.patente == patente);
+
+                    if (vehiculo.location == location)
+                    {
+                        throw new NotAuthorizedException("Vehicle not authorized for that operation", location);
+                    }
+
+                    vehiculo.location = location;
+                    parkingContext.Vehiculos.Update(vehiculo);
+                    
+                    Acceso acceso = new Acceso();
+                    acceso.patente = patente;
+                    acceso.horaEntrada = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    
+                    parkingContext.Accesos.Add(acceso);
+                    parkingContext.SaveChanges();
+                    
+                    return acceso;
+                }
+            }
+            catch (NotAuthorizedException exception)
+            {
+                _logger.LogDebug("Error authorizing : {}",exception);
+                throw new NotAuthorizedException(exception.reason, exception.location);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogDebug("Server Error : {}", exception);
+                throw new ServerException();
+            }
+            
+            
+            
         }
         
         /// <summary>

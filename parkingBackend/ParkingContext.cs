@@ -24,6 +24,7 @@
 using System.Reflection;
 using ParkingUcn.ZeroIce.model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
 namespace ParkingBackend
 {
@@ -92,6 +93,9 @@ namespace ParkingBackend
                 v.Property(v => v.modelo).IsRequired();
 
                 v.Property(v => v.runDuenio).IsRequired();
+                
+                v.Property(v => v.location).IsRequired();
+                
             });
             
             // Insert the data
@@ -103,7 +107,9 @@ namespace ParkingBackend
                     modelo = "cerato",
                     anio = 2002,
                     observaciones= "observaciones",
-                    runDuenio = "193982336"
+                    runDuenio = "193982336",
+                    location = Location.IN
+                    
                 }
             );
             
@@ -115,7 +121,8 @@ namespace ParkingBackend
                     modelo = "ceratotin",
                     anio = 2020,
                     observaciones= "Sin obervaciones",
-                    runDuenio = "193982336"
+                    runDuenio = "193982336",
+                    location = Location.OUT
                 }
             );
 
@@ -127,6 +134,7 @@ namespace ParkingBackend
                 a.Property(a => a.patente).IsRequired();
 
                 a.Property(a => a.horaEntrada).IsRequired();
+                
             });
 
             modelBuilder.Entity<Acceso>().HasData(
