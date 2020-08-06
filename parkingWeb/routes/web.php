@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 require_once 'Ice.php';
-require '..\..\domain.php';
-
+require_once '../../domain.php';
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,28 +16,31 @@ require '..\..\domain.php';
 
 Route::get('/', function () {
 
-    
-    $ic = null;
-        try
-        {
-            $ic = Ice\initialize();
-            $proxy = $ic->stringToProxy("Test:default -p 4000");
-            $connection = model\TheSystemPrxHelper::checkedCast($proxy);
-            if(!$connection)
-            {
-                throw new RuntimeException("Invalid proxy");
-            }
-            
-        }
-        catch(Exception $ex)
-        {
-            echo $ex;
-        }
-
-        if($ic)
-        {
-            $ic->destroy(); // Clean up
-        }
-
     return view('welcome');
+});
+
+Route::get('/test',function (){
+    $ic = null;
+    try
+    {
+        $ic = Ice\initialize();
+        $proxy = $ic->stringToProxy("TheSystem:default -p 4020");
+        $connection = model\TheSystemPrxHelper::checkedCast($proxy);
+        if(!$connection)
+        {
+            echo "Error in connection";
+            throw new RuntimeException("Invalid proxy");
+        }
+        echo "Connection completed";
+
+    }
+    catch(Exception $ex)
+    {
+        echo $ex;
+    }
+
+    if($ic)
+    {
+        $ic->destroy(); // Clean up
+    }
 });

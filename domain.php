@@ -392,11 +392,13 @@ namespace model
     global $model__t_Persona;
     global $IcePHP__t_string;
     global $model__t_Vehiculo;
+    global $IcePHP__t_int;
     IcePHP_defineOperation($model__t_TheSystemPrx, 'registrarPersona', 0, 0, 0, array(array($model__t_Persona)), null, array($model__t_Persona), array($model__t_DuplicateDataException, $model__t_ServerException));
     IcePHP_defineOperation($model__t_TheSystemPrx, 'eliminarPersona', 0, 0, 0, array(array($IcePHP__t_string)), null, array($model__t_Persona), array($model__t_ServerException));
     IcePHP_defineOperation($model__t_TheSystemPrx, 'editarPersona', 0, 0, 0, array(array($model__t_Persona)), null, array($model__t_Persona), array($model__t_ServerException));
     IcePHP_defineOperation($model__t_TheSystemPrx, 'registrarVehiculo', 0, 0, 0, array(array($model__t_Vehiculo)), null, array($model__t_Vehiculo), array($model__t_DuplicateDataException, $model__t_RunRelationNotFoundException, $model__t_ServerException));
     IcePHP_defineOperation($model__t_TheSystemPrx, 'eliminarVehiculo', 0, 0, 0, array(array($IcePHP__t_string)), null, array($model__t_Vehiculo), array($model__t_ServerException));
     IcePHP_defineOperation($model__t_TheSystemPrx, 'editarVehiculo', 0, 0, 0, array(array($model__t_Vehiculo)), null, array($model__t_Vehiculo), array($model__t_ServerException));
+    IcePHP_defineOperation($model__t_TheSystemPrx, 'getDelay', 0, 0, 0, array(array($IcePHP__t_int)), null, array($IcePHP__t_int), array($model__t_ServerException));
 }
 ?>

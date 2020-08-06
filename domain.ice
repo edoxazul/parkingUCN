@@ -281,6 +281,14 @@ module model {
          */
         Vehiculo editarVehiculo(Vehiculo vehiculo)
         throws ServerException;
-    }
+	
+       /**
+	* Devuelve del delay entre el cliente y el server
+	* @param Tiempo del cliente
+	* @return delay entre cliente/servidor
+	*/
+	int getDelay(int time)
+	throws ServerException;
+    }	
     
 }
