@@ -21,4 +21,5 @@ class PersonaController extends Controller
         $tipo = $request->input("tipo");
 
         //Insert data in DB
+    }
 }

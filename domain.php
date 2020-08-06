@@ -43,6 +43,18 @@ namespace model
 
 namespace model
 {
+    global $model__t_Location;
+    class Location
+    {
+        const OUT = 0;
+        const IN = 1;
+    }
+
+    $model__t_Location = IcePHP_defineEnum('::model::Location', array('OUT', 0, 'IN', 1));
+}
+
+namespace model
+{
     global $model__t_Persona;
     class Persona extends \Ice\Value
     {
@@ -108,7 +120,7 @@ namespace model
     global $model__t_Vehiculo;
     class Vehiculo extends \Ice\Value
     {
-        public function __construct($uid=0, $patente='', $marca='', $modelo='', $anio=0, $observaciones='', $runDuenio='')
+        public function __construct($uid=0, $patente='', $marca='', $modelo='', $anio=0, $observaciones='', $runDuenio='', $location=\model\Location::OUT)
         {
             $this->uid = $uid;
             $this->patente = $patente;
@@ -117,6 +129,7 @@ namespace model
             $this->anio = $anio;
             $this->observaciones = $observaciones;
             $this->runDuenio = $runDuenio;
+            $this->location = $location;
         }
 
         public function ice_id()
@@ -142,11 +155,13 @@ namespace model
         public $anio;
         public $observaciones;
         public $runDuenio;
+        public $location;
     }
 
     global $Ice__t_Value;
     global $IcePHP__t_int;
     global $IcePHP__t_string;
+    global $model__t_Location;
     $model__t_Vehiculo = IcePHP_defineClass('::model::Vehiculo', '\\model\\Vehiculo', -1, false, false, $Ice__t_Value, array(
         array('uid', $IcePHP__t_int, false, 0),
         array('patente', $IcePHP__t_string, false, 0),
@@ -154,7 +169,8 @@ namespace model
         array('modelo', $IcePHP__t_string, false, 0),
         array('anio', $IcePHP__t_int, false, 0),
         array('observaciones', $IcePHP__t_string, false, 0),
-        array('runDuenio', $IcePHP__t_string, false, 0)));
+        array('runDuenio', $IcePHP__t_string, false, 0),
+        array('location', $model__t_Location, false, 0)));
 }
 
 namespace model
@@ -299,6 +315,39 @@ namespace model
 
 namespace model
 {
+    global $model__t_NotAuthorizedException;
+    class NotAuthorizedException extends \Ice\UserException
+    {
+        public function __construct($reason="the operation can't be authorized", $location=\model\Location::OUT)
+        {
+            $this->reason = $reason;
+            $this->location = $location;
+        }
+
+        public function ice_id()
+        {
+            return '::model::NotAuthorizedException';
+        }
+
+        public function __toString()
+        {
+            global $model__t_NotAuthorizedException;
+            return IcePHP_stringifyException($this, $model__t_NotAuthorizedException);
+        }
+
+        public $reason;
+        public $location;
+    }
+    global $IcePHP__t_string;
+    global $model__t_Location;
+
+    $model__t_NotAuthorizedException = IcePHP_defineException('::model::NotAuthorizedException', '\\model\\NotAuthorizedException', false, null, array(
+        array('reason', $IcePHP__t_string, false, 0),
+        array('location', $model__t_Location, false, 0)));
+}
+
+namespace model
+{
     global $model__t_ServerException;
     class ServerException extends \Ice\UserException
     {
@@ -355,10 +404,11 @@ namespace model
 
     global $IcePHP__t_string;
     global $model__t_Persona;
-    global $model__t_Vehiculo;
+    global $model__t_Location;
+    global $model__t_Acceso;
     global $model__t_Vehiculos;
     IcePHP_defineOperation($model__t_ContratosPrx, 'verificarPersona', 0, 0, 0, array(array($IcePHP__t_string)), null, array($model__t_Persona), array($model__t_NotFoundException, $model__t_ServerException));
-    IcePHP_defineOperation($model__t_ContratosPrx, 'autorizarVehiculo', 0, 0, 0, array(array($IcePHP__t_string)), null, array($model__t_Vehiculo), null);
+    IcePHP_defineOperation($model__t_ContratosPrx, 'autorizarVehiculo', 0, 0, 0, array(array($IcePHP__t_string), array($model__t_Location)), null, array($model__t_Acceso), array($model__t_NotAuthorizedException, $model__t_ServerException));
     IcePHP_defineOperation($model__t_ContratosPrx, 'obtenerVehiculos', 0, 0, 0, array(array($IcePHP__t_string)), null, array($model__t_Vehiculos), array($model__t_NotFoundException));
 }
 
