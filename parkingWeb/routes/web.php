@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 require_once 'Ice.php';
-require_once '../../domain.php';
+
+//for fixed dir from domain.php
+require_once __DIR__."/../../domain.php";
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,8 +43,6 @@ Route::get('/test',function (){
         $delay = $connection->getDelay($client_time);
         echo "<br>";
         echo("Delay: ".$delay);
-        
-
 
     }
     catch(Exception $ex)
