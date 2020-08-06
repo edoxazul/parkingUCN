@@ -30,7 +30,10 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cl.ucn.disc.pdis.parkingucn.zeroice.model.Acceso;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.ContratosPrx;
+import cl.ucn.disc.pdis.parkingucn.zeroice.model.Location;
+import cl.ucn.disc.pdis.parkingucn.zeroice.model.NotAuthorizedException;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.NotFoundException;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.Persona;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.ServerException;
@@ -84,7 +87,6 @@ public class ContratosTest {
 
         for(Vehiculo veh : vehiculos){
             logger.debug("{} {} {}",veh.patente,veh.marca,veh.modelo);
-
         }
 
         logger.info("Sending vehicle's run that don't exist on the database.");
@@ -92,6 +94,36 @@ public class ContratosTest {
                 () -> contratosPrx.obtenerVehiculos("999999999"));
         logger.debug("DONE: Exception reach for no vehicles found for that run!");
 
+    }
+
+    @Test
+    public void autorizarVehiculo() throws NotAuthorizedException, ServerException {
+
+        ZeroIce ice = new ZeroIce();
+        ice.start();
+        ContratosPrx contratosPrx = ice.getContratos();
+
+        logger.info("Authorize a vehicle who want to OUT.");
+        Acceso acceso = contratosPrx.autorizarVehiculo("CHLJ90", Location.OUT);
+        assertNotNull(acceso);
+        logger.debug("DONE: Vehicle authorized succefully to OUT!");
+        logger.debug("ACCESS: {} {}", acceso.horaEntrada, acceso.patente);
+
+        logger.info("Duplicating the same request.");
+        assertThrows(NotAuthorizedException.class,
+                () -> contratosPrx.autorizarVehiculo("CHLJ90", Location.OUT));
+        logger.debug("DONE: Exception reach for not authorized vehicle!");
+
+        logger.info("Authorize a vehicle who want to IN.");
+        acceso = contratosPrx.autorizarVehiculo("CHLJ99", Location.IN);
+        assertNotNull(acceso);
+        logger.debug("DONE: Vehicle authorized succefully to IN!");
+        logger.debug("ACCESS: {} {}", acceso.horaEntrada, acceso.patente);
+
+        logger.info("Duplicating the same request.");
+        assertThrows(NotAuthorizedException.class,
+                () -> contratosPrx.autorizarVehiculo("CHLJ99", Location.IN));
+        logger.debug("DONE: Exception reach for not authorized vehicle!");
 
     }
 }

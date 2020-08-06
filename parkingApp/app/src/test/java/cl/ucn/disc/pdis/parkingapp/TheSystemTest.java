@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.CategoriaPersona;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.DuplicateDataException;
+import cl.ucn.disc.pdis.parkingucn.zeroice.model.Location;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.Persona;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.RunRelationNotFoundException;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.ServerException;
@@ -89,6 +90,7 @@ public class TheSystemTest {
         vehiculo1.anio = 3000;
         vehiculo1.observaciones = "Sin capo";
         vehiculo1.runDuenio = "193982336";
+        vehiculo1.location = Location.IN;
 
         logger.debug("Vehiculo to backend: {} {} {}",
                 vehiculo1.patente,
@@ -118,6 +120,7 @@ public class TheSystemTest {
         vehiculo3.anio = 4000;
         vehiculo3.observaciones = "Sin capo";
         vehiculo3.runDuenio = "1234552";
+        vehiculo3.location = Location.OUT;
 
         assertThrows(RunRelationNotFoundException.class,
                 () -> systemPrx.registrarVehiculo(vehiculo3));
@@ -178,6 +181,7 @@ public class TheSystemTest {
         vehiculo1.anio = 3000;
         vehiculo1.observaciones = "Nueva observacion test";
         vehiculo1.runDuenio = "193982336";
+        vehiculo1.location = Location.OUT;
 
 
         Vehiculo vehiculo2 = theSystemPrx.editarVehiculo(vehiculo1);
