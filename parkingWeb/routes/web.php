@@ -16,10 +16,13 @@ require_once __DIR__."/../../domain.php";
 |
 */
 
-Route::get('/', function () {
+Route::get('/persona','PersonaController@persona');
+Route::post('/persona','PersonaController@insertar');
 
+Route::get('/', function () {
     return view('welcome');
 });
+
 
 Route::get('/test',function (){
     $ic = null;
