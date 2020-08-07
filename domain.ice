@@ -238,7 +238,7 @@ module model {
          * @throws NotFoundException si la informacion solicitada no existe.
          */
         Vehiculos obtenerVehiculos(string run)
-            throws NotFoundException;
+            throws NotFoundException, ServerException;
     
     
     }

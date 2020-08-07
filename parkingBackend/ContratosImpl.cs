@@ -71,11 +71,11 @@ namespace ParkingBackend
         /// <summary>
         /// Check if the person exists given a run.
         /// </summary>
-        /// <param name="run"></param>
+        /// <param name="run">Unique id of the person</param>
         /// <param name="current"></param>
-        /// <returns></returns>
-        /// <exception cref="NotFoundException"></exception>
-        /// <exception cref="ServerException"></exception>
+        /// <returns>The persona for confirmation</returns>
+        /// <exception cref="NotFoundException">The person was not found</exception>
+        /// <exception cref="ServerException">Internal server error</exception>
         public override Persona verificarPersona(string run, Current current = null)
         {
             try
@@ -106,12 +106,12 @@ namespace ParkingBackend
         }
 
         /// <summary>
-        /// 
+        /// Authorize a vehicle to go in or out of the campus.
         /// </summary>
-        /// <param name="patente"></param>
-        /// <param name="location"></param>
+        /// <param name="patente">Unique id of the vehicle</param>
+        /// <param name="location">IN or OUT specification</param>
         /// <param name="current"></param>
-        /// <returns></returns>
+        /// <returns>The access log for confirmation</returns>
         /// <exception cref="NotAuthorizedException"></exception>
         /// <exception cref="ServerException"></exception>
         public override Acceso autorizarVehiculo(string patente, Location location, Current current = null)
@@ -152,18 +152,16 @@ namespace ParkingBackend
                 _logger.LogDebug("Server Error : {}", exception);
                 throw new ServerException();
             }
-            
-            
-            
         }
         
         /// <summary>
-        /// 
+        /// Get all the vehicles from the person's run.
         /// </summary>
-        /// <param name="run"></param>
+        /// <param name="run">Unique id of the person</param>
         /// <param name="current"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
+        /// <returns>All vehicles related with the run</returns>
+        /// <exception cref="NotFoundException">No vehicles found</exception>
+        /// <exception cref="ServerException">Internal server error</exception>
         public override Vehiculo[] obtenerVehiculos(string run, Current current = null)
         {
             try

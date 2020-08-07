@@ -105,7 +105,7 @@ namespace ParkingBackend
                 "TheSystem",
                 "tcp -z -t 15000 -p " + (_port + 20) );
             
-            // Register in the adapter
+            
             contratosAdapter.add(_contratos, Util.stringToIdentity("Contratos"));
             theSystemAdapter.add(_thesystem, Util.stringToIdentity("TheSystem"));
             
