@@ -36,7 +36,7 @@ class ConnectionController extends Controller
     public function connectionTest(){
 
         try
-        {
+        {   // Ice connection
             $ice = \Ice\Initialize();
             $proxy = $ice->stringToProxy("TheSystem:default -p 4020");
             $connection = \model\TheSystemPrxHelper::checkedCast($proxy);
@@ -62,7 +62,7 @@ class ConnectionController extends Controller
 
         if($ice)
         {
-            $ice->destroy(); // Clean up
+            $ice->destroy();
         }
     }
 }
