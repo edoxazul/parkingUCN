@@ -26,6 +26,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use http\Url;
+use model\Persona;
 require_once 'Ice.php';
 //for fixed dir from domain.php
 require_once  base_path()."./../domain.php";
@@ -45,7 +46,8 @@ class PersonaController extends Controller
         $email = $request->input("email");
         $tipo = $request->input("tipo");
 
-
+        $sexoVal =0;
+        $categoriaVal=0;
         // ZeroIce
         $ice = null;
         $theSystem = null;
@@ -55,15 +57,42 @@ class PersonaController extends Controller
             $proxy = $ice->stringToProxy("TheSystem:default -p 4020");
             $theSystem = \model\TheSystemPrxHelper::checkedCast($proxy);
 
-            if (!$theSystem) {
-
-                // TODO: Create a person a send this to backend for save
+            //Verification of sex;
+            if ($sexo == 'Hombre') {
+                $sexoVal = 0;
+            } elseif ($sexo =='Mujer') {
+                $sexoVal = 1;
+            } else {
+                $sexoVal=2;
             }
+
+            // Verificacion of categoriaPersona;
+
+            if ($tipo == 'Funcionario') {
+                $categoriaVal = 0;
+            } elseif ($tipo =='Academico') {
+                $categoriaVal = 1;
+            } else {
+                $categoriaVal=2;
+            }
+
+            // TODO: change labels in view and uid
+            $persona = new Persona();
+            $persona->run=$rut;
+            $persona->nombre = $nombre;
+            $persona->emal= $email;
+            $persona->sexo=$sexoVal;
+            $persona->categoriaPersona=$categoriaVal;
+
+            $theSystem->registrarPersona($persona);
+
         } catch (Exception $ex) {
             echo $ex;
         }
 
-
+        if ($ice){
+            $ice->destroy();
+        }
 
     }
 }

@@ -32,7 +32,8 @@
 
     {{ Form::label('tipo','Tipo de Persona:')}}
     {{ Form::select("tipo",["Estudiante" => "Estudiante",
-                            "Académico" => "Académico"],
+                            "Académico" => "Académico",
+                            "Funcionario"=>"Funcionario"],
     null,['class' => 'form-control', 'placeholder'=>'Seleccionar Tipo']) }}
 </div>
 
