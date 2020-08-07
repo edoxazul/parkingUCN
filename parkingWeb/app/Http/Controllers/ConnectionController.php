@@ -1,4 +1,5 @@
 <?php
+
 /*
  * MIT License
  *
@@ -23,29 +24,45 @@
  * SOFTWARE.
  */
 
-use Illuminate\Support\Facades\Route;
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use http\Url;
 require_once 'Ice.php';
 
-//for fixed dir from domain.php
-require_once __DIR__."/../../domain.php";
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-Route::get('/', function () {
-    return view('welcome');
-});
+class ConnectionController extends Controller
+{
+    public function connectionTest(){
 
-// Route for testing connection with backend
-Route::get('/test', 'ConnectionController@connectionTest');
+        try
+        {
+            $ice = \Ice\Initialize();
+            $proxy = $ice->stringToProxy("TheSystem:default -p 4020");
+            $connection = \model\TheSystemPrxHelper::checkedCast($proxy);
+            if(!$connection)
+            {
+                echo "Error in connection";
+                throw new RuntimeException("Invalid proxy");
+            }
 
-// Route for testing insertar Persona
-Route::get('/persona','PersonaController@persona');
-Route::post('/persona','PersonaController@insertar');
+            $client_time = (int) round(microtime(true)*1000);
+            echo("Client time: ".$client_time);
+
+            // Calls system method
+            $delay = $connection->getDelay($client_time);
+            echo "<br>";
+            echo("Delay: ".$delay);
+
+        }
+        catch(Exception $ex)
+        {
+            echo $ex;
+        }
+
+        if($ice)
+        {
+            $ice->destroy(); // Clean up
+        }
+    }
+}
