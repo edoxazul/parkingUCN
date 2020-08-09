@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cl.ucn.disc.pdis.parkingapp.repository.service.ZeroIce;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.CategoriaPersona;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.DuplicateDataException;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.Location;
