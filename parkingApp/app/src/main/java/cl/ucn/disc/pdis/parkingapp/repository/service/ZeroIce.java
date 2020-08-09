@@ -24,7 +24,7 @@
  *
  */
 
-package cl.ucn.disc.pdis.parkingapp;
+package cl.ucn.disc.pdis.parkingapp.repository.service;
 
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.Contratos;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.ContratosPrx;
