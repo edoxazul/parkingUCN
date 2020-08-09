@@ -6,6 +6,7 @@
                 <div class="card-header h2 d-flex justify-content-center mb-4 bg-tertiary">
                     <div class="card-body">
                         <form action="{{action('PersonaController@insertar')}}" method="POST">
+
                             @include('Persona.partials.form')
                         </form>
                     </div>
