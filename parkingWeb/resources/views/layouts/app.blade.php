@@ -52,7 +52,7 @@
                     </div>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ url('/ingresarPersona') }}">Ingresar Persona</a>
-                        <a class="dropdown-item" href="{{ url('/EliminarPersona') }}">Eliminar Persona</a>
+                        <a class="dropdown-item" href="{{ url('/eliminarPersona') }}">Eliminar Persona</a>
                     </div>
                 </li>
                 <li class="nav-item active">
