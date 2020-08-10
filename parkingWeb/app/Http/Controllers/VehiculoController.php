@@ -11,13 +11,19 @@ require_once  base_path()."./../domain.php";
 
 class VehiculoController extends Controller
 {
+
+    public function ingresarView(){
+        return view('Vehiculo.ingresarVehiculo');
+
+    }
+
+
+
     public function eliminarView(){
         return view('Vehiculo.eliminarVehiculo');
     }
 
-    public function insertar(){
 
-    }
 
     public function eliminar(Request $request){
 

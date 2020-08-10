@@ -60,7 +60,7 @@
                          data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"> Vehiculo
                     </div>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <!--<a class="dropdown-item" href="{{ url('/ingresarPersona') }}">Ingresar Persona</a>-->
+                        <a class="dropdown-item" href="{{ url('/ingresarVehiculo') }}">Ingresar Vehiculo</a>
                         <a class="dropdown-item" href="{{ url('/eliminarVehiculo') }}">Eliminar Vehiculo</a>
                     </div>
                 </li>

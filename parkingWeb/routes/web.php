@@ -54,5 +54,8 @@ Route::get('/eliminarPersona','PersonaController@eliminarView');
 Route::post('/eliminarPersona','PersonaController@eliminar');
 
 // Route for testing Vehiculo
+Route::get('/ingresarVehiculo','VehiculoController@ingresarView');
+Route::post('/ingresarVehiculo','VehiculoController@ingresar');
+
 Route::get('/eliminarVehiculo','VehiculoController@eliminarView');
 Route::post('/eliminarVehiculo','VehiculoController@eliminar');
