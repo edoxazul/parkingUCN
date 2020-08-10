@@ -46,10 +46,13 @@ Route::get('/', function () {
 // Route for testing connection with backend
 Route::get('/test', 'ConnectionController@connectionTest');
 
-// Route for testing insertar Persona
+// Route for testing Persona
 Route::get('/ingresarPersona','PersonaController@ingresarView');
 Route::post('/ingresarPersona','PersonaController@insertar');
 
 Route::get('/eliminarPersona','PersonaController@eliminarView');
 Route::post('/eliminarPersona','PersonaController@eliminar');
 
+// Route for testing Vehiculo
+Route::get('/eliminarVehiculo','VehiculoController@eliminarView');
+Route::post('/eliminarVehiculo','VehiculoController@eliminar');

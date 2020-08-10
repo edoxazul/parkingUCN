@@ -2,3 +2,5 @@
 parkingBackend/parking.db
 
 parkingBackend/parking.db-wal
+
+parkingBackend/parking.db-shm

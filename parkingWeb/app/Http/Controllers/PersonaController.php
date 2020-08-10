@@ -135,15 +135,15 @@ class PersonaController extends Controller
                 return redirect()->back()->with('alert', 'Persona No Encontrada!');
             }
 
+            if ($ice){
+                $ice->destroy();
+            }
+
             // Elimination completed
             return redirect()->back()->with('success', 'Persona Eliminada Correctamente!');
 
         } catch (Exception $ex) {
             echo $ex;
-        }
-
-        if ($ice){
-            $ice->destroy();
         }
     }
 }

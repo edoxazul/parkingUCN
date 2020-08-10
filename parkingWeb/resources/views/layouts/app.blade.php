@@ -55,6 +55,15 @@
                         <a class="dropdown-item" href="{{ url('/eliminarPersona') }}">Eliminar Persona</a>
                     </div>
                 </li>
+                <li class="nav-item dropdown">
+                    <div class="nav-link dropdown-toggle text-white btn-lg" href="#" id="navbarDropdown" role="button"
+                         data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"> Vehiculo
+                    </div>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <!--<a class="dropdown-item" href="{{ url('/ingresarPersona') }}">Ingresar Persona</a>-->
+                        <a class="dropdown-item" href="{{ url('/eliminarVehiculo') }}">Eliminar Vehiculo</a>
+                    </div>
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link text-white btn-lg" href="{{ url('/test') }}">Test Connection</a>
                 </li>

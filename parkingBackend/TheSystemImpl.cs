@@ -220,7 +220,8 @@ namespace ParkingBackend
             try
             {
                 using var scope = _serviceScopeFactory.CreateScope();
-                {
+                {    
+                    _logger.LogDebug("Patente:" + patente);
                     ParkingContext parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
                     Vehiculo vehiculo = parkingContext.Vehiculos
                         .FirstOrDefault(v => v.patente == patente);
