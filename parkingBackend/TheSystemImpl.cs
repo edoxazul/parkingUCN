@@ -196,7 +196,7 @@ namespace ParkingBackend
             catch (DbUpdateException exception)
             {
                 _logger.LogDebug("Error adding : {}", exception.InnerException);
-                throw new DuplicateDataException();
+                return null;
             }
             catch (RunRelationNotFoundException exception)
             {
@@ -206,7 +206,7 @@ namespace ParkingBackend
             catch (Exception exception)
             {
                 _logger.LogDebug("Server Error : {}", exception.InnerException);
-                throw new ServerException();
+                throw new ServerException("Unknown internal server error.");
             }
         }
 
@@ -242,7 +242,7 @@ namespace ParkingBackend
             catch (Exception exception)
             {
                 _logger.LogDebug("Server Error : {}", exception.InnerException);
-                throw new ServerException();
+                throw new ServerException("Unknown internal server error.");
             }
         }
 
@@ -275,7 +275,7 @@ namespace ParkingBackend
             catch (Exception exception)
             {
                 _logger.LogDebug("Server Error : {}", exception.InnerException);
-                throw new ServerException();
+                throw new ServerException("Unknown internal server error.");
             }
         }
 
