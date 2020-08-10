@@ -14,11 +14,12 @@
         <div class="col-md-12 justify-content-center">
             <div class="card border-secondary shadow">
                 <div class="card-header h2 d-flex justify-content-center mb-4 bg-tertiary">
-                    <div class="card-body">
-                        <form action="{{action('PersonaController@eliminar')}}" method="POST">
-                            @include('Persona.partials.eliminar')
-                        </form>
-                    </div>
+                    Eliminar Persona
+                </div>
+                <div class="card-body">
+                    <form action="{{action('PersonaController@eliminar')}}" method="POST">
+                        @include('Persona.partials.eliminar')
+                    </form>
                 </div>
             </div>
         </div>
