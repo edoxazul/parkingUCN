@@ -34,8 +34,10 @@
     </style>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-
-
+        <a class="navbar-brand" href="http://www.ucn.cl/">
+            <img class="img-responsive" src="{{ asset('systemImages/Escudo-UCN-Full-Color.png') }}" width="50" height="50"
+                 alt="Logo UCN">
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
