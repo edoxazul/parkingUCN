@@ -45,6 +45,9 @@ class PersonaController extends Controller
         $sexo = $request->input("sexo");
         $email = $request->input("email");
         $tipo = $request->input("tipo");
+        $unidad =$request->input('unidad');
+        $telMovil =$request->input('telefonoMovil');
+        $telFijo =$request->input('telefonoFijo');
 
         $sexoVal =0;
         $categoriaVal=0;
@@ -76,28 +79,37 @@ class PersonaController extends Controller
                 $categoriaVal=2;
             }
 
-            // TODO: change labels in view and uid
+
             $persona = new Persona();
             $persona->run=$rut;
             $persona->nombre = $nombre;
-            $persona->emal= $email;
+            $persona->email= $email;
             $persona->sexo=$sexoVal;
             $persona->categoriaPersona=$categoriaVal;
+            $persona->unidad = $unidad;
+            $persona->telefonoMovil =$telMovil;
+            $persona->telefonoFijo =$telFijo;
 
-            $theSystem->registrarPersona($persona);
-
+            $persona = $theSystem->registrarPersona($persona);
+            // The rut not exist in database
+            if ($persona == null) {
+                return redirect()->back()->with('alert', 'Error Al Añadir Persona');
+            }
+            if ($ice){
+                $ice->destroy();
+            }
+            return redirect()->back()->with('success', 'Persona Añadida Correctamente!');
         } catch (Exception $ex) {
-            echo $ex;
+            return redirect()->back()->with('alert', 'Error al agregar!');
         }
 
-        if ($ice){
-            $ice->destroy();
-        }
+
     }
 
     public function eliminarView(){
         return view("Persona.eliminarPersona");
     }
+
     public function eliminar(Request $request){
 
         // Data Request

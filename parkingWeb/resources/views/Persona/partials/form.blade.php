@@ -7,7 +7,6 @@
 </div>
 
 <div class="form-group">
-
     {{ Form::label('nombre', 'Nombre:') }}
     {{ Form::text('nombre', null, ['class' => 'form-control','id' => 'nombre']) }}
 </div>
@@ -35,6 +34,21 @@
                             "Académico" => "Académico",
                             "Funcionario"=>"Funcionario"],
     null,['class' => 'form-control', 'placeholder'=>'Seleccionar Tipo']) }}
+</div>
+
+<div class="form-group">
+    {{ Form::label('unidad', 'Unidad:') }}
+    {{ Form::text('unidad', null, ['class' => 'form-control','id' => 'unidad']) }}
+</div>
+
+<div class="form-group">
+    {{ Form::label('telefonoFijo', 'Teléfono Fijo:') }}
+    {{ Form::text('telefonoFijo', null, ['class' => 'form-control','id' => 'telefonoFijo']) }}
+</div>
+
+<div class="form-group">
+    {{ Form::label('telefonoMovil', 'Teléfono Movil:') }}
+    {{ Form::text('telefonoMovil', null, ['class' => 'form-control','id' => 'telefonoMovil']) }}
 </div>
 
 <div class="form-group mt-4 text-center">

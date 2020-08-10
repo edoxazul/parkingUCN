@@ -91,7 +91,7 @@ namespace ParkingBackend
             catch (DbUpdateException exception)
             {
                 _logger.LogDebug("Error adding : {}",exception.InnerException);
-                throw new DuplicateDataException();
+                return null;
             }
             catch (Exception exception)
             {
