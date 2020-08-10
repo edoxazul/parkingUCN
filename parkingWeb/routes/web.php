@@ -59,3 +59,11 @@ Route::post('/ingresarVehiculo','VehiculoController@ingresar');
 
 Route::get('/eliminarVehiculo','VehiculoController@eliminarView');
 Route::post('/eliminarVehiculo','VehiculoController@eliminar');
+
+// Route for testing Acceso
+Route::get('/registrarAcceso','AccesoController@ingresarView');
+Route::post('/registrarAcceso','AccesoController@insertar');
+
+Route::get('/eliminarAcceso','AccesoController@eliminarView');
+Route::post('/eliminarAcceso','AccesoController@eliminar');
+

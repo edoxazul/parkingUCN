@@ -24,12 +24,15 @@
  */
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use http\Url;
 use model\Persona;
+
 require_once 'Ice.php';
 //for fixed dir from domain.php
-require_once  base_path()."./../domain.php";
+require_once base_path() . "./../domain.php";
+
 class PersonaController extends Controller
 {
     public function ingresarView()
@@ -45,12 +48,12 @@ class PersonaController extends Controller
         $sexo = $request->input("sexo");
         $email = $request->input("email");
         $tipo = $request->input("tipo");
-        $unidad =$request->input('unidad');
-        $telMovil =$request->input('telefonoMovil');
-        $telFijo =$request->input('telefonoFijo');
+        $unidad = $request->input('unidad');
+        $telMovil = $request->input('telefonoMovil');
+        $telFijo = $request->input('telefonoFijo');
 
-        $sexoVal =0;
-        $categoriaVal=0;
+        $sexoVal = 0;
+        $categoriaVal = 0;
         // ZeroIce
         $ice = null;
         $theSystem = null;
@@ -63,39 +66,39 @@ class PersonaController extends Controller
             //Verification of sex;
             if ($sexo == 'Hombre') {
                 $sexoVal = 0;
-            } elseif ($sexo =='Mujer') {
+            } elseif ($sexo == 'Mujer') {
                 $sexoVal = 1;
             } else {
-                $sexoVal=2;
+                $sexoVal = 2;
             }
 
             // Verificacion of categoriaPersona;
 
             if ($tipo == 'Funcionario') {
                 $categoriaVal = 0;
-            } elseif ($tipo =='Academico') {
+            } elseif ($tipo == 'Academico') {
                 $categoriaVal = 1;
             } else {
-                $categoriaVal=2;
+                $categoriaVal = 2;
             }
 
 
             $persona = new Persona();
-            $persona->run=$rut;
+            $persona->run = $rut;
             $persona->nombre = $nombre;
-            $persona->email= $email;
-            $persona->sexo=$sexoVal;
-            $persona->categoriaPersona=$categoriaVal;
+            $persona->email = $email;
+            $persona->sexo = $sexoVal;
+            $persona->categoriaPersona = $categoriaVal;
             $persona->unidad = $unidad;
-            $persona->telefonoMovil =$telMovil;
-            $persona->telefonoFijo =$telFijo;
+            $persona->telefonoMovil = $telMovil;
+            $persona->telefonoFijo = $telFijo;
 
             $persona = $theSystem->registrarPersona($persona);
             // The rut not exist in database
             if ($persona == null) {
                 return redirect()->back()->with('alert', 'Error Al Añadir Persona');
             }
-            if ($ice){
+            if ($ice) {
                 $ice->destroy();
             }
             return redirect()->back()->with('success', 'Persona Añadida Correctamente!');
@@ -103,20 +106,21 @@ class PersonaController extends Controller
             return redirect()->back()->with('alert', 'Error al agregar!');
         }
 
-
     }
 
-    public function eliminarView(){
+    public function eliminarView()
+    {
         return view("Persona.eliminarPersona");
     }
 
-    public function eliminar(Request $request){
+    public function eliminar(Request $request)
+    {
 
         // Data Request
         $rut = $request->input("rut");
-        str_replace(".","",$rut);
-        str_replace("-","",$rut);
-        str_replace(" ","",$rut);
+        str_replace(".", "", $rut);
+        str_replace("-", "", $rut);
+        str_replace(" ", "", $rut);
 
         // ZeroIce
         $ice = null;
@@ -128,14 +132,14 @@ class PersonaController extends Controller
             $theSystem = \model\TheSystemPrxHelper::checkedCast($proxy);
 
             // Elimination of person
-            $persona =  $theSystem->eliminarPersona($rut);
+            $persona = $theSystem->eliminarPersona($rut);
 
             // The rut not exist in database
             if ($persona == null) {
                 return redirect()->back()->with('alert', 'Persona No Encontrada!');
             }
 
-            if ($ice){
+            if ($ice) {
                 $ice->destroy();
             }
 
