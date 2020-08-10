@@ -47,5 +47,9 @@ Route::get('/', function () {
 Route::get('/test', 'ConnectionController@connectionTest');
 
 // Route for testing insertar Persona
-Route::get('/persona','PersonaController@persona');
-Route::post('/persona','PersonaController@insertar');
+Route::get('/ingresarPersona','PersonaController@ingresarView');
+Route::post('/ingresarPersona','PersonaController@insertar');
+
+Route::get('/eliminarPersona','PersonaController@eliminarView');
+Route::post('/eliminarPersona','PersonaController@eliminar');
+

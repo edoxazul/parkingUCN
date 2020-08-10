@@ -51,7 +51,8 @@
                        data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"> Persona
                     </div>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ url('/persona') }}">Ingresar Persona</a>
+                        <a class="dropdown-item" href="{{ url('/ingresarPersona') }}">Ingresar Persona</a>
+                        <a class="dropdown-item" href="{{ url('/EliminarPersona') }}">Eliminar Persona</a>
                     </div>
                 </li>
                 <li class="nav-item active">

@@ -32,9 +32,9 @@ require_once 'Ice.php';
 require_once  base_path()."./../domain.php";
 class PersonaController extends Controller
 {
-    public function persona()
+    public function ingresarView()
     {
-        return view('persona');
+        return view('Persona.ingresarPersona');
     }
 
     public function insertar(Request $request)
@@ -93,6 +93,45 @@ class PersonaController extends Controller
         if ($ice){
             $ice->destroy();
         }
+    }
 
+    public function eliminarView(){
+        return view("Persona.eliminarPersona");
+    }
+    public function eliminar(Request $request){
+
+        // Data Request
+        $rut = $request->input("rut");
+        str_replace(".","",$rut);
+        str_replace("-","",$rut);
+        str_replace(" ","",$rut);
+
+        // ZeroIce
+        $ice = null;
+        $theSystem = null;
+
+        try {
+            $ice = \Ice\Initialize();
+            $proxy = $ice->stringToProxy("TheSystem:default -p 4020");
+            $theSystem = \model\TheSystemPrxHelper::checkedCast($proxy);
+
+            // Elimination of person
+            $persona =  $theSystem->eliminarPersona($rut);
+
+            // The rut not exist in database
+            if ($persona == null) {
+                return redirect()->back()->with('alert', 'Persona No Encontrada!');
+            }
+
+            // Elimination completed
+            return redirect()->back()->with('success', 'Persona Eliminada Correctamente!');
+
+        } catch (Exception $ex) {
+            echo $ex;
+        }
+
+        if ($ice){
+            $ice->destroy();
+        }
     }
 }
