@@ -25,7 +25,7 @@ class AccesoController extends Controller
 
         // ZeroIce
         $ice = null;
-        $theSystem = null;
+        $contratos = null;
 
         try {
             $ice = \Ice\Initialize();
