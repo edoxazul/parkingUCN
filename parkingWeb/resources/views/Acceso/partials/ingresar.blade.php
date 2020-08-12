@@ -9,9 +9,11 @@
 
 <div class="form-group">
 
-    {{ Form::label('horaEntrada', 'Fecha:') }}
-    {{ Form::label('horaEntrada','*', array('class' => 'text-danger'))}}
-    {{ Form::date('horaEntrada', \Carbon\Carbon::now(), ['readonly'])}}
+    {{ Form::label('location', 'Ubicación:') }}
+    {{ Form::label('location','*', array('class' => 'text-danger'))}}
+    {{ Form::select("location",["IN" => "Dentro del Campus",
+                            "OUT" => "Fuera del Campus"],
+    null,['class' => 'form-control', 'placeholder'=>'Seleccionar Acceso' ,'id' => 'location']) }}
 </div>
 
 

@@ -23,6 +23,13 @@ class VehiculoController extends Controller
     {
         // Data Request
         $patente = $request->input("patente");
+        $patente = strtoupper($patente);
+
+        // Validation for len of patente.
+        if (strlen($patente) > 7) {
+            return redirect()->back()->with('alert', 'Patente Mal Ingresada!');
+        }
+
         $marca = $request->input("marca");
         $modelo = $request->input("modelo");
         $anio = $request->input("anio");
@@ -42,7 +49,7 @@ class VehiculoController extends Controller
             $proxy = $ice->stringToProxy("TheSystem:default -p 4020");
             $theSystem = \model\TheSystemPrxHelper::checkedCast($proxy);
 
-            //Verification of sex;
+            //Verification of location;
             if ($location == 'IN') {
                 $locationVal = 0;
             } elseif ($location == 'OUT') {

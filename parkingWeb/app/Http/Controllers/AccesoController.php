@@ -21,9 +21,17 @@ class AccesoController extends Controller
     {
         // Data Request
         $patente = $request->input("patente");
-        $horaEntrada = $request->input("horaEntrada");
+        $patente = strtoupper($patente);
+        $location = $request->input("location");
 
+        // Validation for len of patente.
+        if (strlen($patente) > 7) {
+            return redirect()->back()->with('alert', 'Patente Mal Ingresada!');
+        }
+
+        $locationVal =0;
         // ZeroIce
+
         $ice = null;
         $contratos = null;
 
@@ -32,12 +40,23 @@ class AccesoController extends Controller
             $proxy = $ice->stringToProxy("TheSystem:default -p 4020");
             $contratos = \model\ContratosPrxHelper::checkedCast($proxy);
 
+            //Verification of location;
+            if ($location == 'IN') {
+                $locationVal = 0;
+            } elseif ($location == 'OUT') {
+                $locationVal = 1;
+            } else {
+                $locationVal = 2;
+            }
+
             $acceso = new Acceso();
             $acceso->patente = $patente;
-            $acceso->horaEntrada = $horaEntrada;
+            $acceso->location= $locationVal;
 
-            $acceso = $contratos->autorizarVehiculo($acceso);
-            // The rut not exist in database
+            //TODO: corregir este metodo.
+            $acceso = $contratos->autorizarVehiculo($patente ,$locationVal);
+
+            // The patente not exist in database
             if ($acceso == null) {
                 return redirect()->back()->with('alert', 'Error al añadir el Acceso');
             }
@@ -61,7 +80,12 @@ class AccesoController extends Controller
 
         // Data Request
         $patente = $request->input("patente");
-        str_replace("-", "", $patente);
+        $patente = strtoupper($patente);
+
+        // Validation for len of patente.
+        if (strlen($patente) > 7) {
+            return redirect()->back()->with('alert', 'Patente Mal Ingresada!');
+        }
 
         // ZeroIce
         $ice = null;
@@ -75,7 +99,7 @@ class AccesoController extends Controller
             // Elimination of acces
             $acceso = $contratos->eliminarAcceso($patente);
 
-            // The rut not exist in database
+            // The patente not exist in database
             if ($acceso == null) {
                 return redirect()->back()->with('alert', 'Acceso No Registrado!');
             }
