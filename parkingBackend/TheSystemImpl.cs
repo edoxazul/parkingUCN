@@ -147,10 +147,20 @@ namespace ParkingBackend
                 using var scope = _serviceScopeFactory.CreateScope();
                 {
                     ParkingContext parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
-                    parkingContext.Personas.Update(persona);
 
                     Persona personaBD = parkingContext.Personas
-                        .FirstOrDefault(p => p.run == p.run);
+                        .FirstOrDefault(p => p.run == persona.run);
+
+                    if (personaBD == null)
+                    {
+                        return null;
+                    }
+
+                    personaBD.email = persona.email;
+                    personaBD.nombre = persona.nombre;
+                    personaBD.sexo = persona.sexo;
+                    personaBD.run = persona.run;
+                    personaBD.unidad = persona.unidad;
                     
                     parkingContext.SaveChanges();
                     return personaBD; 
@@ -165,7 +175,7 @@ namespace ParkingBackend
             {
                 _logger.LogDebug("Server Error : {}", exception.InnerException);
                 throw new ServerException();
-            }
+            } 
         }
 
         /// <sumary>
@@ -282,6 +292,36 @@ namespace ParkingBackend
         public override long getDelay (long time, Current current = null)
         {
             return (int) DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - time;
+        }
+
+        public override Persona getPersona(string rut, Current current = null)
+        {
+            try
+            {
+                using var scope = _serviceScopeFactory.CreateScope();
+                {
+                    var parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
+
+                    // Check if there is a person with the run on Personas Table
+                    var persona = parkingContext.Personas.FirstOrDefault(per => per.run == rut);
+                    return persona;
+                }
+            }
+            catch (DbUpdateException exception)
+            {
+                _logger.LogDebug("Error adding : {}", exception.InnerException);
+                return null;
+            }
+            catch (RunRelationNotFoundException exception)
+            {
+                _logger.LogDebug("Error adding : {}", exception.InnerException);
+                return null;
+            }
+            catch (Exception exception)
+            {
+                _logger.LogDebug("Server Error : {}", exception.InnerException);
+                return null;
+            }
         }
     }
 }

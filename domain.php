@@ -409,7 +409,7 @@ namespace model
     global $model__t_Vehiculos;
     IcePHP_defineOperation($model__t_ContratosPrx, 'verificarPersona', 0, 0, 0, array(array($IcePHP__t_string)), null, array($model__t_Persona), array($model__t_NotFoundException, $model__t_ServerException));
     IcePHP_defineOperation($model__t_ContratosPrx, 'autorizarVehiculo', 0, 0, 0, array(array($IcePHP__t_string), array($model__t_Location)), null, array($model__t_Acceso), array($model__t_NotAuthorizedException, $model__t_ServerException));
-    IcePHP_defineOperation($model__t_ContratosPrx, 'obtenerVehiculos', 0, 0, 0, array(array($IcePHP__t_string)), null, array($model__t_Vehiculos), array($model__t_NotFoundException));
+    IcePHP_defineOperation($model__t_ContratosPrx, 'obtenerVehiculos', 0, 0, 0, array(array($IcePHP__t_string)), null, array($model__t_Vehiculos), array($model__t_NotFoundException, $model__t_ServerException));
 }
 
 namespace model
@@ -450,5 +450,6 @@ namespace model
     IcePHP_defineOperation($model__t_TheSystemPrx, 'eliminarVehiculo', 0, 0, 0, array(array($IcePHP__t_string)), null, array($model__t_Vehiculo), array($model__t_ServerException));
     IcePHP_defineOperation($model__t_TheSystemPrx, 'editarVehiculo', 0, 0, 0, array(array($model__t_Vehiculo)), null, array($model__t_Vehiculo), array($model__t_ServerException));
     IcePHP_defineOperation($model__t_TheSystemPrx, 'getDelay', 0, 0, 0, array(array($IcePHP__t_long)), null, array($IcePHP__t_long), array($model__t_ServerException));
+    IcePHP_defineOperation($model__t_TheSystemPrx, 'getPersona', 0, 0, 0, array(array($IcePHP__t_string)), null, array($model__t_Persona), array($model__t_ServerException));
 }
 ?>

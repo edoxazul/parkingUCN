@@ -150,4 +150,112 @@ class PersonaController extends Controller
             echo $ex;
         }
     }
+
+    public function editarIndex()
+    {
+        return view('Persona.editarPersonaIndex');
+    }
+
+    public function editar(Request $request)
+    {
+        // Data Request
+        $rut = $request->input("rut");
+        str_replace(".", "", $rut);
+        str_replace("-", "", $rut);
+        str_replace(" ", "", $rut);
+
+        // ZeroIce
+        $ice = null;
+        $theSystem = null;
+
+        try {
+            $ice = \Ice\Initialize();
+            $proxy = $ice->stringToProxy("TheSystem:default -p 4020");
+            $theSystem = \model\TheSystemPrxHelper::checkedCast($proxy);
+
+            // get person
+            $persona = $theSystem->getPersona($rut);
+
+            // The rut not exist in database
+            if ($persona == null) {
+                return redirect()->back()->with('alert', 'Persona No Encontrada!');
+            }
+
+            if ($ice) {
+                $ice->destroy();
+            }
+
+            // Show edit view with person
+            return view('Persona.editarDatos',compact('persona'));
+
+        } catch (Exception $ex) {
+            echo $ex;
+        }
+    }
+
+    public function editarPost(Request $request){
+        // Data Request
+        $rut = $request->input("rut");
+        $nombre = $request->input("nombre");
+        $sexo = $request->input("sexo");
+        $email = $request->input("email");
+        $tipo = $request->input("tipo");
+        $unidad = $request->input('unidad');
+        $telMovil = $request->input('telefonoMovil');
+        $telFijo = $request->input('telefonoFijo');
+
+        $sexoVal = 0;
+        $categoriaVal = 0;
+        // ZeroIce
+        $ice = null;
+        $theSystem = null;
+
+        try {
+            $ice = \Ice\Initialize();
+            $proxy = $ice->stringToProxy("TheSystem:default -p 4020");
+            $theSystem = \model\TheSystemPrxHelper::checkedCast($proxy);
+
+            //Verification of sex;
+            if ($sexo == 'Hombre') {
+                $sexoVal = 0;
+            } elseif ($sexo == 'Mujer') {
+                $sexoVal = 1;
+            } else {
+                $sexoVal = 2;
+            }
+
+            // Verificacion of categoriaPersona;
+
+            if ($tipo == 'Funcionario') {
+                $categoriaVal = 0;
+            } elseif ($tipo == 'Academico') {
+                $categoriaVal = 1;
+            } else {
+                $categoriaVal = 2;
+            }
+
+
+            $persona = new Persona();
+            $persona->run = $rut;
+            $persona->nombre = $nombre;
+            $persona->email = $email;
+            $persona->sexo = $sexoVal;
+            $persona->categoriaPersona = $categoriaVal;
+            $persona->unidad = $unidad;
+            $persona->telefonoMovil = $telMovil;
+            $persona->telefonoFijo = $telFijo;
+
+            $persona = $theSystem->editarPersona($persona);
+            // The rut not exist in database
+            if ($persona == null) {
+                return view('Persona.editarPersonaIndex')->with('alert', 'Error Al Editar Persona');
+            }
+            if ($ice) {
+                $ice->destroy();
+            }
+            return view('Persona.editarPersonaIndex')->with('success', 'Persona Editada!');
+        } catch (Exception $ex) {
+            return view('Persona.editarPersonaIndex')->with('alert', 'Error Al Editar Persona!');
+        }
+    }
 }

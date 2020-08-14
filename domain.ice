@@ -309,6 +309,14 @@ module model {
 	*/
 	long getDelay(long time)
 	throws ServerException;
+
+	/**
+	* Obtiene una Persona dado un rut
+	* @param rut 
+	* @return Persona by rut
+	*/
+	Persona getPersona(string rut)
+	throws ServerException;
     }	
     
 }

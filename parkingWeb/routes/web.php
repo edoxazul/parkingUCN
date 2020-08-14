@@ -53,6 +53,10 @@ Route::post('/ingresarPersona','PersonaController@insertar');
 Route::get('/eliminarPersona','PersonaController@eliminarView');
 Route::post('/eliminarPersona','PersonaController@eliminar');
 
+Route::get('/editarPersona','PersonaController@editarIndex');
+Route::post('/editarP','PersonaController@editar');
+Route::post('/editarPost','PersonaController@editarPost');
+
 // Route for testing Vehiculo
 Route::get('/ingresarVehiculo','VehiculoController@ingresarView');
 Route::post('/ingresarVehiculo','VehiculoController@ingresar');
