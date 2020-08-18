@@ -451,5 +451,6 @@ namespace model
     IcePHP_defineOperation($model__t_TheSystemPrx, 'editarVehiculo', 0, 0, 0, array(array($model__t_Vehiculo)), null, array($model__t_Vehiculo), array($model__t_ServerException));
     IcePHP_defineOperation($model__t_TheSystemPrx, 'getDelay', 0, 0, 0, array(array($IcePHP__t_long)), null, array($IcePHP__t_long), array($model__t_ServerException));
     IcePHP_defineOperation($model__t_TheSystemPrx, 'getPersona', 0, 0, 0, array(array($IcePHP__t_string)), null, array($model__t_Persona), array($model__t_ServerException));
+    IcePHP_defineOperation($model__t_TheSystemPrx, 'getVehiculo', 0, 0, 0, array(array($IcePHP__t_string)), null, array($model__t_Vehiculo), array($model__t_ServerException));
 }
 ?>

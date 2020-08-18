@@ -294,6 +294,36 @@ namespace ParkingBackend
             return (int) DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - time;
         }
 
+        public override Vehiculo getVehiculo(string patente, Current current = null)
+        {
+            try
+            {
+                using var scope = _serviceScopeFactory.CreateScope();
+                {
+                    var parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
+
+                    // Check if there is a person with the run on Personas Table
+                    var vehiculo = parkingContext.Vehiculos.FirstOrDefault(v => v.patente == patente);
+                    return vehiculo;
+                }
+            }
+            catch (DbUpdateException exception)
+            {
+                _logger.LogDebug("Error adding : {}", exception.InnerException);
+                return null;
+            }
+            catch (RunRelationNotFoundException exception)
+            {
+                _logger.LogDebug("Error adding : {}", exception.InnerException);
+                return null;
+            }
+            catch (Exception exception)
+            {
+                _logger.LogDebug("Server Error : {}", exception.InnerException);
+                return null;
+            }
+        }
+
         public override Persona getPersona(string rut, Current current = null)
         {
             try

@@ -317,6 +317,14 @@ module model {
 	*/
 	Persona getPersona(string rut)
 	throws ServerException;
+
+	/**
+	* Obtiene un Vehiculo dado un patente
+	* @param Vehiculo 
+	* @return Vehiculo by patente
+	*/
+	Vehiculo getVehiculo(string patente)
+	throws ServerException;
     }	
     
 }
