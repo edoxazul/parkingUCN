@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use http\Url;
-use model\Persona;
+use model\Vehiculo;
 
 require_once 'Ice.php';
 //for fixed dir from domain.php
@@ -127,5 +127,101 @@ class VehiculoController extends Controller
         } catch (Exception $ex) {
             echo $ex;
         }
+    }
+
+    public function editarIndex()
+    {
+        return view('Vehiculo.editarVehiculoIndex');
+    }
+
+    public function editar(Request $request)
+    {
+        // Data Request
+        $patente = $request->input("patente");
+        $patente = strtoupper($patente);
+        str_replace(".", "", $patente);
+        str_replace("-", "", $patente);
+        str_replace(" ", "", $patente);
+
+        // ZeroIce
+        $ice = null;
+        $theSystem = null;
+
+        try {
+            $ice = \Ice\Initialize();
+            $proxy = $ice->stringToProxy("TheSystem:default -p 4020");
+            $theSystem = \model\TheSystemPrxHelper::checkedCast($proxy);
+
+            // get person
+            $vehiculo = $theSystem->getVehiculo($patente);
+
+            // The rut not exist in database
+            if ($vehiculo == null) {
+                return redirect()->back()->with('alert', 'Vehiculo No Encontrado!');
+            }
+
+            if ($ice) {
+                $ice->destroy();
+            }
+
+            // Show edit view with person
+            return view('Vehiculo.editarDatos',compact('vehiculo'));
+
+        } catch (Exception $ex) {
+            echo $ex;
+        }
+    }
+
+    public function editarPost(Request $request) {
+        //Data Request
+        $patente  = $request->input("patente");
+        $marca  = $request->input("marca");
+        $modelo  = $request->input("modelo");
+        $anio = $request->input("anio");
+        $obs = $request->input('observaciones');
+        $runDuenio =$request->input('runDuenio');
+        $location = $request->input('location');
+
+        $locationVal = 0;
+
+        // ZeroIce
+        $ice = null;
+        $theSystem = null;
+
+
+        try {
+            $ice = \Ice\Initialize();
+            $proxy = $ice->stringToProxy("TheSystem:default -p 4020");
+            $theSystem = \model\TheSystemPrxHelper::checkedCast($proxy);
+
+            //Verification of location;
+            if ($location == 'IN') {
+                $locationVal = 1;
+            } elseif ($location == 'OUT') {
+                $locationVal =0;
+            }
+
+            $vehiculo = new Vehiculo();
+            $vehiculo->patente =$patente;
+            $vehiculo->modelo = $modelo;
+            $vehiculo->marca = $marca;
+            $vehiculo->anio = (int)$anio;
+            $vehiculo->observaciones=$obs;
+            $vehiculo->runDuenio = $runDuenio;
+            $vehiculo->location = $locationVal;
+
+            $vehiculoBackend = $theSystem->editarVehiculo($vehiculo);
+            // The rut not exist in database
+            if ($vehiculoBackend == null) {
+                return view('Vehiculo.editarVehiculoIndex')->with('alert', 'Error Al Editar Vehiculo');
+            }
+            if ($ice) {
+                $ice->destroy();
+            }
+            return view('Vehiculo.editarVehiculoIndex')->with('success', 'Vehiculo Editada!');
+        } catch (Exception $ex) {
+            return view('Vehiculo.editarVehiculoIndex')->with('alert', 'Error Al Editar Vehiculo!');
+        }
+
     }
 }

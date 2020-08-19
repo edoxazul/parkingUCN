@@ -268,24 +268,38 @@ namespace ParkingBackend
                 using var scope = _serviceScopeFactory.CreateScope();
                 {
                     ParkingContext parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
-                    parkingContext.Vehiculos.Update(vehiculo);
+                    //parkingContext.Vehiculos.Update(vehiculo);
 
                     Vehiculo vehiculoBD = parkingContext.Vehiculos
                         .FirstOrDefault(v => v.patente == vehiculo.patente);
+
+                    if (vehiculoBD == null)
+                    {
+                        return null;
+                    }
+
+                    vehiculoBD.patente = vehiculo.patente;
+                    vehiculoBD.marca = vehiculo.marca;
+                    vehiculoBD.modelo = vehiculo.modelo;
                     
+                    vehiculoBD.observaciones = vehiculo.observaciones;
+                    vehiculoBD.runDuenio = vehiculo.runDuenio;
+                    vehiculoBD.location = vehiculo.location;
+
+                    vehiculoBD.anio = vehiculo.anio;
                     parkingContext.SaveChanges();
                     return vehiculoBD;
                 }
             }
             catch (SqliteException exception)
             {
-                _logger.LogDebug("Error deleting : {}",exception.InnerException);
-                throw new NullReferenceException();
+                _logger.LogDebug("Error editing : {}",exception.InnerException);
+                return null;
             }
             catch (Exception exception)
             {
                 _logger.LogDebug("Server Error : {}", exception.InnerException);
-                throw new ServerException("Unknown internal server error.");
+                return null;
             }
         }
 

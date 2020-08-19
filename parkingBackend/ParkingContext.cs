@@ -86,8 +86,7 @@ namespace ParkingBackend
 
                 // Index in patente
                 v.Property(v => v.patente).IsRequired();
-                v.HasIndex(v => v.patente).IsUnique();
-                
+
                 v.Property(v => v.anio).IsRequired();
                 v.Property(v => v.marca).IsRequired();
                 v.Property(v => v.modelo).IsRequired();

@@ -55,7 +55,7 @@ Route::post('/eliminarPersona','PersonaController@eliminar');
 
 Route::get('/editarPersona','PersonaController@editarIndex');
 Route::post('/editarP','PersonaController@editar');
-Route::post('/editarPost','PersonaController@editarPost');
+Route::post('/editarPersonaPost','PersonaController@editarPost');
 
 // Route for testing Vehiculo
 Route::get('/ingresarVehiculo','VehiculoController@ingresarView');
@@ -63,6 +63,10 @@ Route::post('/ingresarVehiculo','VehiculoController@ingresar');
 
 Route::get('/eliminarVehiculo','VehiculoController@eliminarView');
 Route::post('/eliminarVehiculo','VehiculoController@eliminar');
+
+Route::get('/editarVehiculo','VehiculoController@editarIndex');
+Route::post('/editarV','VehiculoController@editar');
+Route::post('/editarVehiculoPost','VehiculoController@editarPost');
 
 // Route for testing Acceso
 Route::get('/registrarAcceso','AccesoController@ingresarView');
