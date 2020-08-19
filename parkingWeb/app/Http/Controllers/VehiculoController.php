@@ -115,7 +115,7 @@ class VehiculoController extends Controller
             // The rut not exist in database
             if ($vehiculoBackend == null) {
                 return redirect()->back()->with('alert', 'Vehiculo No Encontrado!');
-            } //TODO: Verificar backend no responde
+            }
 
             if ($ice) {
                 $ice->destroy();

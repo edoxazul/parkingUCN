@@ -68,10 +68,4 @@ Route::get('/editarVehiculo','VehiculoController@editarIndex');
 Route::post('/editarV','VehiculoController@editar');
 Route::post('/editarVehiculoPost','VehiculoController@editarPost');
 
-// Route for testing Acceso
-Route::get('/registrarAcceso','AccesoController@ingresarView');
-Route::post('/registrarAcceso','AccesoController@insertar');
-
-Route::get('/eliminarAcceso','AccesoController@eliminarView');
-Route::post('/eliminarAcceso','AccesoController@eliminar');
 

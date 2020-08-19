@@ -50,15 +50,6 @@
                 </li>
                 <li class="nav-item dropdown">
                     <div class="nav-link dropdown-toggle text-white btn-lg" href="#" id="navbarDropdown" role="button"
-                         data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"> Acceso
-                    </div>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ url('/registrarAcceso') }}">Registrar Acceso</a>
-{{--                        <a class="dropdown-item" href="{{ url('/eliminarAcceso') }}">Eliminar Acceso</a>--}}
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <div class="nav-link dropdown-toggle text-white btn-lg" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"> Persona
                     </div>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
