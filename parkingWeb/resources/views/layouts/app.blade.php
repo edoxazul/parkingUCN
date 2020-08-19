@@ -74,6 +74,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ url('/ingresarVehiculo') }}">Ingresar Vehiculo</a>
                         <a class="dropdown-item" href="{{ url('/eliminarVehiculo') }}">Eliminar Vehiculo</a>
+                        <a class="dropdown-item" href="{{ url('/editarVehiculo') }}">Editar Vehiculo</a>
                     </div>
                 </li>
                 <li class="nav-item active">

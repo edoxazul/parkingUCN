@@ -268,7 +268,7 @@ namespace ParkingBackend
                 using var scope = _serviceScopeFactory.CreateScope();
                 {
                     ParkingContext parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
-                    //parkingContext.Vehiculos.Update(vehiculo);
+                    
 
                     Vehiculo vehiculoBD = parkingContext.Vehiculos
                         .FirstOrDefault(v => v.patente == vehiculo.patente);

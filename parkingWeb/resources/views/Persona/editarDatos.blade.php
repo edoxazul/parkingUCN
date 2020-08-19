@@ -14,7 +14,7 @@
         <div class="col-md-12 justify-content-center">
             <div class="card border-secondary shadow">
                 <div class="card-header h2 d-flex justify-content-center mb-4 bg-tertiary">
-                    Ingresar Persona
+                    Editar Persona
                 </div>
                 <div class="card-body">
                     <form action="{{action('PersonaController@editarPost')}}" method="POST">
