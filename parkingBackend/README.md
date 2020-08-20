@@ -33,7 +33,28 @@ Backend del proyecto ParkingUCN para el curso de Desarrollo e Integración De So
 
 
 @startuml
-class Persona{
+
+package ParkingUCN{
+
+    package DAO{
+
+       class ParkingContext {
+
+       - Personas: DbSet<Personas>
+       - Vehiculos: DbSet<Vehiculo>
+       - Accesos: DbSet<Acceso>
+       # OnConfiguring(optionsBuilder: DbContextOptionsBuilder)
+       # OnModelCreating(modelBuilder: ModelBuilder)
+
+       }
+    }
+
+
+package ZeroIce{
+    
+    package Model{
+
+    class Persona{
     -uid: int
     -rut: string
     -nombre: string
@@ -42,32 +63,32 @@ class Persona{
     -email: string
     -telefonoMovil: string
     -categoriaPersona: CategoriaPersona
-}
+    }
 
-enum CategoriaPersona{
+    enum CategoriaPersona{
     FUNCIONARIO
     ACADEMICO
     ESTUDIANTE
-}
+    }
 
-enum Sexo{
+    enum Sexo{
     VAR
     MUJ
     OTHER
-}
+    }
 
-enum Location{
+    enum Location{
     OUT
     IN
-}
+    }
 
-enum Porteria{
+    enum Porteria{
     SUR
     MANCILLA
     SANGRA
-}
+    }
 
-class Vehiculo{
+    class Vehiculo{
     -uid: int
     -patente: string
     -marca: string
@@ -77,13 +98,85 @@ class Vehiculo{
     -runDuenio: string
     -location: Location
     
-}
+    } 
 
-class Acceso{
+    class Acceso{
     -uid:int
     -horaEntrada: string
     -patente: string
     -porteria: Porteria
+    }
+}
+
+    class ParkingService {
+        - _port: int
+        - _communicator: Communicator            
+        - _contratos: ContratosDisp_
+        - _theSystem: TheSystemDisp_
+        - _logger: ILogger<ParkingService>
+        - BuildCommunicator(): Communicator
+        + StartAsync(cancellationToken: CancellationToken): Task
+        + StopAsync(cancellationToken: CancellationToken): Task
+        + Dispose()            
+    }
+
+    package Services {        
+
+
+
+            interface Contratos {
+                +autorizarVehiculo(string patente, Porteria porteria): Acceso
+                +autorizarVehiculo(string patente, bool tipo): Vehiculo
+                +obtenerVehiculos(): Vehiculos
+                +obtenerPersonas(): Personas     
+            
+            }
+            class ContratosDisp_ <<Generated>> {
+            }
+            ContratosDisp_ --|> Contratos
+
+            class ContratosImpl {
+                - _logger: ILogger<ContratosImpl>
+                - _parkingContext: ParkingContext
+            }           
+            
+
+            interface TheSystem {
+                +registrarPersona(Persona persona):persona
+                +eliminarPersona(string run): Persona
+                +editarPersona(Persona persona): Persona
+                +registarVehiculo(Vehiculo vehiculo): Vehiculo
+                +eliminarVehiculo(Vehiculo vehiculo): Vehiculo
+                +editarVehiculo(Vehiculo vehiculo): Vehiculo
+                +getPersona(string rut): Persona
+                +getVehiculo(string patente): Vehiculo
+                +getAllAccess(): Accesos
+                +getAllPersonas(): Personas
+                +getAllVehiculos(): Vehiculos
+
+            }
+            
+            class TheSystemDisp_ <<Generated>> {
+            }
+
+            TheSystemDisp_ --|> TheSystem
+
+
+        class TheSystemImpl{
+                - _logger: ILogger<SystemImpl>
+                - _parkingContext: ParkingContext
+        }
+
+
+        
+
+        Persona <.. ParkingContext: use
+        Vehiculo <.. ParkingContext: use
+        Acceso <.. ParkingContext: use
+    }
+    
+
+
 }
 
 class Program {
@@ -91,47 +184,38 @@ class Program {
     CreateHostBuilde(String[] args): IHostBuilder
 }
 
-interface Contratos {
-    autorizarVehiculo(string patente, Porteria porteria): Acceso
-    autorizarVehiculo(string patente, bool tipo): Vehiculo
-    obtenerVehiculos(): Vehiculos
-    obtenerPersonas(): Personas
-     
-}
-class ContratosImpl {
-
-}
-
-interface TheSystem {
-    registrarPersona(Persona persona):persona
-    eliminarPersona(string run): Persona
-    editarPersona(Persona persona): Persona
-    registarVehiculo(Vehiculo vehiculo): Vehiculo
-    eliminarVehiculo(Vehiculo vehiculo): Vehiculo
-    editarVehiculo(Vehiculo vehiculo): Vehiculo
-    getPersona(string rut): Persona
-    getVehiculo(string patente): Vehiculo
-    getAllAccess(): Accesos
-    getAllPersonas(): Personas
-    getAllVehiculos(): Vehiculos
-
-}
-
-class TheSystemImpl{
-
-}
-
 Program --> ContratosImpl: use
+Program --> ContratosDisp_: use
 Program --> TheSystemImpl: use
-ContratosImpl --> Persona: use
-ContratosImpl --> Vehiculo: use
-ContratosImpl --> Acceso: use
+Program --> TheSystemDisp_: use
+Program --> ParkingService: use
+Program --> ParkingContext: use
+
+
+Contratos --> Persona: use
+Contratos --> Vehiculo: use
+Contratos --> Acceso: use
+
+TheSystem --> Persona: use
+TheSystem --> Vehiculo: use
+TheSystem --> Acceso: use
+
+
+
 Persona --> CategoriaPersona: use
 Persona --> Sexo: use
 Vehiculo --> Location: use
 Acceso --> Porteria: use
-ContratosImpl<|.. Contratos: implement
-TheSystemImpl<|.. TheSystem: implement
+
+
+ContratosImpl --> ParkingContext
+ContratosImpl --|> ContratosDisp_
+
+
+TheSystemImpl --> ParkingContext
+TheSystemImpl --> TheSystemDisp_
+
+}
 @enduml
 
 ```
