@@ -3,8 +3,19 @@
 Backend del proyecto ParkingUCN para el curso de Desarrollo e Integración De Soluciones, UCN.
 
 ## Techologies
-    .NET Core 3.1
- 
+[.NET Core 3.1](https://dotnet.microsoft.com/)
+    
+## .NET Libraries
+
+[Microsoft.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/)
+[Microsoft.EntityFrameworkCore.Sqlite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/)
+[Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting/)
+[Microsoft.Extensions.DependencyInjection](https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection/)
+[Microsoft.Extensions.Logging](https://www.nuget.org/packages/Microsoft.Extensions.Logging/)
+[Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/)
+[zeroc.ice.net](https://www.nuget.org/packages/zeroc.ice.net/)
+[zeroc.icebuilder.msbuild](https://www.nuget.org/packages/zeroc.icebuilder.msbuild/)
+
 ## Authors  
 [Eduardo Alexis Alvarez Saldivia](https://github.com/edoxazul/) -      <eas010@alumnos.ucn.cl>
 
