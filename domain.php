@@ -239,6 +239,17 @@ namespace model
 
 namespace model
 {
+    global $model__t_Personas;
+
+    if(!isset($model__t_Personas))
+    {
+        global $model__t_Persona;
+        $model__t_Personas = IcePHP_defineSequence('::model::Personas', $model__t_Persona);
+    }
+}
+
+namespace model
+{
     global $model__t_RunRelationNotFoundException;
     class RunRelationNotFoundException extends \Ice\UserException
     {
@@ -455,6 +466,8 @@ namespace model
     global $model__t_Vehiculo;
     global $IcePHP__t_long;
     global $model__t_Accesos;
+    global $model__t_Personas;
+    global $model__t_Vehiculos;
     IcePHP_defineOperation($model__t_TheSystemPrx, 'registrarPersona', 0, 0, 0, array(array($model__t_Persona)), null, array($model__t_Persona), array($model__t_DuplicateDataException, $model__t_ServerException));
     IcePHP_defineOperation($model__t_TheSystemPrx, 'eliminarPersona', 0, 0, 0, array(array($IcePHP__t_string)), null, array($model__t_Persona), array($model__t_ServerException));
     IcePHP_defineOperation($model__t_TheSystemPrx, 'editarPersona', 0, 0, 0, array(array($model__t_Persona)), null, array($model__t_Persona), array($model__t_ServerException));
@@ -465,5 +478,7 @@ namespace model
     IcePHP_defineOperation($model__t_TheSystemPrx, 'getPersona', 0, 0, 0, array(array($IcePHP__t_string)), null, array($model__t_Persona), array($model__t_ServerException));
     IcePHP_defineOperation($model__t_TheSystemPrx, 'getVehiculo', 0, 0, 0, array(array($IcePHP__t_string)), null, array($model__t_Vehiculo), array($model__t_ServerException));
     IcePHP_defineOperation($model__t_TheSystemPrx, 'getAllAccess', 0, 0, 0, null, null, array($model__t_Accesos), array($model__t_ServerException));
+    IcePHP_defineOperation($model__t_TheSystemPrx, 'getAllPersonas', 0, 0, 0, null, null, array($model__t_Personas), array($model__t_ServerException));
+    IcePHP_defineOperation($model__t_TheSystemPrx, 'getAllVehiculos', 0, 0, 0, null, null, array($model__t_Vehiculos), array($model__t_ServerException));
 }
 ?>

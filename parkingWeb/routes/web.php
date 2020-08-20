@@ -41,13 +41,38 @@ require_once __DIR__."/../../domain.php";
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    //Zero Ice
+    $ice = null;
+    $theSystem = null;
+
+    try {
+        $ice = \Ice\Initialize();
+        $proxy = $ice->stringToProxy("TheSystem:default -p 4020");
+        $theSystem = \model\TheSystemPrxHelper::checkedCast($proxy);
+
+        $access = $theSystem->getAllAccess();
+
+
+        if ($ice) {
+            $ice->destroy();
+        }
+
+        return view('welcome', [
+            'access' => $access
+        ]);
+    }
+    catch(Exception $e) {
+        return view('welcome');
+    }
 });
 
 // Route for testing connection with backend
 Route::get('/test', 'ConnectionController@connectionTest');
 
 // Route for Persona
+
+Route::get('/persona','PersonaController@index');
+
 Route::get('/ingresarPersona','PersonaController@ingresarView');
 Route::post('/ingresarPersona','PersonaController@insertar');
 
@@ -59,6 +84,8 @@ Route::post('/editarP','PersonaController@editar');
 Route::post('/editarPersonaPost','PersonaController@editarPost');
 
 // Route for Vehiculo
+Route::get('/vehiculo','VehiculoController@index');
+
 Route::get('/ingresarVehiculo','VehiculoController@ingresarView');
 Route::post('/ingresarVehiculo','VehiculoController@ingresar');
 

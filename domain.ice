@@ -150,15 +150,15 @@ module model {
         /**
          * Lugar, dentro/fuera del campus
          */
-         Location location;
+        Location location;
         
     }
 
     /**
      * Registro acceso de vehiculos.
      */
-     ["cs:property"]
-     class Acceso {
+    ["cs:property"]
+    class Acceso {
 
         /** 
          * Id 
@@ -175,7 +175,7 @@ module model {
          */
         string patente;
 
-     }
+    }
     
     
     
@@ -188,6 +188,13 @@ module model {
      * Listas de Accesos.
      */
     sequence<Acceso> Accesos;
+    
+    /**
+     * Listas de Personas.
+     */
+    sequence<Persona> Personas;
+
+
     
     exception RunRelationNotFoundException
     {
@@ -306,7 +313,7 @@ module model {
         Vehiculo editarVehiculo(Vehiculo vehiculo)
         throws ServerException;
 	
-       /**
+    /**
 	* Devuelve del delay entre el cliente y el server
 	* @param Tiempo del cliente
 	* @return delay entre cliente/servidor
@@ -336,8 +343,20 @@ module model {
     **/
     Accesos getAllAccess()	
     throws ServerException;
-        
+    /**
+    * Devuelve todas las personas en la base de datos
+    * @return Personas from database
+    **/
+    Personas getAllPersonas()	
+    throws ServerException;
+
+    /**
+    * Devuelve todos las vehiculos en la base de datos
+    * @return Vehiculos from database
+    **/
+    Vehiculos getAllVehiculos()	
+    throws ServerException;        
     }
     
-    
+
 }

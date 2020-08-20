@@ -53,9 +53,10 @@
                        data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"> Persona
                     </div>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url('/persona') }}">Lista de Personas</a>
                         <a class="dropdown-item" href="{{ url('/ingresarPersona') }}">Ingresar Persona</a>
-                        <a class="dropdown-item" href="{{ url('/editarPersona') }}">Editar Persona</a>
                         <a class="dropdown-item" href="{{ url('/eliminarPersona') }}">Eliminar Persona</a>
+                        <a class="dropdown-item" href="{{ url('/editarPersona') }}">Editar Persona</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -63,13 +64,11 @@
                          data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"> Vehiculo
                     </div>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url('/vehiculo') }}">Lista de Vehiculos</a>
                         <a class="dropdown-item" href="{{ url('/ingresarVehiculo') }}">Ingresar Vehiculo</a>
                         <a class="dropdown-item" href="{{ url('/eliminarVehiculo') }}">Eliminar Vehiculo</a>
                         <a class="dropdown-item" href="{{ url('/editarVehiculo') }}">Editar Vehiculo</a>
                     </div>
-                </li>
-                <li class="btn btn-default">
-                    <a class='btn btn-info' href='/exportar'>Exportar Accesos</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link text-white btn-lg" href="{{ url('/test') }}">Test Connection</a>
