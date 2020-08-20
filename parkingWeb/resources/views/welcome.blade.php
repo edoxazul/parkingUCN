@@ -102,11 +102,23 @@
                                 </thead>
                                 <tbody>
                                 @foreach ($access as $acceso)
+
+
                                     <tr>
                                         <td> {{ $acceso->horaEntrada }} </td>
                                         <td> {{ $acceso->patente }} </td>
-                                        <td> {{ $acceso->porteria }} </td>
+                                        <td> @if($acceso->porteria == 0)
+                                                Sur
+                                             @elseif($acceso->porteria ==1)
+                                                Mancilla
+                                             @elseif($acceso->porteria==2)
+                                                 Sangra
+                                        @endif
+                                        </td>
+
+
                                     </tr>
+
                                 @endforeach
                                 </tbody>
                             </table>
