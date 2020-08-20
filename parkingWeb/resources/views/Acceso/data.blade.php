@@ -10,8 +10,8 @@
         @foreach($access as $row)
             <tr>
                 <td>{{$row->uid}} </td>
-                <td>{{$row->horaEntrada}}} </td>
-                <td>{{$row->patente}}} </td>
+                <td>{{$row->horaEntrada}} </td>
+                <td>{{$row->patente}}</td>
             </tr>
         @endforeach
     </tbody>
