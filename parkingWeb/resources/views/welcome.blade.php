@@ -82,7 +82,6 @@
                                 <div class="col-sm-7">
                                     Listado de Accesos
                                 </div>
-
                                 <div class="col">
                                     <li class="btn btn-default">
                                         <a class='btn btn-info' href='/exportar'>Exportar Accesos</a>
@@ -102,8 +101,6 @@
                                 </thead>
                                 <tbody>
                                 @foreach ($access as $acceso)
-
-
                                     <tr>
                                         <td> {{ $acceso->horaEntrada }} </td>
                                         <td> {{ $acceso->patente }} </td>
@@ -115,10 +112,7 @@
                                                  Sangra
                                         @endif
                                         </td>
-
-
                                     </tr>
-
                                 @endforeach
                                 </tbody>
                             </table>
@@ -127,6 +121,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 @endsection

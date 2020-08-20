@@ -2,6 +2,9 @@
 
 Backend del proyecto ParkingUCN para el curso de Desarrollo e Integración De Soluciones, UCN.
 
+## Techologies
+    .NET Core 3.1
+ 
 ## Authors  
 [Eduardo Alexis Alvarez Saldivia](https://github.com/edoxazul/) -      <eas010@alumnos.ucn.cl>
 
@@ -23,6 +26,7 @@ class Persona{
     -uid: int
     -rut: string
     -nombre: string
+    -sexo : Sexo
     -unidad: string
     -email: string
     -telefonoMovil: string
@@ -35,6 +39,23 @@ enum CategoriaPersona{
     ESTUDIANTE
 }
 
+enum Sexo{
+    VAR
+    MUJ
+    OTHER
+}
+
+enum Location{
+    OUT
+    IN
+}
+
+enum Porteria{
+    SUR
+    MANCILLA
+    SANGRA
+}
+
 class Vehiculo{
     -uid: int
     -patente: string
@@ -43,6 +64,15 @@ class Vehiculo{
     -anio: int
     -observaciones: string
     -runDuenio: string
+    -location: Location
+    
+}
+
+class Acceso{
+    -uid:int
+    -horaEntrada: string
+    -patente: string
+    -porteria: Porteria
 }
 
 class Program {
@@ -51,23 +81,46 @@ class Program {
 }
 
 interface Contratos {
-    verificarPersona(string run): Persona
+    autorizarVehiculo(string patente, Porteria porteria): Acceso
     autorizarVehiculo(string patente, bool tipo): Vehiculo
-    registrarPersona(Persona persona): Persona
-    eliminarPersona(string run): Persona
-    editarPersona(Persona persona): Persona
-    registarVehiculo(Vehiculo vehiculo): Vehiculo
-    eliminarVehiculo(Vehiculo vehiculo): Vehiculo
+    obtenerVehiculos(): Vehiculos
+    obtenerPersonas(): Personas
+     
 }
 class ContratosImpl {
 
 }
 
+interface TheSystem {
+    registrarPersona(Persona persona):persona
+    eliminarPersona(string run): Persona
+    editarPersona(Persona persona): Persona
+    registarVehiculo(Vehiculo vehiculo): Vehiculo
+    eliminarVehiculo(Vehiculo vehiculo): Vehiculo
+    editarVehiculo(Vehiculo vehiculo): Vehiculo
+    getPersona(string rut): Persona
+    getVehiculo(string patente): Vehiculo
+    getAllAccess(): Accesos
+    getAllPersonas(): Personas
+    getAllVehiculos(): Vehiculos
+
+}
+
+class TheSystemImpl{
+
+}
+
 Program --> ContratosImpl: use
+Program --> TheSystemImpl: use
 ContratosImpl --> Persona: use
 ContratosImpl --> Vehiculo: use
-Persona --> CategoriaPersona : use
+ContratosImpl --> Acceso: use
+Persona --> CategoriaPersona: use
+Persona --> Sexo: use
+Vehiculo --> Location: use
+Acceso --> Porteria: use
 ContratosImpl<|.. Contratos: implement
+TheSystemImpl<|.. TheSystem: implement
 @enduml
 
 ```
