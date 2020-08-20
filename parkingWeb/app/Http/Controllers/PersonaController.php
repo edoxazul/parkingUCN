@@ -35,6 +35,32 @@ require_once base_path() . "./../domain.php";
 
 class PersonaController extends Controller
 {
+    public function index()
+    {
+        //Zero Ice
+        $ice = null;
+        $theSystem = null;
+
+        try {
+            $ice = \Ice\Initialize();
+            $proxy = $ice->stringToProxy("TheSystem:default -p 4020");
+            $theSystem = \model\TheSystemPrxHelper::checkedCast($proxy);
+
+            $personas = $theSystem->getAllPersonas();
+
+            if ($ice) {
+                $ice->destroy();
+            }
+
+            return view('Persona.index', [
+                'personas' => $personas
+            ]);
+        }
+        catch(Exception $e) {
+            return view('Persona.index');
+        }
+    }
+
     public function ingresarView()
     {
         return view('Persona.ingresarPersona');
