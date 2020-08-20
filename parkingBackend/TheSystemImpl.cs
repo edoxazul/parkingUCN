@@ -338,6 +338,31 @@ namespace ParkingBackend
             }
         }
 
+        public override Acceso[] getAllAccess(Current current = null)
+        {
+            try
+            {
+                using var scope = _serviceScopeFactory.CreateScope();
+                {
+                    var parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
+                    var accesos = parkingContext
+                                    .Accesos.ToArray();
+
+                    return accesos;
+                }
+            }
+            catch (NotFoundException exception)
+            {
+                _logger.LogDebug("Error finding : {}",exception);
+                throw new NotFoundException();
+            }
+            catch (Exception exception)
+            {
+                _logger.LogDebug("Server Error : {}", exception);
+                throw new ServerException();
+            }
+        }
+
         public override Persona getPersona(string rut, Current current = null)
         {
             try

@@ -184,6 +184,10 @@ module model {
      */
     sequence<Vehiculo> Vehiculos;    
     
+    /**
+     * Listas de Accesos.
+     */
+    sequence<Acceso> Accesos;
     
     exception RunRelationNotFoundException
     {
@@ -325,6 +329,15 @@ module model {
 	*/
 	Vehiculo getVehiculo(string patente)
 	throws ServerException;
-    }	
+	
+	/**
+    * Devuelve todos los accesos en la base de datos
+    * @return Accesos from database
+    **/
+    Accesos getAllAccess()	
+    throws ServerException;
+        
+    }
+    
     
 }

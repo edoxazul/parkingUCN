@@ -68,6 +68,9 @@
                         <a class="dropdown-item" href="{{ url('/editarVehiculo') }}">Editar Vehiculo</a>
                     </div>
                 </li>
+                <li class="btn btn-default">
+                    <a class='btn btn-info' href='/exportar'>Exportar Accesos</a>
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link text-white btn-lg" href="{{ url('/test') }}">Test Connection</a>
                 </li>

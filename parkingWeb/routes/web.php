@@ -23,6 +23,7 @@
  * SOFTWARE.
  */
 
+use App\Http\Controllers\DataExportController;
 use Illuminate\Support\Facades\Route;
 require_once 'Ice.php';
 
@@ -46,7 +47,7 @@ Route::get('/', function () {
 // Route for testing connection with backend
 Route::get('/test', 'ConnectionController@connectionTest');
 
-// Route for testing Persona
+// Route for Persona
 Route::get('/ingresarPersona','PersonaController@ingresarView');
 Route::post('/ingresarPersona','PersonaController@insertar');
 
@@ -57,7 +58,7 @@ Route::get('/editarPersona','PersonaController@editarIndex');
 Route::post('/editarP','PersonaController@editar');
 Route::post('/editarPersonaPost','PersonaController@editarPost');
 
-// Route for testing Vehiculo
+// Route for Vehiculo
 Route::get('/ingresarVehiculo','VehiculoController@ingresarView');
 Route::post('/ingresarVehiculo','VehiculoController@ingresar');
 
@@ -68,4 +69,8 @@ Route::get('/editarVehiculo','VehiculoController@editarIndex');
 Route::post('/editarV','VehiculoController@editar');
 Route::post('/editarVehiculoPost','VehiculoController@editarPost');
 
+//  Route for export data
+Route::get('/exportar', function() {
+    return (new DataExportController)->download('data.xlsx');
+});
 

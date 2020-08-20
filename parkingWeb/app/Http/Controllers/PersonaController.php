@@ -54,6 +54,7 @@ class PersonaController extends Controller
 
         $sexoVal = 0;
         $categoriaVal = 0;
+
         // ZeroIce
         $ice = null;
         $theSystem = null;
