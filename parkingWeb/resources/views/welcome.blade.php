@@ -97,6 +97,7 @@
                                 <tr>
                                     <th>Hora de Entrada</th>
                                     <th>Patente</th>
+                                    <th>Portería</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -104,6 +105,7 @@
                                     <tr>
                                         <td> {{ $acceso->horaEntrada }} </td>
                                         <td> {{ $acceso->patente }} </td>
+                                        <td> {{ $acceso->porteria }} </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
