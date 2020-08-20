@@ -50,6 +50,13 @@ module model {
     enum Location {
         OUT,IN
     }
+    
+    /**
+     * Lugar de acceso del vehiculo
+     */
+    enum Porteria {
+         SUR, MANCILLA, SANGRA
+     }
 
 
     /**
@@ -174,6 +181,11 @@ module model {
          * Patente del vehiculo 
          */
         string patente;
+        
+        /**
+         * Lugar de acceso
+         */
+        Porteria porteria;
 
     }
     
@@ -223,33 +235,31 @@ module model {
      */
     interface Contratos {
     
-        /**
-         * Verificacion de la identidad de una persona.
-         * @param run identificador unico de la persona.
-         * @return Persona confirmada la autenticidad, se retorna los datos de la persona.
-         * @throws NotFoundException si la informacion ingresada no existe.
-         */
-        Persona verificarPersona(string run)
-            throws NotFoundException, ServerException;
             
         /**
-         * Autoriza la entrada o salida del vehiculo.
+         * Registra el acceso de algun vehiculo.
          * @param patente identificador unico del vehiculo.
-         * @param location indica si el vehiculo esta ingresando o saliendo.
+         * @param porteria indica la porteria de entrada.
          * @return Acceso confirmada la entrada/salida en el sistema, se retornan los datos del vehiculo.
-         * @throws NotFoundException si la informacion ingresada no existe.
          */
-        Acceso autorizarVehiculo(string patente, Location location)
-            throws NotAuthorizedException, ServerException;
+        Acceso autorizarVehiculo(string patente, Porteria porteria)
+            throws ServerException;
         
         /**
-         * Obtener Los vehiculos asuciados al run de la persona
-         * @param run identificador unico del vehiculo y la persona.
+         * Obtener todos los vehiculos de la bd.
          * @return Vehiculos secuencia de objetos de tipo vehiculo.
-         * @throws NotFoundException si la informacion solicitada no existe.
+         * @throws ServerException error interno del servidor.
          */
-        Vehiculos obtenerVehiculos(string run)
-            throws NotFoundException, ServerException;
+        Vehiculos obtenerVehiculos()
+            throws ServerException;
+            
+        /**
+         * Devuelve todas las personas en la base de datos
+         * @return Personas from database
+         * @throws ServerException error interno del servidor.
+         */
+        Personas obtenerPersonas()	
+            throws ServerException;
     
     
     }

@@ -134,6 +134,8 @@ namespace ParkingBackend
 
                 a.Property(a => a.horaEntrada).IsRequired();
                 
+                a.Property(a => a.porteria).IsRequired();
+                
             });
 
             modelBuilder.Entity<Acceso>().HasData(
@@ -141,7 +143,19 @@ namespace ParkingBackend
                 {
                     uid = 1,
                     patente = "CHLJ90",
-                    horaEntrada = "2020-01-01 13:30:30"
+                    horaEntrada = "2020-01-01 13:30:30",
+                    porteria = Porteria.MANCILLA
+                    
+                }
+            );
+            modelBuilder.Entity<Acceso>().HasData(
+                new Acceso()
+                {
+                    uid = 2,
+                    patente = "CHLJ90",
+                    horaEntrada = "2020-01-02 13:30:00",
+                    porteria = Porteria.SANGRA
+                    
                 }
             );
 
