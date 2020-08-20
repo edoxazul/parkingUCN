@@ -28,19 +28,39 @@ package cl.ucn.disc.pdis.parkingapp.repository;
 
 import com.zeroc.IceInternal.Ex;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import cl.ucn.disc.pdis.parkingapp.repository.service.ZeroIce;
+import cl.ucn.disc.pdis.parkingucn.zeroice.model.Acceso;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.ContratosPrx;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.NotAuthorizedException;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.NotFoundException;
+import cl.ucn.disc.pdis.parkingucn.zeroice.model.Persona;
+import cl.ucn.disc.pdis.parkingucn.zeroice.model.Porteria;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.ServerException;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.Vehiculo;
 
 public class Communicator {
 
+    /*
+    The logger.
+     */
+    public static Logger logger = LoggerFactory.getLogger(Communicator.class);
+
+    /*
+    The ICE connection.
+     */
     private final ZeroIce ICE_CONNECTION;
 
+    /*
+    The operator who have all the contratos.
+     */
     private static ContratosPrx operator;
 
+    /**
+     * Inicia la conexion.
+     */
     public Communicator() {
 
         ICE_CONNECTION = new ZeroIce();
@@ -50,6 +70,9 @@ public class Communicator {
 
     }
 
+    /**
+     * Termina la conexion.
+     */
     public void endCommunication(){
 
         operator = null;
@@ -57,34 +80,70 @@ public class Communicator {
 
     }
 
-    public boolean verificarPersona(String run) {
+    /**
+     * Se le solicitara al servidor que envie todos los vehiculos de la base de datos.
+     * @return Una lista de vehiculos.
+     * @throws ServerException En caso de un error interno en el servidor.
+     */
+    public Vehiculo[] obtenerVehiculos() throws ServerException {
 
         try{
 
-            operator.verificarPersona(run);
-
-        } catch (NotFoundException exception){
-
-            return false;
+            return operator.obtenerVehiculos();
 
         } catch (ServerException exception){
 
-        } catch (Exception exception){
+            throw exception;
 
+        } catch (Exception e){
+            logger.error(e.getMessage());
+            throw e;
         }
 
-        return true;
     }
 
-    public Vehiculo[] obtenerVehiculos(){
+    /**
+     * Se le solicitara al servidor que envie todas las personas de la base de datos.
+     * @return Una lista de personas.
+     * @throws ServerException
+     */
+    public Persona[] obtenerPersonas() throws ServerException {
 
-        return null;
+        try{
+
+            return operator.obtenerPersonas();
+
+        } catch (ServerException exception){
+
+            throw exception;
+
+        } catch (Exception e){
+            logger.error(e.getMessage());
+            throw e;
+        }
     }
 
-    public boolean autorizarVehiculo(){
+    /**
+     * Dado una patente y la porteria de acceso se generara un registro de acceso en el servidor.
+     * @param patente Patente del vehiculo.
+     * @param porteria Nombre de la porteria
+     * @return Acceso
+     * @throws ServerException En caso de un error interno en el servidor.
+     */
+    public Acceso autorizarVehiculo(String patente, Porteria porteria) throws ServerException {
 
+        try{
 
-        return true;
+            return operator.autorizarVehiculo(patente,porteria);
+
+        } catch (ServerException exception){
+
+            throw exception;
+
+        } catch (Exception e){
+
+            throw e;
+        }
 
     }
 
