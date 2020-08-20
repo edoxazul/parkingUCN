@@ -12,6 +12,31 @@ require_once base_path() . "./../domain.php";
 
 class VehiculoController extends Controller
 {
+    public function index()
+    {
+        //Zero Ice
+        $ice = null;
+        $theSystem = null;
+
+        try {
+            $ice = \Ice\Initialize();
+            $proxy = $ice->stringToProxy("TheSystem:default -p 4020");
+            $theSystem = \model\TheSystemPrxHelper::checkedCast($proxy);
+
+            $vehiculos = $theSystem->getAllVehiculos();
+
+            if ($ice) {
+                $ice->destroy();
+            }
+
+            return view('Vehiculo.index', [
+                'vehiculos' => $vehiculos
+            ]);
+        }
+        catch(Exception $e) {
+            return view('Vehiculo.index');
+        }
+    }
 
     public function ingresarView()
     {
