@@ -33,32 +33,48 @@ import androidx.appcompat.widget.SearchView;
 
 import cl.ucn.disc.pdis.parkingapp.R;
 import cl.ucn.disc.pdis.parkingapp.repository.Communicator;
-import cl.ucn.disc.pdis.parkingucn.zeroice.model.Location;
+import cl.ucn.disc.pdis.parkingucn.zeroice.model.Persona;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.ServerException;
 import cl.ucn.disc.pdis.parkingucn.zeroice.model.Vehiculo;
+import es.dmoral.toasty.Toasty;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 
 public class MainActivity extends AppCompatActivity {
 
     SearchView searchView;
     ListView listView;
 
+    /*
+    Lista de vehiculos del backend.
+     */
     ArrayList<Vehiculo> vehiculos;
 
+    /*
+    Lista de personas del backend.
+     */
+    ArrayList<Persona> personas;
+
+    /*
+    El comunicador con el backend.
+     */
     Communicator communicator = new Communicator();
 
     @Override
@@ -69,42 +85,86 @@ public class MainActivity extends AppCompatActivity {
         searchView = findViewById(R.id.barra_busqueda_patente);
         listView = findViewById(R.id.lista_vehiculos);
 
-        try {
-            Vehiculo[] vehiculo2 = communicator.obtenerVehiculos();
+        this.setTitle("Parking App");
 
-            vehiculos = new ArrayList<>(Arrays.asList(vehiculo2));
+        // Conexion con el backend para obtener los vehiculos y las personas.
+        // FIXME: Generar la conexion fuera del hilo de la UI
+        try {
+
+            Vehiculo[] vehiculosBD = communicator.obtenerVehiculos();
+            vehiculos = new ArrayList<>(Arrays.asList(vehiculosBD));
+
+            Persona[] personasBD = communicator.obtenerPersonas();
+            personas = new ArrayList<>(Arrays.asList(personasBD));
+
         } catch (ServerException exception) {
+
             exception.printStackTrace();
+            Toasty.error(this, "Server error 500", Toast.LENGTH_SHORT, true).show();
+
+        } catch (Exception e){
+
+            e.printStackTrace();
+            Toasty.error(this, "App Error", Toast.LENGTH_SHORT, true).show();
+
         }
 
-        MyAdapter adapter = new MyAdapter(this,R.layout.row, this.vehiculos);
+        // Inicializar el adaptador con la lista de vehiculos.
+        MyAdapter adapter = new MyAdapter(this,this.vehiculos);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectItem(vehiculos.get(position));
+            }
+        });
 
         listView.setAdapter(adapter);
 
+        //TODO: Configurar boton para sincronizar la lista de vehiculos con la BD del backend.
+
+    }
 
 
+    private void selectItem(Vehiculo vehiculo){
+
+        Intent intent = new Intent(this, AuthorizeActivity.class);
+
+        intent.putExtra("vehiculo",vehiculo);
+        intent.putExtra("persona",findPersona(vehiculo.runDuenio));
+
+        startActivity(intent);
+
+    }
+
+    private Persona findPersona(String run){
+
+        for (Persona p : personas) {
+            if (p.run.equals(run)) {
+                return p;
+            }
+        }
+        return new Persona();
     }
 
     /**
      * La clase Adapter
      */
-    class MyAdapter extends BaseAdapter {
+    static class MyAdapter extends BaseAdapter {
 
         Context context;
-        private int layout;
         ArrayList<Vehiculo> vehiculos;
 
         /**
-         * Constructor del adapter
-         * @param c Contexto del activity
-         * @param layout cantidad del filas.
+         * Constructor del adaptador del ListView.
+         *
+         * @param c         Contexto del activity
          * @param vehiculos Lista de vehiculos
          */
-        MyAdapter(Context c, int layout, ArrayList<Vehiculo> vehiculos){
+        MyAdapter(Context c, ArrayList<Vehiculo> vehiculos) {
 
             this.context = c;
             this.vehiculos = vehiculos;
-            this.layout = layout;
 
         }
 
@@ -132,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
 
             LayoutInflater layoutInflater = LayoutInflater.from(this.context);
 
-            v= layoutInflater.inflate(R.layout.row, null);
+            v = layoutInflater.inflate(R.layout.row, null);
 
             //Se obtienen los textView del row para ser llenados
             TextView patente = v.findViewById(R.id.item_patente);

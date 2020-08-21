@@ -6,7 +6,7 @@
 
     <uses-feature android:name="android.hardware.type.watch" />
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,8 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ParkingApp">
+        <activity android:name=".activity.AuthorizeActivity"></activity>
         <activity
-
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_main">
             <intent-filter>
@@ -26,17 +26,9 @@
             </intent-filter>
         </activity>
 
-
         <uses-library
             android:name="com.google.android.wearable"
             android:required="false" />
-        <!--
-               Set to true if your app is Standalone, that is, it does not require the handheld
-               app to run.
-        -->
-
-
     </application>
-
 
 </manifest>

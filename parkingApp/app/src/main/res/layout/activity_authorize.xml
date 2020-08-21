@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /*
+  ~  * MIT License
+  ~  *
+  ~  * Copyright (c) 2020 Eduardo Alvarez , Alvaro Castillo , Ignacio Fuenzalida
+  ~  *
+  ~  * Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~  * of this software and associated documentation files (the "Software"), to deal
+  ~  * in the Software without restriction, including without limitation the rights
+  ~  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~  * copies of the Software, and to permit persons to whom the Software is
+  ~  * furnished to do so, subject to the following conditions:
+  ~  *
+  ~  * The above copyright notice and this permission notice shall be included in all
+  ~  * copies or substantial portions of the Software.
+  ~  *
+  ~  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~  * SOFTWARE.
+  ~  */
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.AuthorizeActivity">
+
+    <TextView
+        android:id="@+id/titulo_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Datos vehiculares"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_alignParentStart="true"
+        />
+
+    <TextView
+        android:id="@+id/item_marca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Marca:"
+        android:textColor="#000"
+        android:layout_marginLeft="20dp"
+        android:textSize="20dp"
+        android:layout_below="@id/titulo_1"
+        />
+
+    <TextView
+        android:id="@+id/place_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Marca"
+        android:textColor="#000"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20dp"
+        android:layout_below="@id/titulo_1"
+        android:layout_toRightOf="@id/item_marca"
+        />
+
+    <TextView
+        android:id="@+id/item_modelo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modelo:"
+        android:textColor="#000"
+        android:layout_marginLeft="20dp"
+        android:textSize="20dp"
+        android:layout_below="@id/item_marca"
+        />
+
+    <TextView
+        android:id="@+id/place_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modelo"
+        android:textColor="#000"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20dp"
+        android:layout_below="@id/item_marca"
+        android:layout_toRightOf="@id/item_modelo"
+        />
+
+    <TextView
+        android:id="@+id/item_anio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Año:"
+        android:textColor="#000"
+        android:layout_marginLeft="20dp"
+        android:textSize="20dp"
+        android:layout_below="@id/item_modelo"
+        />
+
+    <TextView
+        android:id="@+id/place_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Año"
+        android:textColor="#000"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20dp"
+        android:layout_below="@id/item_modelo"
+        android:layout_toRightOf="@id/item_anio"
+        />
+
+    <TextView
+        android:id="@+id/item_patente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Patente:"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/item_anio"
+        />
+    <TextView
+        android:id="@+id/place_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Patente"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/item_anio"
+        android:layout_marginRight="20dp"
+        android:layout_toRightOf="@id/item_patente"
+        />
+
+    <TextView
+        android:id="@+id/item_observaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Observaciones"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@id/item_patente"
+        />
+
+    <TextView
+        android:id="@+id/place_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Observaciones"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/item_observaciones"
+        />
+
+    <TextView
+        android:id="@+id/titulo_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Datos Personales"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/place_5"
+        />
+
+    <TextView
+        android:id="@+id/item_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre:"
+        android:textColor="#000"
+        android:layout_marginLeft="20dp"
+        android:textSize="20dp"
+        android:layout_below="@id/titulo_2"
+        />
+
+    <TextView
+        android:id="@+id/place_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre"
+        android:textColor="#000"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20dp"
+        android:layout_below="@id/titulo_2"
+        android:layout_toRightOf="@id/item_nombre"
+        />
+
+    <TextView
+        android:id="@+id/item_run"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Run:"
+        android:textColor="#000"
+        android:layout_marginLeft="20dp"
+        android:textSize="20sp"
+        android:layout_below="@id/item_nombre"
+        />
+
+    <TextView
+        android:id="@+id/place_7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="run"
+        android:textColor="#000"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20sp"
+        android:layout_below="@id/item_nombre"
+        android:layout_toRightOf="@id/item_run"
+        />
+
+    <TextView
+        android:id="@+id/item_sexo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sexo:"
+        android:textColor="#000"
+        android:layout_marginLeft="20dp"
+        android:textSize="20sp"
+        android:layout_below="@id/item_run"
+        />
+
+    <TextView
+        android:id="@+id/place_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sexo"
+        android:textColor="#000"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20sp"
+        android:layout_below="@id/item_run"
+        android:layout_toRightOf="@id/item_sexo"
+        />
+
+    <TextView
+        android:id="@+id/item_tipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tipo:"
+        android:textColor="#000"
+        android:layout_marginLeft="20dp"
+        android:textSize="20sp"
+        android:layout_below="@id/item_sexo"
+        />
+
+    <TextView
+        android:id="@+id/place_9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tipo"
+        android:textColor="#000"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20sp"
+        android:layout_below="@id/item_sexo"
+        android:layout_toRightOf="@id/item_sexo"
+        />
+
+    <TextView
+        android:id="@+id/titulo_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Seleccione y confirme"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/item_tipo"
+        />
+
+    <RadioGroup
+        android:id="@+id/radio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titulo_3">
+
+        <RadioButton
+            android:id="@+id/opcion_0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginLeft="20dp"
+            android:text="SUR"
+            android:layout_below="@id/titulo_3"/>
+
+        <RadioButton
+            android:id="@+id/opcion_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginLeft="20dp"
+            android:text="MARCILLA"
+            android:layout_below="@id/opcion_0"/>
+
+        <RadioButton
+            android:id="@+id/opcion_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginLeft="20dp"
+            android:text="SANGRA"
+            android:layout_below="@id/opcion_1"/>
+
+    </RadioGroup>
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AUTH"
+        android:textSize="45dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30sp"
+        android:layout_marginBottom="40sp"
+        android:layout_below="@id/titulo_1"
+        android:layout_alignParentEnd="true"
+        android:onClick="onClickBtn"/>
+
+
+</RelativeLayout>

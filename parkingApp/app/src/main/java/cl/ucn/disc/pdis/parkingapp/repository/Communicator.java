@@ -73,7 +73,7 @@ public class Communicator {
     /**
      * Termina la conexion.
      */
-    public void endCommunication(){
+    public void endCommunication() {
 
         operator = null;
         ICE_CONNECTION.stop();
@@ -82,20 +82,21 @@ public class Communicator {
 
     /**
      * Se le solicitara al servidor que envie todos los vehiculos de la base de datos.
+     *
      * @return Una lista de vehiculos.
      * @throws ServerException En caso de un error interno en el servidor.
      */
     public Vehiculo[] obtenerVehiculos() throws ServerException {
 
-        try{
+        try {
 
             return operator.obtenerVehiculos();
 
-        } catch (ServerException exception){
+        } catch (ServerException exception) {
 
             throw exception;
 
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.error(e.getMessage());
             throw e;
         }
@@ -104,20 +105,21 @@ public class Communicator {
 
     /**
      * Se le solicitara al servidor que envie todas las personas de la base de datos.
+     *
      * @return Una lista de personas.
      * @throws ServerException
      */
     public Persona[] obtenerPersonas() throws ServerException {
 
-        try{
+        try {
 
             return operator.obtenerPersonas();
 
-        } catch (ServerException exception){
+        } catch (ServerException exception) {
 
             throw exception;
 
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.error(e.getMessage());
             throw e;
         }
@@ -125,29 +127,28 @@ public class Communicator {
 
     /**
      * Dado una patente y la porteria de acceso se generara un registro de acceso en el servidor.
-     * @param patente Patente del vehiculo.
+     *
+     * @param patente  Patente del vehiculo.
      * @param porteria Nombre de la porteria
      * @return Acceso conformacion del acceso.
      * @throws ServerException En caso de un error interno en el servidor.
      */
     public Acceso autorizarVehiculo(String patente, Porteria porteria) throws ServerException {
 
-        try{
+        try {
 
-            return operator.autorizarVehiculo(patente,porteria);
+            return operator.autorizarVehiculo(patente, porteria);
 
-        } catch (ServerException exception){
+        } catch (ServerException exception) {
 
             throw exception;
 
-        } catch (Exception e){
+        } catch (Exception e) {
 
             throw e;
         }
 
     }
-
-
 
 
 }

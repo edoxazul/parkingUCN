@@ -48,7 +48,6 @@
         android:text="Marca"
         android:textColor="#000"
         android:textSize="15dp"
-
         android:layout_below="@id/item_patente"
         />
     <TextView
