@@ -87,7 +87,7 @@ Route::post('/editarPersonaPost','PersonaController@editarPost');
 Route::get('/vehiculo','VehiculoController@index');
 
 Route::get('/ingresarVehiculo','VehiculoController@ingresarView');
-Route::post('/ingresarVehiculo','VehiculoController@ingresar');
+Route::post('/ingresarVehiculo','VehiculoController@insertar');
 
 Route::get('/eliminarVehiculo','VehiculoController@eliminarView');
 Route::post('/eliminarVehiculo','VehiculoController@eliminar');

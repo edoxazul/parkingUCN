@@ -37,7 +37,7 @@
     {{ Form::label('location', 'Ubicación del Vehículo:') }}
     {{ Form::select('location', ["IN" => "Dentro del Campus",
                                   "OUT" => "Fuera del Campus"],
-    null, ['class' => 'form-control','placeholder' => 'Seleccionar Ubicación']) }}
+    null, ['class' => 'form-control','placeholder' => 'Seleccionar Ubicación','id'=>'location']) }}
 </div>
 
 <div class="form-group mt-4 text-center">

@@ -47,7 +47,7 @@ class VehiculoController extends Controller
     public function insertar(Request $request)
     {
         // Data Request
-        $patente = $request->input("patente");
+        $patente = $request->input('patente');
         $patente = strtoupper($patente);
 
         // Validation for len of patente.
@@ -55,10 +55,10 @@ class VehiculoController extends Controller
             return redirect()->back()->with('alert', 'Patente Mal Ingresada!');
         }
 
-        $marca = $request->input("marca");
-        $modelo = $request->input("modelo");
-        $anio = $request->input("anio");
-        $observaciones = $request->input("observaciones");
+        $marca = $request->input('marca');
+        $modelo = $request->input('modelo');
+        $anio = $request->input('anio');
+        $observaciones = $request->input('observaciones');
         $runDuenio = $request->input('runDuenio');
         $location = $request->input('location');
 
@@ -88,7 +88,7 @@ class VehiculoController extends Controller
             $vehiculo->patente = $patente;
             $vehiculo->marca = $marca;
             $vehiculo->modelo = $modelo;
-            $vehiculo->anio = $anio;
+            $vehiculo->anio = (int)$anio;
             $vehiculo->observaciones = $observaciones;
             $vehiculo->runDuenio = $runDuenio;
             $vehiculo->location = $locationVal;

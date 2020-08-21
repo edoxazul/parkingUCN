@@ -17,7 +17,7 @@
                     Ingresar Vehículo
                 </div>
                 <div class="card-body">
-                    <form action="{{action('VehiculoController@ingresar')}}" method="POST">
+                    <form action="{{action('VehiculoController@insertar')}}" method="POST">
                         @include('Vehiculo.partials.ingresar')
                     </form>
                 </div>
