@@ -36,6 +36,7 @@ import com.zeroc.Ice.InitializationData;
 import com.zeroc.Ice.ObjectPrx;
 import com.zeroc.Ice.Properties;
 import com.zeroc.Ice.Util;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,119 +46,123 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("Singleton")
 public final class ZeroIce {
 
-  //The Logger.
-  private static final Logger log = LoggerFactory.getLogger(ZeroIce.class);
+    //The Logger.
+    private static final Logger log = LoggerFactory.getLogger(ZeroIce.class);
 
-  //The Singleton.
-  private static final ZeroIce ZERO_ICE = new ZeroIce();
+    //The Singleton.
+    private static final ZeroIce ZERO_ICE = new ZeroIce();
 
 
-  // The ZeroIce communicator.
-  private Communicator theCommunicator;
+    // The ZeroIce communicator.
+    private Communicator theCommunicator;
 
-  //The Contratos implementation.
-  private ContratosPrx theContratos;
+    //The Contratos implementation.
+    private ContratosPrx theContratos;
 
-  //The System implementation.
-  private TheSystemPrx theSystem;
+    //The System implementation.
+    private TheSystemPrx theSystem;
 
-  /**
-   * The Constructor.
-   */
-  public ZeroIce() {
-  }
-
-  /**
-   * Get Instance.
-   * @return the ZeroIce.
-   */
-  public static ZeroIce getInstance() {
-    return ZERO_ICE;
-  }
-
-  /**
-   * Get Contratos.
-   * @return the Contratos.
-   */
-  public ContratosPrx getContratos() {
-    return this.theContratos;
-  }
-
-  public TheSystemPrx getTheSystem() { return this.theSystem; }
-
-  /**
-   * Start the Communications.
-   */
-  public void start() {
-    if (this.theCommunicator != null) {
-      log.warn("The Communicator was already initialized?");
-      return;
+    /**
+     * The Constructor.
+     */
+    public ZeroIce() {
     }
-    String[] args = {"one","two"};
-    this.theCommunicator = Util.initialize(getInitializationData(args));
 
-
-    // The name of Contratos
-    String name = Contratos.class.getSimpleName();
-    log.debug("Proxying <{}> ..", name);
-
-    // The proxy 4 TheContratos
-    ObjectPrx theProxy = this.theCommunicator.stringToProxy(name + ":tcp -h 192.168.0.15 -p 4000 -t 15000 -z");
-
-    // Trying to cast the proxy
-    this.theContratos = ContratosPrx.checkedCast(theProxy);
-
-    // The name
-    name = TheSystem.class.getSimpleName();
-    log.debug("Proxying <{}> ..", name);
-
-    // The proxy 4 TheContratos
-    theProxy = this.theCommunicator.stringToProxy(name + ":tcp -h 192.168.0.15 -p 4020 -t 15000 -z");
-
-    this.theSystem = TheSystemPrx.checkedCast(theProxy);
-  }
-
-  /**
-   * Initialization of ZeroIce.
-   * @param args to use as source.
-   * @return the {@link InitializationData}.
-   */
-  private static InitializationData getInitializationData(String[] args) {
-
-    // Properties
-    final Properties properties = Util.createProperties(args);
-    properties.setProperty("Ice.Package.model", "cl.ucn.disc.pdis.parkingucn.zeroice");
-
-    // https://doc.zeroc.com/ice/latest/property-reference/ice-trace
-    // properties.setProperty("Ice.Trace.Admin.Properties", "1");
-    // properties.setProperty("Ice.Trace.Locator", "2");
-    // properties.setProperty("Ice.Trace.Network", "3");
-    // properties.setProperty("Ice.Trace.Protocol", "1");
-    // properties.setProperty("Ice.Trace.Slicing", "1");
-    // properties.setProperty("Ice.Trace.ThreadPool", "1");
-    // properties.setProperty("Ice.Compression.Level", "9");
-    // properties.setProperty("Ice.Plugin.Slf4jLogger.java",
-    // "cl.ucn.disc.pdis.parkingapp.zeroice.Slf4jLoggerPluginFactory");
-    InitializationData initializationData = new InitializationData();
-    initializationData.properties = properties;
-
-    return initializationData;
-  }
-
-
-
-  /**
-   * Stop the communications.
-   */
-  public void stop() {
-    if (this.theCommunicator == null) {
-      log.warn("The Communicator was already stopped?");
-      return;
+    /**
+     * Get Instance.
+     *
+     * @return the ZeroIce.
+     */
+    public static ZeroIce getInstance() {
+        return ZERO_ICE;
     }
-    this.theContratos = null;
-    this.theSystem = null;
-    this.theCommunicator.destroy();
 
-  }
+    /**
+     * Get Contratos.
+     *
+     * @return the Contratos.
+     */
+    public ContratosPrx getContratos() {
+        return this.theContratos;
+    }
+
+    public TheSystemPrx getTheSystem() {
+        return this.theSystem;
+    }
+
+    /**
+     * Start the Communications.
+     */
+    public void start() {
+        if (this.theCommunicator != null) {
+            log.warn("The Communicator was already initialized?");
+            return;
+        }
+        String[] args = {"one", "two"};
+        this.theCommunicator = Util.initialize(getInitializationData(args));
+
+
+        // The name of Contratos
+        String name = Contratos.class.getSimpleName();
+        log.debug("Proxying <{}> ..", name);
+
+        // The proxy 4 TheContratos
+        ObjectPrx theProxy = this.theCommunicator.stringToProxy(name + ":tcp -h 192.168.0.15 -p 4000 -t 15000 -z");
+
+        // Trying to cast the proxy
+        this.theContratos = ContratosPrx.checkedCast(theProxy);
+
+        // The name
+        name = TheSystem.class.getSimpleName();
+        log.debug("Proxying <{}> ..", name);
+
+        // The proxy 4 TheContratos
+        theProxy = this.theCommunicator.stringToProxy(name + ":tcp -h 192.168.0.15 -p 4020 -t 15000 -z");
+
+        this.theSystem = TheSystemPrx.checkedCast(theProxy);
+    }
+
+    /**
+     * Initialization of ZeroIce.
+     *
+     * @param args to use as source.
+     * @return the {@link InitializationData}.
+     */
+    private static InitializationData getInitializationData(String[] args) {
+
+        // Properties
+        final Properties properties = Util.createProperties(args);
+        properties.setProperty("Ice.Package.model", "cl.ucn.disc.pdis.parkingucn.zeroice");
+
+        // https://doc.zeroc.com/ice/latest/property-reference/ice-trace
+        // properties.setProperty("Ice.Trace.Admin.Properties", "1");
+        // properties.setProperty("Ice.Trace.Locator", "2");
+        // properties.setProperty("Ice.Trace.Network", "3");
+        // properties.setProperty("Ice.Trace.Protocol", "1");
+        // properties.setProperty("Ice.Trace.Slicing", "1");
+        // properties.setProperty("Ice.Trace.ThreadPool", "1");
+        // properties.setProperty("Ice.Compression.Level", "9");
+        // properties.setProperty("Ice.Plugin.Slf4jLogger.java",
+        // "cl.ucn.disc.pdis.parkingapp.zeroice.Slf4jLoggerPluginFactory");
+        InitializationData initializationData = new InitializationData();
+        initializationData.properties = properties;
+
+        return initializationData;
+    }
+
+
+    /**
+     * Stop the communications.
+     */
+    public void stop() {
+        if (this.theCommunicator == null) {
+            log.warn("The Communicator was already stopped?");
+            return;
+        }
+        this.theContratos = null;
+        this.theSystem = null;
+        this.theCommunicator.destroy();
+
+    }
 
 }

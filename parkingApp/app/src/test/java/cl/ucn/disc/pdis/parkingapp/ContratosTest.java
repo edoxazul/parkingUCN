@@ -47,7 +47,6 @@ public class ContratosTest {
     public static Logger logger = LoggerFactory.getLogger(ContratosTest.class);
 
 
-
     @Test
     public void obtenerVehiculos() throws ServerException {
 
@@ -56,16 +55,14 @@ public class ContratosTest {
 
         logger.debug("DONE: Vehicles returned susccefully!");
 
-        for(Vehiculo veh : vehiculos){
-            logger.debug("{} {} {}",veh.patente,veh.marca,veh.modelo);
+        for (Vehiculo veh : vehiculos) {
+            logger.debug("{} {} {}", veh.patente, veh.marca, veh.modelo);
         }
 
     }
 
     @Test
     public void autorizarVehiculo() throws ServerException {
-
-
 
 
     }

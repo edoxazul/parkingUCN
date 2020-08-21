@@ -72,6 +72,7 @@ namespace ParkingBackend
                     unidad = null,
                     email = "fuenzalida.veas@gmail.com",
                     telefonoMovil = "+56 9 9978635",
+                    sexo = Sexo.OTHER,
                     telefonoFijo = null,
                     categoriaPersona = CategoriaPersona.ESTUDIANTE
                 }
