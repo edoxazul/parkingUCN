@@ -127,7 +127,7 @@ public class Communicator {
      * Dado una patente y la porteria de acceso se generara un registro de acceso en el servidor.
      * @param patente Patente del vehiculo.
      * @param porteria Nombre de la porteria
-     * @return Acceso
+     * @return Acceso conformacion del acceso.
      * @throws ServerException En caso de un error interno en el servidor.
      */
     public Acceso autorizarVehiculo(String patente, Porteria porteria) throws ServerException {

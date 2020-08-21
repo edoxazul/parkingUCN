@@ -84,7 +84,7 @@ namespace ParkingBackend
             Properties properties = Util.createProperties();
             InitializationData initializationData = new InitializationData();
             initializationData.properties = properties;
-
+            
             return Ice.Util.initialize(initializationData);
         }
         
@@ -97,17 +97,22 @@ namespace ParkingBackend
         {
             _logger.LogInformation("ParkingService started.");
             
+            
             // Ice adapter
             var contratosAdapter = _communicator.createObjectAdapterWithEndpoints(
                 "Contratos",
                 "tcp -z -t 15000 -p " + _port);
             var theSystemAdapter = _communicator.createObjectAdapterWithEndpoints(
                 "TheSystem",
-                "tcp -z -t 15000 -p " + (_port + 20) );
+                "tcp -z -t 15000 -p " + (_port + 20)  );
             
             
-            contratosAdapter.add(_contratos, Util.stringToIdentity("Contratos"));
             theSystemAdapter.add(_thesystem, Util.stringToIdentity("TheSystem"));
+            
+            ObjectPrx proxy = contratosAdapter.add(_contratos, Util.stringToIdentity("Contratos"));
+
+            _logger.LogInformation("PROXY INFO:");
+            _logger.LogInformation(proxy.ToString());
             
             contratosAdapter.activate();
             theSystemAdapter.activate();

@@ -102,7 +102,7 @@ public final class ZeroIce {
     log.debug("Proxying <{}> ..", name);
 
     // The proxy 4 TheContratos
-    ObjectPrx theProxy = this.theCommunicator.stringToProxy(name + ":tcp -z -t 15000 -p 4000");
+    ObjectPrx theProxy = this.theCommunicator.stringToProxy(name + ":tcp -h 192.168.0.15 -p 4000 -t 15000 -z");
 
     // Trying to cast the proxy
     this.theContratos = ContratosPrx.checkedCast(theProxy);
@@ -112,7 +112,7 @@ public final class ZeroIce {
     log.debug("Proxying <{}> ..", name);
 
     // The proxy 4 TheContratos
-    theProxy = this.theCommunicator.stringToProxy(name + ":tcp -z -t 15000 -p 4020");
+    theProxy = this.theCommunicator.stringToProxy(name + ":tcp -h 192.168.0.15 -p 4020 -t 15000 -z");
 
     this.theSystem = TheSystemPrx.checkedCast(theProxy);
   }
