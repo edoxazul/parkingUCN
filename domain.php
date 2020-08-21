@@ -55,6 +55,19 @@ namespace model
 
 namespace model
 {
+    global $model__t_Porteria;
+    class Porteria
+    {
+        const SUR = 0;
+        const MANCILLA = 1;
+        const SANGRA = 2;
+    }
+
+    $model__t_Porteria = IcePHP_defineEnum('::model::Porteria', array('SUR', 0, 'MANCILLA', 1, 'SANGRA', 2));
+}
+
+namespace model
+{
     global $model__t_Persona;
     class Persona extends \Ice\Value
     {
@@ -178,11 +191,12 @@ namespace model
     global $model__t_Acceso;
     class Acceso extends \Ice\Value
     {
-        public function __construct($uid=0, $horaEntrada='', $patente='')
+        public function __construct($uid=0, $horaEntrada='', $patente='', $porteria=\model\Porteria::SUR)
         {
             $this->uid = $uid;
             $this->horaEntrada = $horaEntrada;
             $this->patente = $patente;
+            $this->porteria = $porteria;
         }
 
         public function ice_id()
@@ -204,15 +218,18 @@ namespace model
         public $uid;
         public $horaEntrada;
         public $patente;
+        public $porteria;
     }
 
     global $Ice__t_Value;
     global $IcePHP__t_int;
     global $IcePHP__t_string;
+    global $model__t_Porteria;
     $model__t_Acceso = IcePHP_defineClass('::model::Acceso', '\\model\\Acceso', -1, false, false, $Ice__t_Value, array(
         array('uid', $IcePHP__t_int, false, 0),
         array('horaEntrada', $IcePHP__t_string, false, 0),
-        array('patente', $IcePHP__t_string, false, 0)));
+        array('patente', $IcePHP__t_string, false, 0),
+        array('porteria', $model__t_Porteria, false, 0)));
 }
 
 namespace model
@@ -425,13 +442,13 @@ namespace model
     $model__t_ContratosPrx = IcePHP_defineProxy('::model::Contratos', $Ice__t_ObjectPrx, null);
 
     global $IcePHP__t_string;
-    global $model__t_Persona;
-    global $model__t_Location;
+    global $model__t_Porteria;
     global $model__t_Acceso;
     global $model__t_Vehiculos;
-    IcePHP_defineOperation($model__t_ContratosPrx, 'verificarPersona', 0, 0, 0, array(array($IcePHP__t_string)), null, array($model__t_Persona), array($model__t_NotFoundException, $model__t_ServerException));
-    IcePHP_defineOperation($model__t_ContratosPrx, 'autorizarVehiculo', 0, 0, 0, array(array($IcePHP__t_string), array($model__t_Location)), null, array($model__t_Acceso), array($model__t_NotAuthorizedException, $model__t_ServerException));
-    IcePHP_defineOperation($model__t_ContratosPrx, 'obtenerVehiculos', 0, 0, 0, array(array($IcePHP__t_string)), null, array($model__t_Vehiculos), array($model__t_NotFoundException, $model__t_ServerException));
+    global $model__t_Personas;
+    IcePHP_defineOperation($model__t_ContratosPrx, 'autorizarVehiculo', 0, 0, 0, array(array($IcePHP__t_string), array($model__t_Porteria)), null, array($model__t_Acceso), array($model__t_ServerException));
+    IcePHP_defineOperation($model__t_ContratosPrx, 'obtenerVehiculos', 0, 0, 0, null, null, array($model__t_Vehiculos), array($model__t_ServerException));
+    IcePHP_defineOperation($model__t_ContratosPrx, 'obtenerPersonas', 0, 0, 0, null, null, array($model__t_Personas), array($model__t_ServerException));
 }
 
 namespace model

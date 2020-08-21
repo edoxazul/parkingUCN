@@ -370,8 +370,8 @@ namespace ParkingBackend
                 {
                     var parkingContext = scope.ServiceProvider.GetService<ParkingContext>();
                     var personas = parkingContext
-                                    .Personas.ToArray();
-
+                                    .Personas
+                                    .ToArray();
                     return personas;
                 }
             }

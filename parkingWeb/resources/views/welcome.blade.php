@@ -82,7 +82,6 @@
                                 <div class="col-sm-7">
                                     Listado de Accesos
                                 </div>
-
                                 <div class="col">
                                     <li class="btn btn-default">
                                         <a class='btn btn-info' href='/exportar'>Exportar Accesos</a>
@@ -97,6 +96,7 @@
                                 <tr>
                                     <th>Hora de Entrada</th>
                                     <th>Patente</th>
+                                    <th>Portería</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -104,6 +104,14 @@
                                     <tr>
                                         <td> {{ $acceso->horaEntrada }} </td>
                                         <td> {{ $acceso->patente }} </td>
+                                        <td> @if($acceso->porteria == 0)
+                                                Sur
+                                             @elseif($acceso->porteria ==1)
+                                                Mancilla
+                                             @elseif($acceso->porteria==2)
+                                                 Sangra
+                                        @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -113,6 +121,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 @endsection
